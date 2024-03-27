@@ -1,0 +1,111 @@
+body {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 300;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #242323;
+    overflow-x: hidden;
+}
+.image-container {
+    height: 720px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    padding-top: 150px;
+    /* justify-content: flex-start; */
+    flex-direction: column;
+    font-family: "Dancing Script", cursive;
+    font-weight: bold;
+    font-size: 104px;
+    text-shadow: 2px 5px 3px rgba(0, 0, 0, 0.8);
+    color: whitesmoke;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: bottom;
+    background-image: url('../gambar/background.png');
+    width: 100%;
+
+}
+
+.konten{
+    /* margin: 10px; */
+    display: flex;
+    width: 100%;
+    height: auto;
+}
+.konten2{
+    /* margin: 10px; */
+    display: flex;
+    flex-direction: row-reverse;
+    width: 100%;
+    height: auto;
+    background-color: #333333;
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding : 10px 50px;
+}
+.judul {
+    width:100%;
+    display: flex;
+    margin-top: 10px;
+    color: whitesmoke;
+    justify-content: center;
+    font-size: 45px;
+}
+.tulisan{
+    width:100%;
+    display: flex;
+    margin: 40px;
+    color: whitesmoke;
+    justify-content: center;
+    font-size: 25px;
+    flex-direction: column;
+    flex-wrap: wrap;
+
+}
+.pesan a{
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 20px;
+    color: whitesmoke;
+    text-shadow: 3px 1px 3px rgb(0 0 0);
+    box-shadow:3px 1px 3px black;
+    border: 3px solid whitesmoke;
+    padding: 8px;
+    text-decoration: none;
+
+}
+.pesan a:hover{
+    color: black;
+    background-color: rgba(255, 255, 255, 0.724);
+    border: 3px solid rgba(255, 255, 255, 0.54);
+    transition: 1.2s;
+    text-shadow: none;
+
+}
+@media screen and (max-width: 900px) {
+    nav li{
+        display: none;
+    }
+    .tulisan{
+        font-size: 16px;
+        margin: 10px;
+    }
+    .judul{
+        font-size: 23px;
+    }
+}
+@media screen and (max-width: 650px) {
+    .image-container{
+        font-size: 56px;
+        height: 510px;
+    }
+}
+    
