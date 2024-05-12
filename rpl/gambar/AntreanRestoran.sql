@@ -1,0 +1,324 @@
+-- phpMyAdmin SQL Dump
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
+--
+-- Host: 103.27.206.111
+-- Generation Time: Mar 31, 2024 at 01:43 PM
+-- Server version: 10.6.16-MariaDB-0ubuntu0.22.04.1
+-- PHP Version: 8.2.4
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `AntreanRestoran`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ADMIN`
+--
+
+CREATE TABLE `ADMIN` (
+  `NAMA_ADMIN` varchar(50) DEFAULT NULL,
+  `ID_ADMIN` varchar(50) NOT NULL,
+  `NOMER_TELPON_ADMIN` varchar(50) DEFAULT NULL,
+  `ALAMAT_ADMIN` text DEFAULT NULL,
+  `USERNAME_ADMIN` varchar(50) DEFAULT NULL,
+  `PASSWORD_ADMIN` varchar(50) DEFAULT NULL,
+  `EMAIL_ADMIN` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `BARANG`
+--
+
+CREATE TABLE `BARANG` (
+  `ID_BARANG` varchar(50) NOT NULL,
+  `ID_KATEGORI` varchar(50) DEFAULT NULL,
+  `ID_SUPPLIER` varchar(50) DEFAULT NULL,
+  `NAMA_BARANG` varchar(50) DEFAULT NULL,
+  `HARGA_BARANG` int(11) DEFAULT NULL,
+  `STOCK` int(11) DEFAULT NULL,
+  `FOTO_BARANG` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `BARANG`
+--
+
+INSERT INTO `BARANG` (`ID_BARANG`, `ID_KATEGORI`, `ID_SUPPLIER`, `NAMA_BARANG`, `HARGA_BARANG`, `STOCK`, `FOTO_BARANG`) VALUES
+('0001', NULL, NULL, 'Stewie', 25000, 99, 'example.jpeg'),
+('0002', NULL, NULL, 'StewieTwo', 25000, 99, 'example.jpeg'),
+('0003', NULL, NULL, 'StewieAlpha', 25000, 99, 'example.jpeg'),
+('0004', NULL, NULL, 'stewieempat', 111111, 11, 'example.jpeg'),
+('0005', NULL, NULL, 'rubah', 10000, 100, 'rubao.jpg'),
+('0007', NULL, NULL, 'baru', 222222, 22, 'employee-month-3.jpg');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `CUSTOMER`
+--
+
+CREATE TABLE `CUSTOMER` (
+  `NAMA_CUSTOMER` varchar(50) DEFAULT NULL,
+  `ID_CUSTOMER` varchar(50) NOT NULL,
+  `NOMOR_TELPON_CUSTOMER` varchar(50) DEFAULT NULL,
+  `USERNAME` varchar(50) DEFAULT NULL,
+  `PASSWORD` varchar(50) DEFAULT NULL,
+  `EMAIL` text DEFAULT NULL,
+  `ALAMAT` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `DETAIL_PESANAN`
+--
+
+CREATE TABLE `DETAIL_PESANAN` (
+  `ID_ORDER_DETAIL` varchar(50) NOT NULL,
+  `ID_BARANG` varchar(50) DEFAULT NULL,
+  `ID_ORDER` varchar(50) DEFAULT NULL,
+  `JUMLAH_PRODUK` int(11) DEFAULT NULL,
+  `TOTAL_HARGA` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `KATEGORI`
+--
+
+CREATE TABLE `KATEGORI` (
+  `ID_KATEGORI` varchar(50) NOT NULL,
+  `NAMA_KATEGORI` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `KERANJANG`
+--
+
+CREATE TABLE `KERANJANG` (
+  `ID_KERANJANG` varchar(50) NOT NULL,
+  `ID_CUSTOMER` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `KERANJANG_DETAIL`
+--
+
+CREATE TABLE `KERANJANG_DETAIL` (
+  `ID_KERANJANG_DETAIL` varchar(50) NOT NULL,
+  `ID_BARANG` varchar(50) DEFAULT NULL,
+  `ID_KERANJANG` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `MEJA`
+--
+
+CREATE TABLE `MEJA` (
+  `ID_MEJA` varchar(50) NOT NULL,
+  `NO_MEJA` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `METODE_PEMBAYARAN`
+--
+
+CREATE TABLE `METODE_PEMBAYARAN` (
+  `ID_METODE_PEMBAYARAN` varchar(50) NOT NULL,
+  `ID_ORDER` varchar(50) DEFAULT NULL,
+  `NAMA_METODE_PEMBAYARAN` varchar(50) DEFAULT NULL,
+  `REKENING` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `PESANAN`
+--
+
+CREATE TABLE `PESANAN` (
+  `ID_ORDER` varchar(50) NOT NULL,
+  `ID_METODE_PEMBAYARAN` varchar(50) DEFAULT NULL,
+  `ID_CUSTOMER` varchar(50) DEFAULT NULL,
+  `ID_MEJA` varchar(50) DEFAULT NULL,
+  `TANGGAL_ORDER` timestamp NULL DEFAULT NULL,
+  `TOTAL_ORDER` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `SUPPLIER`
+--
+
+CREATE TABLE `SUPPLIER` (
+  `ID_SUPPLIER` varchar(50) NOT NULL,
+  `NAMA_SUPPLIER` varchar(50) DEFAULT NULL,
+  `ALAMAT_SUPPLIER` text DEFAULT NULL,
+  `NO_TELPON_SUPPLIER` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `ADMIN`
+--
+ALTER TABLE `ADMIN`
+  ADD PRIMARY KEY (`ID_ADMIN`),
+  ADD UNIQUE KEY `ADMIN_PK` (`ID_ADMIN`);
+
+--
+-- Indexes for table `BARANG`
+--
+ALTER TABLE `BARANG`
+  ADD PRIMARY KEY (`ID_BARANG`),
+  ADD UNIQUE KEY `BARANG_PK` (`ID_BARANG`),
+  ADD KEY `MEMPUNYAI_FK` (`ID_KATEGORI`),
+  ADD KEY `MENYUPLAI_FK` (`ID_SUPPLIER`);
+
+--
+-- Indexes for table `CUSTOMER`
+--
+ALTER TABLE `CUSTOMER`
+  ADD PRIMARY KEY (`ID_CUSTOMER`),
+  ADD UNIQUE KEY `CUSTOMER_PK` (`ID_CUSTOMER`);
+
+--
+-- Indexes for table `DETAIL_PESANAN`
+--
+ALTER TABLE `DETAIL_PESANAN`
+  ADD PRIMARY KEY (`ID_ORDER_DETAIL`),
+  ADD UNIQUE KEY `ORDER_DETAIL_PK` (`ID_ORDER_DETAIL`),
+  ADD KEY `MEMILIKI_FK` (`ID_ORDER`),
+  ADD KEY `MEMESAN_FK` (`ID_BARANG`);
+
+--
+-- Indexes for table `KATEGORI`
+--
+ALTER TABLE `KATEGORI`
+  ADD PRIMARY KEY (`ID_KATEGORI`),
+  ADD UNIQUE KEY `KATEGORI_PK` (`ID_KATEGORI`);
+
+--
+-- Indexes for table `KERANJANG`
+--
+ALTER TABLE `KERANJANG`
+  ADD PRIMARY KEY (`ID_KERANJANG`),
+  ADD UNIQUE KEY `KERANJANG_PK` (`ID_KERANJANG`),
+  ADD KEY `MENAMBAH_FK` (`ID_CUSTOMER`);
+
+--
+-- Indexes for table `KERANJANG_DETAIL`
+--
+ALTER TABLE `KERANJANG_DETAIL`
+  ADD PRIMARY KEY (`ID_KERANJANG_DETAIL`),
+  ADD UNIQUE KEY `KERANJANG_DETAIL_PK` (`ID_KERANJANG_DETAIL`),
+  ADD KEY `TERDAPAT_FK` (`ID_KERANJANG`),
+  ADD KEY `TERDIRI_FK` (`ID_BARANG`);
+
+--
+-- Indexes for table `MEJA`
+--
+ALTER TABLE `MEJA`
+  ADD PRIMARY KEY (`ID_MEJA`),
+  ADD UNIQUE KEY `MEJA_PK` (`ID_MEJA`);
+
+--
+-- Indexes for table `METODE_PEMBAYARAN`
+--
+ALTER TABLE `METODE_PEMBAYARAN`
+  ADD PRIMARY KEY (`ID_METODE_PEMBAYARAN`),
+  ADD UNIQUE KEY `METODE_PEMBAYARAN_PK` (`ID_METODE_PEMBAYARAN`),
+  ADD KEY `MEMBAYAR2_FK` (`ID_ORDER`);
+
+--
+-- Indexes for table `PESANAN`
+--
+ALTER TABLE `PESANAN`
+  ADD PRIMARY KEY (`ID_ORDER`),
+  ADD UNIQUE KEY `ORDER_PK` (`ID_ORDER`),
+  ADD KEY `MENDUDUKI_FK` (`ID_MEJA`),
+  ADD KEY `MELAKUKAN_FK` (`ID_CUSTOMER`),
+  ADD KEY `MEMBAYAR_FK` (`ID_METODE_PEMBAYARAN`);
+
+--
+-- Indexes for table `SUPPLIER`
+--
+ALTER TABLE `SUPPLIER`
+  ADD PRIMARY KEY (`ID_SUPPLIER`),
+  ADD UNIQUE KEY `SUPPLIER_PK` (`ID_SUPPLIER`);
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `BARANG`
+--
+ALTER TABLE `BARANG`
+  ADD CONSTRAINT `FK_BARANG_MEMPUNYAI_KATEGORI` FOREIGN KEY (`ID_KATEGORI`) REFERENCES `KATEGORI` (`ID_KATEGORI`),
+  ADD CONSTRAINT `FK_BARANG_MENYUPLAI_SUPPLIER` FOREIGN KEY (`ID_SUPPLIER`) REFERENCES `SUPPLIER` (`ID_SUPPLIER`);
+
+--
+-- Constraints for table `DETAIL_PESANAN`
+--
+ALTER TABLE `DETAIL_PESANAN`
+  ADD CONSTRAINT `FK_DETAIL_P_MEMESAN_BARANG` FOREIGN KEY (`ID_BARANG`) REFERENCES `BARANG` (`ID_BARANG`),
+  ADD CONSTRAINT `FK_DETAIL_P_MEMILIKI_PESANAN` FOREIGN KEY (`ID_ORDER`) REFERENCES `PESANAN` (`ID_ORDER`);
+
+--
+-- Constraints for table `KERANJANG`
+--
+ALTER TABLE `KERANJANG`
+  ADD CONSTRAINT `FK_KERANJAN_MENAMBAH_CUSTOMER` FOREIGN KEY (`ID_CUSTOMER`) REFERENCES `CUSTOMER` (`ID_CUSTOMER`);
+
+--
+-- Constraints for table `KERANJANG_DETAIL`
+--
+ALTER TABLE `KERANJANG_DETAIL`
+  ADD CONSTRAINT `FK_KERANJAN_TERDAPAT_KERANJAN` FOREIGN KEY (`ID_KERANJANG`) REFERENCES `KERANJANG` (`ID_KERANJANG`),
+  ADD CONSTRAINT `FK_KERANJAN_TERDIRI_BARANG` FOREIGN KEY (`ID_BARANG`) REFERENCES `BARANG` (`ID_BARANG`);
+
+--
+-- Constraints for table `METODE_PEMBAYARAN`
+--
+ALTER TABLE `METODE_PEMBAYARAN`
+  ADD CONSTRAINT `FK_METODE_P_MEMBAYAR2_PESANAN` FOREIGN KEY (`ID_ORDER`) REFERENCES `PESANAN` (`ID_ORDER`);
+
+--
+-- Constraints for table `PESANAN`
+--
+ALTER TABLE `PESANAN`
+  ADD CONSTRAINT `FK_PESANAN_MELAKUKAN_CUSTOMER` FOREIGN KEY (`ID_CUSTOMER`) REFERENCES `CUSTOMER` (`ID_CUSTOMER`),
+  ADD CONSTRAINT `FK_PESANAN_MEMBAYAR_METODE_P` FOREIGN KEY (`ID_METODE_PEMBAYARAN`) REFERENCES `METODE_PEMBAYARAN` (`ID_METODE_PEMBAYARAN`),
+  ADD CONSTRAINT `FK_PESANAN_MENDUDUKI_MEJA` FOREIGN KEY (`ID_MEJA`) REFERENCES `MEJA` (`ID_MEJA`);
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

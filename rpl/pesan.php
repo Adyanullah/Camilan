@@ -1,22 +1,29 @@
-<?php 
+<?php
+// require_once('Database/base.php');
+// require_once('Database/database.php');
+?>
+
+
+<?php
+
+// Pastikan konstanta DB telah didefinisikan dengan benar
+define('DB', mysqli_connect('localhost', 'root', '', 'db_camilan'));
+
+// Panggil prosedur tersimpan "getallbarang"
+$result = mysqli_query(DB, "CALL getallbarang()");
+
+// Periksa apakah query berhasil dieksekusi
+if ($result) {
+    // Ambil hasil query sebagai array assosiatif
+    $produk = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    // Tampilkan hasil dengan print_r
+    print_r($produk);
+} else {
+    echo "Error executing the query.";
+}
+
+// Tutup koneksi setelah selesai menggunakan database
+mysqli_close(DB);
 
 
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WebsiteCamilan</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap" rel="stylesheet">
-</head>
-<body>
-    <?php include("navbar.php") ?>
-
-    <?php include("footer.php") ?>
-</body>
-</html>

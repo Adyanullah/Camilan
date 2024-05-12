@@ -9,6 +9,26 @@ body {
     background-color: #242323;
     overflow-x: hidden;
 }
+@font-face {
+    font-family: 'La Belle Aurore';
+    src: url('../font/LaBelleAurore.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('../font/Inter.ttf') format('truetype'); /* Regular font */
+    font-weight: 400; /* Specify the correct font weight */
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'InterV';
+    src: url('../font/Inter-V.ttf') format('truetype'); /* Bold font */
+    font-weight: 700; /* Specify the correct font weight */
+    font-style: normal;
+}
 .image-container {
     height: 720px;
     display: flex;
