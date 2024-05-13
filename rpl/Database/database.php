@@ -153,6 +153,26 @@ function insertcart($id, $ip)
         echo $err->getMessage();
     }
 }
+function mincart($id, $ip)
+{
+    try {
+        $statement = DB->prepare("DELETE FROM keranjang WHERE ID_BARANG = :idproduk AND ID_CUSTOMER = :idCust LIMIT 1");
+        $statement->bindValue(':idproduk', $id);
+        $statement->bindValue(':idCust', $ip);
+        $statement->execute();
+
+        $st = DB->prepare("UPDATE barang SET STOCK = STOCK + 1 WHERE ID_BARANG = :id");
+        $st->bindValue(':id', $id);
+        $st->execute();
+
+
+        $previousPage = $_SERVER['HTTP_REFERER'];
+        header("Location: $previousPage");
+    } catch (PDOException $err) {
+        echo $err->getMessage();
+    }
+}
+
 
 
 //Ambildata

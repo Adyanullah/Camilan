@@ -306,7 +306,7 @@ include("templates/navbar.php")
                             <div class="plus"><span style="font-size: 18px;color:white;display:flex;justify-content:center;text-align:center;">+</span></div>
                         </a>
                         <div class="qty"><?= $kanda['Jumlah']; ?></div>
-                        <a href="#">
+                        <a href="controller/transaksi/min_onecartpieces.php?pro=<?= $kanda['ID_BARANG']; ?>">
                             <div class="min"><span style="font-size: 18px;color:white;">-</span></div>
                         </a>
                         <!-- <div class="x">✘</div> -->
