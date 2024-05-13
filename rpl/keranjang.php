@@ -302,7 +302,7 @@ include("templates/navbar.php")
                             <span>( 100 g ) Pedas</span>
                             <span class="singleprice"><?= "Rp. " . number_format($kanda['HARGA_BARANG'], 0, ',', '.'); ?> / pcs</span>
                         </div>
-                        <a href="controller/transaksi/plus_onecartpieces.php/pro=<?= $kanda['ID_BARANG']; ?>">
+                        <a href="controller/transaksi/plus_onecartpieces.php?pro=<?= $kanda['ID_BARANG']; ?>">
                             <div class="plus"><span style="font-size: 18px;color:white;display:flex;justify-content:center;text-align:center;">+</span></div>
                         </a>
                         <div class="qty"><?= $kanda['Jumlah']; ?></div>
