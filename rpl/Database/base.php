@@ -1,6 +1,6 @@
 <?php
-define("BASEURL", "http://localhost/Camilan-main/rpl/");
-define("BASEPATH", $_SERVER["DOCUMENT_ROOT"] . "/Camilan-main/rpl/");
+define("BASEURL", "http://localhost/Camilan/rpl/");
+define("BASEPATH", $_SERVER["DOCUMENT_ROOT"] . "/Camilan/rpl/");
 function connect($host, $db, $user, $password)
 {
     $dsn = "mysql:host=$host;dbname=$db;charset=UTF8";
