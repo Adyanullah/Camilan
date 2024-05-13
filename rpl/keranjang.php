@@ -302,11 +302,13 @@ include("templates/navbar.php")
                             <span>( 100 g ) Pedas</span>
                             <span class="singleprice"><?= "Rp. " . number_format($kanda['HARGA_BARANG'], 0, ',', '.'); ?> / pcs</span>
                         </div>
-                        <div class="plus"><span style="font-size: 18px;color:white;display:flex;justify-content:center;text-align:center;">+</span></div>
+                        <a href="controller/transaksi/plus_onecartpieces.php/pro=<?= $kanda['ID_BARANG']; ?>">
+                            <div class="plus"><span style="font-size: 18px;color:white;display:flex;justify-content:center;text-align:center;">+</span></div>
+                        </a>
                         <div class="qty"><?= $kanda['Jumlah']; ?></div>
-                        <div class="min">
-                            <p style="font-size: 18px;color:white;">-</p>
-                        </div>
+                        <a href="#">
+                            <div class="min"><span style="font-size: 18px;color:white;">-</span></div>
+                        </a>
                         <!-- <div class="x">✘</div> -->
                     </div>
                 <?php endforeach; ?>
@@ -423,6 +425,9 @@ include("templates/navbar.php")
             </div>
         </div>
     </div>
+    <!-- <div class="desc" style="color: white;">
+        <?= $keranjanganda[0]['Deskripsi']; ?>
+    </div> -->
 </div>
 
 <?php include("templates/footer.php") ?>

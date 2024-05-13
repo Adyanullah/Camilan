@@ -137,17 +137,15 @@ function deletebarang($id)
 function insertcart($id, $ip)
 {
     try {
-
-
-        $st = DB->prepare("UPDATE barang SET STOCK = STOCK-1 WHERE ID_BARANG = :id");
-        $st->bindValue(':id', $id);
-        $st->execute();
-
         $statement = DB->prepare("INSERT INTO keranjang(ID_BARANG, ID_CUSTOMER) VALUES(:idProduk, :idCust)");
 
         $statement->bindValue(':idProduk', $id);
         $statement->bindValue(':idCust', $ip);
         $statement->execute();
+
+        $st = DB->prepare("UPDATE barang SET STOCK = STOCK-1 WHERE ID_BARANG = :id");
+        $st->bindValue(':id', $id);
+        $st->execute();
 
         $previousPage = $_SERVER['HTTP_REFERER'];
         header("Location: $previousPage");
@@ -169,7 +167,7 @@ function getListKeranjang($id)
         // $statement->execute();
         // return $statement->fetchAll(PDO::FETCH_ASSOC);
 
-        $statement = DB->prepare("SELECT barang.ID_BARANG, barang.ID_KATEGORI, barang.NAMA_BARANG, barang.HARGA_BARANG, barang.STOCK, barang.FOTO_BARANG, keranjang.ID_KERANJANG, COUNT(barang.ID_BARANG) AS Jumlah, barang.HARGA_BARANG * COUNT(barang.ID_BARANG) AS TotalHarga
+        $statement = DB->prepare("SELECT barang.ID_BARANG, barang.ID_KATEGORI, barang.NAMA_BARANG, barang.HARGA_BARANG, barang.STOCK, barang.FOTO_BARANG, barang.Deskripsi, keranjang.ID_KERANJANG, COUNT(barang.ID_BARANG) AS Jumlah, barang.HARGA_BARANG * COUNT(barang.ID_BARANG) AS TotalHarga
         FROM keranjang
         INNER JOIN barang ON keranjang.ID_BARANG = barang.ID_BARANG WHERE keranjang.ID_CUSTOMER = :id
         GROUP BY barang.ID_BARANG
