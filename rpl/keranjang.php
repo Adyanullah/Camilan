@@ -14,6 +14,21 @@ foreach ($keranjanganda as $price) {
     $sumprice = $sumprice + $price['TotalHarga'];
 }
 
+// AMBIL HARGA ONGKIR DARI RAJAONGKIR API------------------------
+
+require_once "function/ongkir.php";
+$data = new rajaongkir();
+
+$kota = $data->get_city();
+$kota = json_decode($kota, true);
+$kota = $kota['rajaongkir']['results'];
+
+$kota_asal = 31;
+$kota_tujuan = 31;
+$berat = 100;
+
+$harga_ongkir = json_decode($data->get_cost($kota_asal, $kota_tujuan, $berat, 'jne'), true);
+$cost = $harga_ongkir["rajaongkir"]["results"][0]["costs"][0]["cost"][0]["value"];
 ?>
 
 
@@ -256,6 +271,9 @@ include("templates/navbar.php")
         font-size-adjust: inherit;
     }
 </style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js" integrity="sha256-+C0A5Ilqmu4QcSPxrlGpaZxJ04VjsRjKu+G82kl5UJk=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.bootstrap3.min.css" integrity="sha256-ze/OEYGcFbPRmvCnrSeKbRTtjG4vGLHXgOqsyLFTRjg=" crossorigin="anonymous" />
 
 <div class="row" style="min-height: 500px;">
     <div class="col-7 cartinfo">
@@ -381,12 +399,12 @@ include("templates/navbar.php")
                     </div>
                     <div class="payment-price-info-txt">
                         <span><?= "Rp. " . number_format($sumprice, 0, ',', '.'); ?></span>
-                        <span>Rp. 100.000</span>
+                        <span><?= "Rp. " . number_format($cost, 0, ',', '.'); ?></span>
                     </div>
                 </div>
             </div>
 
-            <?php $sumprice_final = $sumprice + 100000; ?>
+            <?php $sumprice_final = $sumprice + $cost; ?>
 
             <div class="payment-price-info-min" style="margin: 4vh 0 4vh 0;">
                 <div class="payment-price-txt-container">
