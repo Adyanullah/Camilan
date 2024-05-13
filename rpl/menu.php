@@ -103,7 +103,7 @@ $produk = getDataAll('barang');
                                 <p class="card-text desc">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                                 <p> <?= "Rp " . number_format($pro['HARGA_BARANG'], 0, ',', '.'); ?>,-</p>
                                 <?php if (isset($_SESSION['user'])) { ?>
-                                    <a href="transaksi/insertcart.php?pro=<?= $pro['ID_BARANG'] ?>" style="display: flex; justify-content:center; text-decoration: none;">
+                                    <a href="controller/transaksi/insertcart.php?pro=<?= $pro['ID_BARANG'] ?>" style="display: flex; justify-content:center; text-decoration: none;">
                                         <div class="keranjangstyle">Tambah Ke Keranjang</div>
                                     </a>
                                     <a href="#" style="display: flex; justify-content:center; text-decoration: none; margin-top:10px;">

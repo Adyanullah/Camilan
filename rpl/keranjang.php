@@ -16,7 +16,7 @@ foreach ($keranjanganda as $price) {
 
 // AMBIL HARGA ONGKIR DARI RAJAONGKIR API------------------------
 
-require_once "function/ongkir.php";
+require_once "controller/function/ongkir.php";
 $data = new rajaongkir();
 
 $kota = $data->get_city();
