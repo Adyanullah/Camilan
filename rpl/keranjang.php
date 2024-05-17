@@ -8,11 +8,12 @@ if (!isset($_SESSION['user'])) {
 }
 
 $keranjanganda = getListKeranjang($_SESSION['user']);
-$sumprice = 0;
 
-foreach ($keranjanganda as $price) {
-    $sumprice = $sumprice + $price['TotalHarga'];
+if (isset($_POST)) {
+    $data_js = file_get_contents("php://input");
+    json_decode($data_js, true);
 }
+
 
 // AMBIL HARGA ONGKIR DARI RAJAONGKIR API------------------------
 
@@ -294,7 +295,8 @@ include("templates/navbar.php")
                     <div class="d-flex barang">
                         <div class="d-flex justify-content-center" style="align-items:center; width: 100px; color:white">
                             <!-- <input class="form-check-input square" type="checkbox" name="radioprice" id="checkboxNoLabel" value="<?= $kanda['TotalHarga']; ?>" aria-label="..."> -->
-                            <div class="x-constant">✘</div>
+                            <input class="form-check-input square" type="checkbox" name="radioprice" id="checkboxNoLabel" value="<?= $kanda['ID_BARANG']; ?> <?= $kanda['TotalHarga']; ?>" aria-label="...">
+                            <!-- <div class="x-constant">✘</div> -->
                         </div>
                         <div class="card" style="margin:1.25vh; margin-left:0; width: 100px; height:80px; border-radius:0;"><img src="gambar/produk/<?= $kanda['FOTO_BARANG'] ?>" alt="produk" style="max-width: 100%; max-height: 100%;"></div>
                         <div class="descpro">
@@ -309,7 +311,7 @@ include("templates/navbar.php")
                         <a href="controller/transaksi/min_onecartpieces.php?pro=<?= $kanda['ID_BARANG']; ?>">
                             <div class="min"><span style="font-size: 18px;color:white;">-</span></div>
                         </a>
-                        <!-- <div class="x">✘</div> -->
+                        <div class="x">✘</div>
                     </div>
                 <?php endforeach; ?>
             </form>
@@ -400,40 +402,39 @@ include("templates/navbar.php")
                         <span>Biaya Pengiriman</span>
                     </div>
                     <div class="payment-price-info-txt">
-                        <span><?= "Rp. " . number_format($sumprice, 0, ',', '.'); ?></span>
-                        <span><?= "Rp. " . number_format($cost, 0, ',', '.'); ?></span>
+                        <span id="total_harga_produk">Rp 0,00</span>
+                        <span><?= "Rp " . number_format($cost, 0, ',', '.'); ?>,00</span>
                     </div>
                 </div>
             </div>
-
-            <?php $sumprice_final = $sumprice + $cost; ?>
-
             <div class="payment-price-info-min" style="margin: 4vh 0 4vh 0;">
                 <div class="payment-price-txt-container">
                     <div class=" payment-price-info-txt">
                         <span>Total Pembayaran</span>
                     </div>
                     <div class="payment-price-info-txt">
-                        <span><?= "Rp. " . number_format($sumprice_final, 0, ',', '.'); ?></span>
+                        <span id="total_harga_pembelian">Rp 0,00</span>
                     </div>
                 </div>
             </div>
             <div class="payment-price-info-min" style="margin: 0 0 7vh 0;">
                 <div class="payment-price-info-txt">
-                    <span class="d-flex justify-content-center">Bayar</span>
+                    <span class="d-flex justify-content-center" id="ini">
+                        <?= var_dump($data_js); ?>
+                    </span>
                 </div>
             </div>
         </div>
     </div>
-    <!-- <div class="desc" style="color: white;">
-        <?= $keranjanganda[0]['Deskripsi']; ?>
-    </div> -->
 </div>
 
 <?php include("templates/footer.php") ?>
 
 
 <script>
+    let data_post = {
+        "aku": "dia"
+    }
     let myForm = document.myForm;
     for (var i = 0; i < myForm.length; i++) {
         if (myForm[i].type === 'checkbox') {
@@ -444,22 +445,49 @@ include("templates/navbar.php")
     }
 
     function updatePrix() {
-        let somme = 0;
-        let montant_commande = document.getElementById('montant_commande');
-        let adaYangDicentang = false;
+        let list_produk = [];
+        let harga = 0;
+        let total_harga_produk = document.getElementById("total_harga_produk");
+        let total_harga_pembelian = document.getElementById("total_harga_pembelian");
+        let ini = document.getElementById("ini");
 
         for (var i = 0; i < myForm.length; i++) {
             if (myForm[i].type === 'checkbox' && myForm[i].checked) {
-                adaYangDicentang = true;
-                somme += parseInt(myForm[i].value, 10);
+                array_value = myForm[i].value;
+                let arrayNilai = array_value.split(" ");
+                list_produk.push(parseInt(arrayNilai[0]));
+                harga += parseInt(arrayNilai[1])
             }
         }
+        total_harga_produk.innerHTML = harga.toLocaleString('id-ID', {
+            style: 'currency',
+            currency: 'IDR'
+        });
 
-        if (adaYangDicentang) {
-            montant_commande.value = " Rp. " + somme.toLocaleString('id-ID');
-        } else {
-            montant_commande.value = " Rp. " + '0'.toLocaleString('id-ID');;
-        }
+        <?php echo "let cost = " . $cost . ";"; ?>
+        total_harga = harga + cost;
+        total_harga_pembelian.innerHTML = total_harga.toLocaleString('id-ID', {
+            style: 'currency',
+            currency: 'IDR'
+        });
 
+        let data_post = {
+            "total_produk": harga,
+            "list_produk": list_produk,
+            "ongkir": cost,
+            "total_pembelian": total_harga
+        };
+
+        fetch("keranjang.php", {
+            "method": "POST",
+            "headers": {
+                "Content-Type": "application/json; charset=utf-8"
+            },
+            "body": JSON.stringify(data_post)
+        }).then(function(response) {
+            return response.text();
+        }).then(function(data) {
+            console.log(data);
+        })
     }
 </script>
