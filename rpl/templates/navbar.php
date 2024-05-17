@@ -66,8 +66,15 @@
     <div class="navbar" style="z-index: 1000;">
         <nav>
             <div>
+                <?php if (!isset($_SESSION['user'])) : ?>
+                    <a href="<?= BASEURL . 'login.php' ?>">Sign In</a>
+                <?php else : ?>
+                    <a href="<?= BASEURL . 'profile/account.php' ?>">Profile</a>
+                <?php endif; ?>
+            </div>
+            <div>
                 <ul>
-                    <li><a href="<?= BASEURL . 'login.php' ?>">Sign In</a></li>
+                    <!-- <li><a href="<?= BASEURL . 'login.php' ?>">Sign In</a></li> -->
                     <li><a href="<?= BASEURL . 'index.php' ?>">Home</a></li>
                     <li><a href="<?= BASEURL . 'menu.php' ?>">Menu</a></li>
                     <li><a href="<?= BASEURL . 'contact.php' ?>">Contact</a></li>
