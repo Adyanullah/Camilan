@@ -58,6 +58,27 @@ require_once('../Database/database.php');
         display: flex;
         justify-content: left;
     }
+
+    .wishlist-container-value {
+        display: flex;
+    }
+
+    .wishlist-value {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 151px;
+        text-align: center;
+        margin-right: 3.2vw;
+    }
+
+    .page {
+        display: none;
+    }
+
+    .show {
+        display: block;
+    }
 </style>
 
 <?php
@@ -75,13 +96,13 @@ include("../templates/navbar.php")
     </div>
     <div class="row justify-content-center">
         <div class="col-3 widgetcontainer-list" style="padding-left:8vw; min-height:100vh; display:flex; flex-direction:column;">
-            <button id="acc_info">
+            <button id="page1Btn">
                 <div class="widgetList">
                     <img style="width: 50px; height: 50px" src="<?= BASEURL ?>./gambar/profile/Info.png" />
                     <span style="color: black; font-size: 14px; font-family: Inter; font-weight: 700; word-wrap: break-word">Account Info</span>
                 </div>
             </button>
-            <button id="wish_info">
+            <button id="page2Btn">
                 <div class="widgetList">
                     <img style="width: 50px; height: 50px" src="<?= BASEURL ?>./gambar/profile/Wishlist.png" />
                     <span style="color: black; font-size: 14px; font-family: Inter; font-weight: 400; word-wrap: break-word">Wishlist</span>
@@ -107,7 +128,8 @@ include("../templates/navbar.php")
             </button>
         </div>
         <div class="col-7">
-
+            <?php include "profile_menu/infoakun.php" ?>
+            <?php include "profile_menu/wishlist_info.php" ?>
         </div>
     </div>
     <div class="jarak" style="min-height:100px; background-color:white; width:100vw; margin:0;"></div>
@@ -115,3 +137,23 @@ include("../templates/navbar.php")
 
 
 <?php include "../templates/footer.php" ?>
+<script>
+    document.getElementById("page1Btn").addEventListener("click", function() {
+        togglePage("page1");
+    });
+
+    document.getElementById("page2Btn").addEventListener("click", function() {
+        togglePage("page2");
+    });
+
+    function togglePage(pageId) {
+        var pages = document.getElementsByClassName("page");
+        for (var i = 0; i < pages.length; i++) {
+            if (pages[i].id === pageId) {
+                pages[i].classList.add("show");
+            } else {
+                pages[i].classList.remove("show");
+            }
+        }
+    }
+</script>
