@@ -69,7 +69,7 @@
                 <?php if (!isset($_SESSION['user'])) : ?>
                     <a href="<?= BASEURL . 'login.php' ?>">Sign In</a>
                 <?php else : ?>
-                    <a href="<?= BASEURL . 'profile/account.php' ?>">Profile</a>
+                    <a href="<?= BASEURL . 'profile' ?>">Profile</a>
                 <?php endif; ?>
             </div>
             <div>

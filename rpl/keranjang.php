@@ -10,8 +10,9 @@ if (!isset($_SESSION['user'])) {
 $keranjanganda = getListKeranjang($_SESSION['user']);
 
 if (isset($_POST)) {
-    $data_js = file_get_contents("php://input");
-    json_decode($data_js, true);
+    // $data_js = file_get_contents("php://input");
+    // json_decode($data_js, true);
+    $data_js = $_POST['name'];
 }
 
 
@@ -275,6 +276,7 @@ include("templates/navbar.php")
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js" integrity="sha256-+C0A5Ilqmu4QcSPxrlGpaZxJ04VjsRjKu+G82kl5UJk=" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.bootstrap3.min.css" integrity="sha256-ze/OEYGcFbPRmvCnrSeKbRTtjG4vGLHXgOqsyLFTRjg=" crossorigin="anonymous" />
+<script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 
 <div class="row" style="min-height: 500px;">
     <div class="col-7 cartinfo">
@@ -368,31 +370,36 @@ include("templates/navbar.php")
                 </div>
 
             </div>
-            <div class="payment-input">
-                <div class="payment-input-txt">
-                    <label for="nameoncard">Name On Card</label>
-                    <input type="text" name="nameoncard" id="nameoncard" placeholder="Nama,ex : Babang Santoso">
-                </div>
-                <div class="payment-input-txt">
-                    <label for="cardnumber">Nomor Kartu</label>
-                    <input type="text" name="cardnumber" id="cardnumber" placeholder="Card Number,ex : 0000 0000 0000 000">
-                </div>
-                <div class="d-flex justify-content-between">
+            <form action="">
+                <!-- HIDDEN INPUT -->
+                <input type="hidden" name="array_keranjang" id="array_keranjang">
+                <input type="hidden" name="harga_ongkir" id="harga_ongkir">
+                <!-- /HIDDEN INPUT -->
+                <div class="payment-input">
                     <div class="payment-input-txt">
-                        <label for="experied">Exp</label>
-                        <div class="experied d-flex">
-                            <input type="text" name="MM" id="MM" placeholder="MM, ex : 10" style="width: 108px;">
-                            <input type="text" name="YY" id="YY" placeholder="YY, ex : 24" style="width: 108px; margin-left:30px;">
-                        </div>
+                        <label for="nameoncard">Name On Card</label>
+                        <input type="text" name="nameoncard" id="nameoncard" placeholder="Nama,ex : Babang Santoso">
                     </div>
                     <div class="payment-input-txt">
-                        <label for="cvv">CVV</label>
-                        <div class="cvv">
-                            <input type="text" name="cvv" id="MM" placeholder="123" style="width: 108px;">
+                        <label for="cardnumber">Nomor Kartu</label>
+                        <input type="text" name="cardnumber" id="cardnumber" placeholder="Card Number,ex : 0000 0000 0000 000">
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <div class="payment-input-txt">
+                            <label for="experied">Exp</label>
+                            <div class="experied d-flex">
+                                <input type="text" name="MM" id="MM" placeholder="MM, ex : 10" style="width: 108px;">
+                                <input type="text" name="YY" id="YY" placeholder="YY, ex : 24" style="width: 108px; margin-left:30px;">
+                            </div>
+                        </div>
+                        <div class="payment-input-txt">
+                            <label for="cvv">CVV</label>
+                            <div class="cvv">
+                                <input type="text" name="cvv" id="MM" placeholder="123" style="width: 108px;">
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
         </div>
         <div class="payment-price">
             <div class="payment-price-info">
@@ -417,13 +424,15 @@ include("templates/navbar.php")
                     </div>
                 </div>
             </div>
-            <div class="payment-price-info-min" style="margin: 0 0 7vh 0;">
-                <div class="payment-price-info-txt">
-                    <span class="d-flex justify-content-center" id="ini">
-                        <?= var_dump($data_js); ?>
-                    </span>
+            <div class="payment-price-info-min" style="margin: 0 0 7vh 0; padding:0;">
+                <div class="payment-price-info-txt" style="margin: 0;">
+                    <!-- <span class="d-flex justify-content-center" id="ini">
+                        Bayar
+                    </span> -->
+                    <input type="submit" value="Bayar" class="d-flex justify-content-center" style="background-color: transparent; text-decoration:none; border:none; outline:none; color:white; margin:0;">
                 </div>
             </div>
+            </form>
         </div>
     </div>
 </div>
@@ -477,17 +486,9 @@ include("templates/navbar.php")
             "ongkir": cost,
             "total_pembelian": total_harga
         };
-
-        fetch("keranjang.php", {
-            "method": "POST",
-            "headers": {
-                "Content-Type": "application/json; charset=utf-8"
-            },
-            "body": JSON.stringify(data_post)
-        }).then(function(response) {
-            return response.text();
-        }).then(function(data) {
-            console.log(data);
-        })
+        let BOngkir = document.getElementById("harga_ongkir");
+        let LProduk = document.getElementById("array_keranjang");
+        BOngkir.value = cost;
+        LProduk.value = list_produk;
     }
 </script>
