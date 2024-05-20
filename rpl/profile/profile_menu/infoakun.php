@@ -5,6 +5,7 @@
       font-family: Inter;
       font-weight: 700;
       word-wrap: break-word;
+      margin:3.9vh 0 0 0;
     ">
     Account info
   </div>

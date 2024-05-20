@@ -1,5 +1,5 @@
 <div id="page2" class="page">
-    <div style="color: black; font-size: 18px; font-family: Inter; font-weight: 700; word-wrap: break-word; margin:3.7vh 0 3.1vh 0;">My Wishlist</div>
+    <div style="color: black; font-size: 18px; font-family: Inter; font-weight: 700; word-wrap: break-word; margin:3.9vh 0 3.1vh 0;">My Wishlist</div>
     <div class="wishlist-container-value">
         <div class="wishlist-value">
             <div class="wishlist-picture" style="width: 150px; position:relative;">

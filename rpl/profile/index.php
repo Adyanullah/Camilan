@@ -108,13 +108,13 @@ include("../templates/navbar.php")
                     <span style="color: black; font-size: 14px; font-family: Inter; font-weight: 400; word-wrap: break-word">Wishlist</span>
                 </div>
             </button>
-            <button id="order_info">
+            <button id="page3Btn">
                 <div class="widgetList">
                     <img style="width: 50px; height: 50px" src="<?= BASEURL ?>./gambar/profile/MyOrder.png" />
                     <span style="color: black; font-size: 14px; font-family: Inter; font-weight: 400; word-wrap: break-word">My Order</span>
                 </div>
             </button>
-            <button id="address_info">
+            <button id="page4Btn">
                 <div class="widgetList">
                     <img style="width: 50px; height: 50px" src="<?= BASEURL ?>./gambar/profile/Address.png" />
                     <span style="color: black; font-size: 14px; font-family: Inter; font-weight: 400; word-wrap: break-word">Address</span>
@@ -130,6 +130,8 @@ include("../templates/navbar.php")
         <div class="col-7">
             <?php include "profile_menu/infoakun.php" ?>
             <?php include "profile_menu/wishlist_info.php" ?>
+            <?php include "profile_menu/myorder_info.php" ?>
+            <?php include "profile_menu/address_info.php" ?>
         </div>
     </div>
     <div class="jarak" style="min-height:100px; background-color:white; width:100vw; margin:0;"></div>
@@ -144,6 +146,14 @@ include("../templates/navbar.php")
 
     document.getElementById("page2Btn").addEventListener("click", function() {
         togglePage("page2");
+    });
+
+    document.getElementById("page3Btn").addEventListener("click", function() {
+        togglePage("page3");
+    });
+
+    document.getElementById("page4Btn").addEventListener("click", function() {
+        togglePage("page4");
     });
 
     function togglePage(pageId) {
