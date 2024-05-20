@@ -11,7 +11,7 @@ $gagal = true; // Kondisi gagal
 $data = getDataAll('customer');
 foreach ($data as $userdata) {
     if ($_POST['email'] == $userdata['EMAIL'] && $_POST['password'] == $userdata['PASSWORD']) {
-        $_SESSION['user'] = $userdata['ID_CUSTOMER'];
+        $_SESSION['user'] = $userdata;
         $gagal = false; // Login berhasil
         break; // Keluar dari loop jika login berhasil
     }

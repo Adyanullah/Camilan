@@ -88,7 +88,7 @@ include("../templates/navbar.php")
 <section style="background-color: white; min-height:100vh; min-width:100vw; margin:0;">
     <div style=" margin: 2vh 0 0 0;">
         <img class="img-fluid rounded-circle mx-auto d-block" style="width: 200px; height: 200px;" src="https://via.placeholder.com/200x200" />
-        <p class="text-center profilename">Camilan Account</p>
+        <p class="text-center profilename"><?= $_SESSION['user']['USERNAME']; ?>'s Account</p>
         <p class="text-center profileguide">You can manage your account and track your order here</p>
     </div>
     <div class="d-flex flex-column justify-content-center" style="justify-content: center; align-items:center; padding:10px">
@@ -120,12 +120,12 @@ include("../templates/navbar.php")
                     <span style="color: black; font-size: 14px; font-family: Inter; font-weight: 400; word-wrap: break-word">Address</span>
                 </div>
             </button>
-            <button id="logout">
+            <a href="<?= BASEURL ?>./autentikasi/logout.php" style="text-decoration: none; margin-left:0.65vw;">
                 <div class="widgetList">
                     <img style="width: 50px; height: 50px" src="<?= BASEURL ?>./gambar/profile/Logout.png" />
                     <span style="color: black; font-size: 14px; font-family: Inter; font-weight: 400; word-wrap: break-word">Logout</span>
                 </div>
-            </button>
+            </a>
         </div>
         <div class="col-7">
             <?php include "profile_menu/infoakun.php" ?>

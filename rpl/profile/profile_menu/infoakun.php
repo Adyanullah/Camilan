@@ -43,11 +43,11 @@
       "></div>
     <div class="accountinfo-txt">
       <span class="accountinfo-txt-key">Name</span>
-      <span class="accountinfo-txt-value">Babang Surabang</span>
+      <span class="accountinfo-txt-value"><?= $_SESSION['user']['NAMA_CUSTOMER']; ?></span>
     </div>
     <div class="accountinfo-txt">
       <span class="accountinfo-txt-key">Email</span>
-      <span class="accountinfo-txt-value">Babang@example.com</span>
+      <span class="accountinfo-txt-value"><?= $_SESSION['user']['EMAIL']; ?></span>
     </div>
     <div class="accountinfo-txt">
       <span class="accountinfo-txt-key">Birthday</span>
@@ -55,7 +55,7 @@
     </div>
     <div class="accountinfo-txt">
       <span class="accountinfo-txt-key">Phone Number</span>
-      <span class="accountinfo-txt-value">081222328119</span>
+      <span class="accountinfo-txt-value"><?= $_SESSION['user']['NOMOR_TELPON_CUSTOMER']; ?></span>
     </div>
   </div>
   <div class="d-flex justify-content-between" style="

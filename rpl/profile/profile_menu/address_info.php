@@ -10,7 +10,7 @@
             <div style="color: black; font-size: 14px; font-family: Inter; font-weight: 400; text-decoration: underline; word-wrap: break-word">Edit</div>
         </div>
         <div style="width: 155px">
-            <span style="color: #6B6B6B; font-size: 14px; font-family: Inter; font-weight: 400; word-wrap: break-word">Babang Surabang <br> Jl. Trunojoyo No 1 Bangkalan KAB.Bangkalan 69112 JAWA TIMUR (+62)810101010101 </span>
+            <span style="color: #6B6B6B; font-size: 14px; font-family: Inter; font-weight: 400; word-wrap: break-word"><?= $_SESSION['user']['NAMA_CUSTOMER']; ?> <br> Jl. Trunojoyo No 1 Bangkalan KAB.Bangkalan 69112 JAWA TIMUR (+62)810101010101 </span>
         </div>
     </div>
     <div class="d-flex justify-content-center" style="width: 74%;">

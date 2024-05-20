@@ -7,7 +7,7 @@ if (!isset($_SESSION['user'])) {
     exit();
 }
 
-$keranjanganda = getListKeranjang($_SESSION['user']);
+$keranjanganda = getListKeranjang($_SESSION['user']['ID_CUSTOMER']);
 
 if (isset($_POST)) {
     // $data_js = file_get_contents("php://input");
@@ -297,7 +297,7 @@ include("templates/navbar.php")
                     <div class="d-flex barang">
                         <div class="d-flex justify-content-center" style="align-items:center; width: 100px; color:white">
                             <!-- <input class="form-check-input square" type="checkbox" name="radioprice" id="checkboxNoLabel" value="<?= $kanda['TotalHarga']; ?>" aria-label="..."> -->
-                            <input class="form-check-input square" type="checkbox" name="radioprice" id="checkboxNoLabel" value="<?= $kanda['ID_BARANG']; ?> <?= $kanda['TotalHarga']; ?>" aria-label="...">
+                            <input class="form-check-input square" type="checkbox" name="radioprice" id="checkboxNoLabel" value="<?= $kanda['ID_BARANG']; ?> <?= $kanda['TotalHarga']; ?>" checked>
                             <!-- <div class="x-constant">✘</div> -->
                         </div>
                         <div class="card" style="margin:1.25vh; margin-left:0; width: 100px; height:80px; border-radius:0;"><img src="gambar/produk/<?= $kanda['FOTO_BARANG'] ?>" alt="produk" style="max-width: 100%; max-height: 100%;"></div>
@@ -370,10 +370,11 @@ include("templates/navbar.php")
                 </div>
 
             </div>
-            <form action="">
+            <form action="controller/transaksi/transaksi_keranjang.php" method="post">
                 <!-- HIDDEN INPUT -->
                 <input type="hidden" name="array_keranjang" id="array_keranjang">
                 <input type="hidden" name="harga_ongkir" id="harga_ongkir">
+                <input type="hidden" name="jumlah_keseluruhan_harga" id="jumlah_keseluruhan_harga">
                 <!-- /HIDDEN INPUT -->
                 <div class="payment-input">
                     <div class="payment-input-txt">
@@ -487,8 +488,10 @@ include("templates/navbar.php")
             "total_pembelian": total_harga
         };
         let BOngkir = document.getElementById("harga_ongkir");
+        let THarga = document.getElementById("jumlah_keseluruhan_harga");
         let LProduk = document.getElementById("array_keranjang");
         BOngkir.value = cost;
+        THarga.value = total_harga;
         LProduk.value = list_produk;
     }
 </script>

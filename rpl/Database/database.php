@@ -199,3 +199,50 @@ function getListKeranjang($id)
         echo $err->getMessage();
     }
 }
+
+
+// -------------------------------------------------------------------------------------------------------------------------------------
+// ---------------------------------------------- O R D E R / T R A N S A K S I --------------------------------------------------------
+// -------------------------------------------------------------------------------------------------------------------------------------
+
+
+//Order
+function Pesan($user, $total, $str_array_keranjang)
+{
+    try {
+        $statement = DB->prepare("INSERT INTO pesanan(ID_CUSTOMER, TOTAL_ORDER) VALUES(:idcustomer, :totalorder)");
+        $statement->bindValue(':idcustomer', $user);
+        $statement->bindValue(':totalorder', $total);
+        $statement->execute();
+
+        $id_pesanan = DB->LastInsertId();
+        $query_barang = DB->prepare("
+        SELECT k.ID_CUSTOMER, k.ID_BARANG, COUNT(k.ID_BARANG) AS QTY, SUM(b.HARGA_BARANG) AS TOTAL_HARGA
+        FROM keranjang AS k
+        JOIN barang AS b ON k.ID_BARANG = b.ID_BARANG
+        WHERE k.ID_CUSTOMER = :idcustomer AND k.ID_BARANG IN (" . $str_array_keranjang . ")
+        GROUP BY k.ID_CUSTOMER, k.ID_BARANG;
+        ");
+        $query_barang->bindValue(':idcustomer', $user);
+        $query_barang->execute();
+        $query_barang = $query_barang->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach ($query_barang as $menu) {
+            $insert_pesanan =  DB->prepare("INSERT INTO detail_pesanan(ID_BARANG, ID_ORDER, JUMLAH_PRODUK, HARGA) VALUES(:id_barang, :id_order, :qty, :harga)");
+            $insert_pesanan->bindValue('id_barang', $menu['ID_BARANG']);
+            $insert_pesanan->bindValue('id_order', $id_pesanan);
+            $insert_pesanan->bindValue('qty', $menu['QTY']);
+            $insert_pesanan->bindValue(':harga', $menu['TOTAL_HARGA']);
+            $insert_pesanan->execute();
+        }
+
+        $delete_item_dikeranjang = DB->prepare("DELETE FROM keranjang WHERE ID_CUSTOMER = :idcustomer AND ID_BARANG IN (" . $str_array_keranjang . ");");
+        $delete_item_dikeranjang->bindValue(':idcustomer', $user);
+        $delete_item_dikeranjang->execute();
+
+        $previousPage = $_SERVER['HTTP_REFERER'];
+        header("Location: $previousPage");
+    } catch (PDOException $err) {
+        echo $err->getMessage();
+    }
+}
