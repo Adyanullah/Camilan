@@ -131,6 +131,7 @@ include("../templates/navbar.php")
             <?php include "profile_menu/infoakun.php" ?>
             <?php include "profile_menu/wishlist_info.php" ?>
             <?php include "profile_menu/myorder_info.php" ?>
+            <?php include "profile_menu/myorder_viewdetails.php" ?>
             <?php include "profile_menu/address_info.php" ?>
         </div>
     </div>
@@ -155,6 +156,10 @@ include("../templates/navbar.php")
     document.getElementById("page4Btn").addEventListener("click", function() {
         togglePage("page4");
     });
+
+    <?php if (isset($_GET['order_id'])) : ?>
+        togglePage("page5");
+    <?php endif; ?>
 
     function togglePage(pageId) {
         var pages = document.getElementsByClassName("page");

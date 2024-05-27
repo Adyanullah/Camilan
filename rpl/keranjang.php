@@ -8,6 +8,13 @@ if (!isset($_SESSION['user'])) {
 }
 
 $keranjanganda = getListKeranjang($_SESSION['user']['ID_CUSTOMER']);
+$sumprice = 0;
+
+foreach ($keranjanganda as $price) {
+    $sumprice = $sumprice + $price['TotalHarga'];
+    $stringlist = $stringlist . $price['ID_BARANG'] . ',';
+}
+$stringlist = rtrim($stringlist, ", ");
 
 if (isset($_POST)) {
     // $data_js = file_get_contents("php://input");
@@ -313,7 +320,7 @@ include("templates/navbar.php")
                         <a href="controller/transaksi/min_onecartpieces.php?pro=<?= $kanda['ID_BARANG']; ?>">
                             <div class="min"><span style="font-size: 18px;color:white;">-</span></div>
                         </a>
-                        <div class="x">✘</div>
+                        <a href="<?= BASEURL . 'controller/transaksi/hapusbarangkeranjang.php?pro=' . $kanda['ID_BARANG']; ?>" class="x">✘</a>
                     </div>
                 <?php endforeach; ?>
             </form>
@@ -372,9 +379,9 @@ include("templates/navbar.php")
             </div>
             <form action="controller/transaksi/transaksi_keranjang.php" method="post">
                 <!-- HIDDEN INPUT -->
-                <input type="hidden" name="array_keranjang" id="array_keranjang">
-                <input type="hidden" name="harga_ongkir" id="harga_ongkir">
-                <input type="hidden" name="jumlah_keseluruhan_harga" id="jumlah_keseluruhan_harga">
+                <input type="hidden" name="array_keranjang" id="array_keranjang" value="<?= $stringlist; ?>">
+                <input type="hidden" name="harga_ongkir" id="harga_ongkir" value="<?= $cost; ?>">
+                <input type="hidden" name="jumlah_keseluruhan_harga" id="jumlah_keseluruhan_harga" value="<?= $sumprice + $cost; ?>">
                 <!-- /HIDDEN INPUT -->
                 <div class="payment-input">
                     <div class="payment-input-txt">
@@ -410,7 +417,7 @@ include("templates/navbar.php")
                         <span>Biaya Pengiriman</span>
                     </div>
                     <div class="payment-price-info-txt">
-                        <span id="total_harga_produk">Rp 0,00</span>
+                        <span id="total_harga_produk"><?= "Rp " . number_format($sumprice, 0, ',', '.'); ?>,00</span>
                         <span><?= "Rp " . number_format($cost, 0, ',', '.'); ?>,00</span>
                     </div>
                 </div>
@@ -421,7 +428,7 @@ include("templates/navbar.php")
                         <span>Total Pembayaran</span>
                     </div>
                     <div class="payment-price-info-txt">
-                        <span id="total_harga_pembelian">Rp 0,00</span>
+                        <span id="total_harga_pembelian"><?= "Rp " . number_format($sumprice + $cost, 0, ',', '.'); ?>,00</span>
                     </div>
                 </div>
             </div>

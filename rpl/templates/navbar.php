@@ -61,6 +61,14 @@
         background-color: #000000;
     }
 </style>
+<script>
+    <?php if (isset($_SESSION['status'])) : ?>
+        alert("<?= $_SESSION['status'] ?>");
+    <?php
+        unset($_SESSION['status']);
+    endif;
+    ?>
+</script>
 
 <body>
     <div class="navbar" style="z-index: 1000;">

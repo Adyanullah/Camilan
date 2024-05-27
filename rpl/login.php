@@ -55,11 +55,11 @@ include("templates/navbar.php")
                                 <hr class="mt-5 mb-4 border-secondary-subtle">
                                 <div class="d-flex gap-2 gap-md-4 flex-column flex-md-row justify-content-md-end">
                                     <a href="register.php" class="link-secondary text-decoration-none">Create new account</a>
-                                    <a href="#!" class="link-secondary text-decoration-none">Forgot password</a>
+                                    <a href="forgotpassword.php" class="link-secondary text-decoration-none">Forgot password</a>
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                        <!-- <div class="row">
                             <div class="col-12">
                                 <p class="mt-5 mb-4">Or sign in with</p>
                                 <div class="d-flex gap-3 flex-column flex-xl-row">
@@ -83,7 +83,7 @@ include("templates/navbar.php")
                                     </a>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>

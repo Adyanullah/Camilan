@@ -25,6 +25,33 @@ function getDataAll($table)
         echo $err->getMessage();
     }
 }
+function getDataAllWhere($table, $column, $id)
+{
+    try {
+        $statement = DB->prepare("SELECT * FROM $table WHERE $column = :id");
+        $statement->bindValue(':id', $id);
+        $statement->execute();
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    } catch (PDOException $err) {
+        echo $err->getMessage();
+    }
+}
+function getDataAllWhere2($table, $column, $id, $AND_OR, $column2, $id2)
+{
+    try {
+        if ($AND_OR == 'OR') :
+            $statement = DB->prepare("SELECT * FROM $table WHERE $column = :id OR $column2 = :id2");
+        else :
+            $statement = DB->prepare("SELECT * FROM $table WHERE $column = :id AND $column2 = :id2");
+        endif;
+        $statement->bindValue(':id', $id);
+        $statement->bindValue(':id2', $id2);
+        $statement->execute();
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    } catch (PDOException $err) {
+        echo $err->getMessage();
+    }
+}
 //Pesanan
 function getDataPesanan($data, $id)
 {
@@ -74,6 +101,18 @@ function regist($post)
     }
 }
 
+function updateakun($change, $id)
+{
+    try {
+        $builder = DB->prepare("UPDATE customer SET PASSWORD = :change WHERE ID_CUSTOMER = :id");
+        $builder->bindValue(':change', $change);
+        $builder->bindValue(':id', $id);
+        $builder->execute();
+    } catch (PDOException $err) {
+        echo $err->getMessage();
+    }
+}
+
 // -------------------------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------- K E L O L A    P R O D U K -----------------------------------------------------
 // -------------------------------------------------------------------------------------------------------------------------------------
@@ -103,12 +142,13 @@ function addProduct($post)
     }
 }
 
-function deletebarangdikeranjang($id)
+function deletebarangdikeranjang($id, $user)
 {
     try {
-        $statement = DB->prepare("DELETE FROM keranjang WHERE ID_KERANJANG = :id");
-        $statement->bindValue(':id', $id);
+        $statement = DB->prepare("DELETE FROM keranjang WHERE ID_BARANG = $id AND ID_CUSTOMER = $user");
         $statement->execute();
+        $previousPage = $_SERVER['HTTP_REFERER'];
+        header("Location: $previousPage");
     } catch (PDOException $err) {
         echo "Hapus data gagal";
         echo $err->getMessage();
@@ -240,8 +280,10 @@ function Pesan($user, $total, $str_array_keranjang)
         $delete_item_dikeranjang->bindValue(':idcustomer', $user);
         $delete_item_dikeranjang->execute();
 
-        $previousPage = $_SERVER['HTTP_REFERER'];
-        header("Location: $previousPage");
+        $_SESSION['status'] = "Pesanan Sedang Di Proses";
+        // $previousPage = $_SERVER['HTTP_REFERER'];
+        // header("Location: $previousPage");
+        header('Location: ' . BASEURL . 'menu.php');
     } catch (PDOException $err) {
         echo $err->getMessage();
     }
