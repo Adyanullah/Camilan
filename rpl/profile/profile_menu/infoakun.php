@@ -49,10 +49,10 @@
       <span class="accountinfo-txt-key">Email</span>
       <span class="accountinfo-txt-value"><?= $_SESSION['user']['EMAIL']; ?></span>
     </div>
-    <div class="accountinfo-txt">
+    <!-- <div class="accountinfo-txt">
       <span class="accountinfo-txt-key">Birthday</span>
       <span class="accountinfo-txt-value">01/01/2000</span>
-    </div>
+    </div> -->
     <div class="accountinfo-txt">
       <span class="accountinfo-txt-key">Phone Number</span>
       <span class="accountinfo-txt-value"><?= $_SESSION['user']['NOMOR_TELPON_CUSTOMER']; ?></span>
