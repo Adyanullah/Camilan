@@ -77,7 +77,7 @@
       ">
       Password
     </div>
-    <a href="#" style="
+    <a href="<?= BASEURL . 'forgotpassword.php' ?>" style="
         color: black;
         font-size: 12px;
         font-family: Inter;

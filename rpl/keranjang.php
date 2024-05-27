@@ -9,18 +9,14 @@ if (!isset($_SESSION['user'])) {
 
 $keranjanganda = getListKeranjang($_SESSION['user']['ID_CUSTOMER']);
 $sumprice = 0;
-
+$berat = 0;
+$stringlist = "";
 foreach ($keranjanganda as $price) {
     $sumprice = $sumprice + $price['TotalHarga'];
     $stringlist = $stringlist . $price['ID_BARANG'] . ',';
+    $berat += 100;
 }
 $stringlist = rtrim($stringlist, ", ");
-
-if (isset($_POST)) {
-    // $data_js = file_get_contents("php://input");
-    // json_decode($data_js, true);
-    $data_js = $_POST['name'];
-}
 
 
 // AMBIL HARGA ONGKIR DARI RAJAONGKIR API------------------------
@@ -28,16 +24,15 @@ if (isset($_POST)) {
 require_once "controller/function/ongkir.php";
 $data = new rajaongkir();
 
-$kota = $data->get_city();
-$kota = json_decode($kota, true);
-$kota = $kota['rajaongkir']['results'];
-
+$kota_tujuan = $_SESSION['user']['ID_KOTA'];
 $kota_asal = 31;
-$kota_tujuan = 31;
-$berat = 100;
 
-$harga_ongkir = json_decode($data->get_cost($kota_asal, $kota_tujuan, $berat, 'jne'), true);
-$cost = $harga_ongkir["rajaongkir"]["results"][0]["costs"][0]["cost"][0]["value"];
+if ($berat > 0) {
+    $harga_ongkir = json_decode($data->get_cost($kota_asal, $kota_tujuan, $berat, 'jne'), true);
+    $cost = $harga_ongkir["rajaongkir"]["results"][0]["costs"][0]["cost"][0]["value"];
+} else {
+    $cost = 0;
+}
 ?>
 
 
@@ -341,10 +336,14 @@ include("templates/navbar.php")
         <div class="address">
             <div class="title-info">Alamat pengiriman</div>
             <div class="address-info" style="display: flex; flex-direction:column; color:white; font-family:'Inter'; font-size:12px; padding: 0.80vh 0 0.80vh 0;">
-                <span>Ahmad Ar-rosyid H. | (+62) 081321801881</span>
-                <span>Kos Novi, Gg. 06, Telang, Kamal</span>
-                <span>Kamal, Bangkalan, Jawa Timur</span>
-                <div class="add-address" style="position: absolute; top:18px; right:20px; font-size:18px; font-family:'Inter';">►</div>
+                <span><?= $_SESSION['user']['NAMA_CUSTOMER']; ?> | <?= $_SESSION['user']['NOMOR_TELPON_CUSTOMER']; ?></span>
+                <span><?= $_SESSION['user']['ALAMAT']; ?></span>
+                <span><?= $_SESSION['user']['KOTA']; ?>, <?= $_SESSION['user']['PROVINSI']; ?></span>
+                <div class="add-address" style="position: absolute; top:18px; right:20px; font-size:18px; font-family:'Inter';">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+                        <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6" />
+                    </svg>
+                </div>
             </div>
         </div>
         <div class="payment-method" style="margin-top: 50px;">
@@ -449,9 +448,6 @@ include("templates/navbar.php")
 
 
 <script>
-    let data_post = {
-        "aku": "dia"
-    }
     let myForm = document.myForm;
     for (var i = 0; i < myForm.length; i++) {
         if (myForm[i].type === 'checkbox') {

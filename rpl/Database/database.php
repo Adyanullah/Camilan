@@ -76,6 +76,16 @@ function getDataPesananDetail($data, $id)
         echo $err->getMessage();
     }
 }
+function DataOrderDetailTransaction($IDORDER)
+{
+    try {
+        $builder = DB->prepare("SELECT b.FOTO_BARANG, b.HARGA_BARANG, d.JUMLAH_PRODUK, b.NAMA_BARANG FROM detail_pesanan d JOIN barang b ON d.ID_BARANG = b.ID_BARANG WHERE d.ID_ORDER = $IDORDER");
+        $builder->execute();
+        return $builder->fetchAll(PDO::FETCH_ASSOC);
+    } catch (PDOException $err) {
+        echo $err->getMessage();
+    }
+}
 
 
 
@@ -84,10 +94,11 @@ function getDataPesananDetail($data, $id)
 // -------------------------------------------------------------------------------------------------------------------------------------
 
 
-function regist($post)
+function regist($post, $kota, $provinsi)
 {
     try {
-        $statement = DB->prepare("INSERT INTO customer (`NAMA_CUSTOMER`, `NOMOR_TELPON_CUSTOMER`, `USERNAME`, `PASSWORD`, `EMAIL`, `ALAMAT`) VALUES (:nama, :nomor, :user, :pass, :email, :alamat)");
+        $statement = DB->prepare("INSERT INTO customer (`NAMA_CUSTOMER`, `NOMOR_TELPON_CUSTOMER`, `USERNAME`, `PASSWORD`, `EMAIL`, `ALAMAT`, `KOTA`, `ID_KOTA`, `PROVINSI`, `ID_PROVINSI`) 
+        VALUES (:nama, :nomor, :user, :pass, :email, :alamat, :kota, :id_kota, :provinsi, :id_provinsi)");
         // $statement->bindValue(':id', htmlspecialchars($post['id']));
         $statement->bindValue(':nama', $post['fullname']);
         $statement->bindValue(':nomor', htmlspecialchars($post['notelp']));
@@ -95,6 +106,10 @@ function regist($post)
         $statement->bindValue(':pass', htmlspecialchars($post['password']));
         $statement->bindValue(':email', $post['email']);
         $statement->bindValue(':alamat', $post['alamat']);
+        $statement->bindValue(':id_kota', $post['kabupaten']);
+        $statement->bindValue(':id_provinsi', $post['provinsi']);
+        $statement->bindValue(':kota', $kota);
+        $statement->bindValue(':provinsi', $provinsi);
         $statement->execute();
     } catch (PDOException $err) {
         echo $err->getMessage();

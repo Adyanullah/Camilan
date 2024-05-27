@@ -4,5 +4,10 @@ require_once('../Database/database.php');
 
 
 updateakun($_POST['password'], $_POST['id']);
-header("Location: ../login.php");
+$_SESSION['status'] = "Berhasil Mengubah Password";
+if (isset($_SESSION['user'])) {
+    header("Location: " . BASEURL . "profile");
+} else {
+    header("Location: ../login.php");
+}
 exit();

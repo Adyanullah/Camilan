@@ -1,6 +1,6 @@
 <?php if (isset($_GET['order_id'])) : ?>
     <?php $order_detail = getDataAllWhere2('pesanan', 'ID_CUSTOMER', $_SESSION['user']['ID_CUSTOMER'], 'AND', 'ID_ORDER', $_GET['order_id']) ?>
-    <?php $order_detail_item = getDataAllWhere('detail_pesanan', 'ID_ORDER', $_GET['order_id']) ?>
+    <?php $order_detail_item = DataOrderDetailTransaction($_GET['order_id']) ?>
     <div id="page5" class="page">
         <div style="margin: 3.9vh 0 2.3vh 0; color: black; font-size: 18px; font-family: Inter; font-weight: 700; word-wrap: break-word"><- Transaction Detail</div>
                 <div class="border border-2" style="width: 49vw; height:20vh; border-radius:1em">
@@ -29,8 +29,21 @@
                 <div style="color: black; font-size: 18px; font-family: Inter; font-weight: 700; word-wrap: break-word">Order Detail</div>
                 <div class="d-flex justify-content-between" style="width: 49vw;">
                     <div style="color: black; font-size: 18px; font-family: Inter; font-weight: 400; word-wrap: break-word">Product</div>
-                    <div style="color: black; font-size: 18px; font-family: Inter; font-weight: 400; word-wrap: break-word">2 Item</div>
+                    <div style="color: black; font-size: 18px; font-family: Inter; font-weight: 400; word-wrap: break-word"><?= count($order_detail_item); ?> Item</div>
                 </div>
-                <div style="width: 49vw; height: 0px; border: 1px #6B6B6B solid"></div>
+                <div class="d-flex flex-column" style="width: 49vw; height: 0px; border: 1px #6B6B6B solid"></div>
+                <?php foreach ($order_detail_item as $orderitem) : ?>
+                    <div class="d-flex my-4">
+                        <div class="pl-2" style="height: 17.4vh; width:12.8vw; background-image: url(<?= BASEURL ?>gambar/produk/<?= $orderitem['FOTO_BARANG'] ?>); background-size: cover; background-position: center; background-repeat: no-repeat;"></div>
+                        <div class="ms-3">
+                            <div class="row">
+                                <div class="fw-bold"><?= $orderitem['NAMA_BARANG']; ?></div>
+                            </div>
+                            <div class="row">
+                                <div style="font-size: 14px;">Qty <?= $orderitem['JUMLAH_PRODUK']; ?> x <?= "Rp." . number_format($orderitem['HARGA_BARANG'], 0, ',', '.'); ?></div>
+                            </div>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
         </div>
     <?php endif; ?>

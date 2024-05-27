@@ -1,6 +1,21 @@
 <?php
 require_once('Database/base.php');
 require_once('Database/database.php');
+
+// AMBIL KOTA ONGKIR DARI RAJAONGKIR API------------------------
+
+require_once "controller/function/ongkir.php";
+$data = new rajaongkir();
+
+$kota = $data->get_city();
+$kota = json_decode($kota, true);
+$kota = $kota['rajaongkir']['results'];
+
+$data_2 = new rajaongkir();
+
+$provinsi = $data_2->get_prov();
+$provinsi = json_decode($provinsi, true);
+$provinsi = $provinsi['rajaongkir']['results'];
 ?>
 
 
@@ -51,8 +66,26 @@ include("templates/navbar.php")
                                     <input type="text" class="form-control" name="notelp" id="" placeholder="Nomor WA" required>
                                 </div>
                                 <div class="col-12">
-                                    <label for="alamat" class="form-label">Alamat : <span class="text-danger">*</span></label>
-                                    <input type="text-area" class="form-control" name="alamat" id="" placeholder="Alamat" required>
+                                    <label for="alamat" class="form-label">Provinsi : <span class="text-danger">*</span></label>
+                                    <select class="form-control selectpicker" name="provinsi" id="" required>
+                                        <option selected>Pilih Provinsi</option>
+                                        <?php foreach ($provinsi as $prov) : ?>
+                                            <option value="<?= $prov['province_id']; ?>"><?= $prov['province']; ?></option>
+                                        <?php endforeach ?>
+                                    </select>
+                                </div>
+                                <div class="col-12">
+                                    <label for="alamat" class="form-label">Kabupaten : <span class="text-danger">*</span></label>
+                                    <select class="form-control selectpicker" name="kabupaten" id="" required>
+                                        <option selected>Pilih Kabupaten</option>
+                                        <?php foreach ($kota as $cities) : ?>
+                                            <option value="<?= $cities['city_id']; ?>"><?= $cities['city_name']; ?></option>
+                                        <?php endforeach ?>
+                                    </select>
+                                </div>
+                                <div class="col-12">
+                                    <label for="alamat" class="form-label">Detail Lainnya : <span class="text-danger">*</span></label>
+                                    <input type="text-area" class="form-control" name="alamat" id="" placeholder="Desa, Jalan, No., Gedung, Etc." required>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-check">
@@ -75,7 +108,7 @@ include("templates/navbar.php")
                                 <p class="m-0 text-secondary text-center">Already have an account? <a href="login.php" class="link-primary text-decoration-none">Sign in</a></p>
                             </div>
                         </div>
-                        <div class="row">
+                        <!-- <div class="row">
                             <div class="col-12">
                                 <p class="mt-5 mb-4">Or sign in with</p>
                                 <div class="d-flex gap-3 flex-column flex-xl-row">
@@ -99,7 +132,7 @@ include("templates/navbar.php")
                                     </a>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -110,3 +143,8 @@ include("templates/navbar.php")
 
 
 <?php include("templates/footer.php") ?>
+<script>
+    $(function() {
+        $('.selectpicker').selectpicker();
+    });
+</script>
