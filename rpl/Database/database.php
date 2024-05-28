@@ -36,6 +36,37 @@ function getDataAllWhere($table, $column, $id)
         echo $err->getMessage();
     }
 }
+function getDataAllJoin($table, $column, $columnid)
+{
+    try {
+        $statement = DB->prepare("SELECT * FROM $table JOIN $column ON $table.$columnid = $column.$columnid");
+        $statement->execute();
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    } catch (PDOException $err) {
+        echo $err->getMessage();
+    }
+}
+function getDataAllJoinWhere($table, $column, $columnid, $columnWhere, $WhereId)
+{
+    try {
+        $statement = DB->prepare("SELECT * FROM $table JOIN $column ON $table.$columnid = $column.$columnid WHERE $columnWhere = :id");
+        $statement->bindValue(':id', $WhereId);
+        $statement->execute();
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    } catch (PDOException $err) {
+        echo $err->getMessage();
+    }
+}
+function getDataAllJoinLimit($table, $column, $columnid, $start, $perpage)
+{
+    try {
+        $statement = DB->prepare("SELECT * FROM $table JOIN $column ON $table.$columnid = $column.$columnid LIMIT $start, $perpage");
+        $statement->execute();
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    } catch (PDOException $err) {
+        echo $err->getMessage();
+    }
+}
 function getDataAllWhere2($table, $column, $id, $AND_OR, $column2, $id2)
 {
     try {
