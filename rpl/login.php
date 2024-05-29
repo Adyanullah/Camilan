@@ -27,9 +27,13 @@ include("templates/navbar.php")
                         </div>
                         <form action="<?= BASEURL . 'autentikasi/loginauth.php' ?>" method="post">
                             <div class="row gy-3 gy-md-4 overflow-hidden">
-                                <div class="col-12">
+                                <!-- <div class="col-12">
                                     <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
                                     <input type="email" class="form-control" name="email" id="email" placeholder="name@example.com" required>
+                                </div>                                 -->
+                                <div class="col-12">
+                                    <label for="username" class="form-label">Email <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" name="username" placeholder="your username" required>
                                 </div>
                                 <div class="col-12">
                                     <label for="password" class="form-label">Password <span class="text-danger">*</span></label>

@@ -27,5 +27,15 @@
         </div>
     </div>
     <div class="layar-admin bg-white" style="width: 79vw; height:100vh;">
-        <div class="navbar-admin" style="background-color: #000; height: 14%; width:100%;"></div>
-        <div class="content-menu" style="height: 86%; width:100%; display:flex; flex-direction:column; align-items:center;">
+        <div class="navbar-admin d-flex align-items-center justify-content-between px-5" style="background-color: #000; height: 14%; width:100%;">
+            <div style="width: 32px; height: 18px; position: relative">
+                <div style="width: 32px; height: 2px; left: 0px; top: 16px; position: absolute; background: white"></div>
+                <div style="width: 32px; height: 2px; left: 0px; top: 0px; position: absolute; background: white"></div>
+                <div style="width: 32px; height: 2px; left: 0px; top: 8px; position: absolute; background: white"></div>
+            </div>
+            <div style="width: 414px; height: 44px; text-align: center; color: white; font-size: 40px; font-family: Kaushan Script; font-weight: 400; word-wrap: break-word">Manajemen Transaksi</div>
+            <div style="width: 52px; height: 72px; position: relative">
+                <img style="width: 52px; height: 72px; left: 0px; top: 0px; position: absolute" src="<?= BASEURL . 'gambar/Logo.png' ?>" />
+            </div>
+        </div>
+        <div class="content-menu pt-5" style="height: 86%; width:100%; display:flex; flex-direction:column; align-items:center;">

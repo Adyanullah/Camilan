@@ -23,9 +23,9 @@ $pesanan = getDataAllJoinLimit('pesanan', 'customer', 'ID_CUSTOMER', $start, $pe
 <?php include("../templates/header-admin.php") ?>
 
 
-<div class="my-4" style="width: 305px; height: 63px; background: rgba(217, 217, 217, 0); border: 1px black solid;">
+<!-- <div class="my-4" style="width: 305px; height: 63px; background: rgba(217, 217, 217, 0); border: 1px black solid;">
     <div style="padding-top:5%; width: 100%; text-align: center; font-size: 20px; font-family: Inter; font-weight: 400; word-wrap: break-word">Management Transaksi</div>
-</div>
+</div> -->
 <?php $table_color = "#D9D9D9;" ?>
 <div class="row" style="width: 85%;">
     <div class="border border-dark py-4 fw-bold col-sm-1 text-center" style="background-color: <?= $table_color; ?>;">No.</div>
