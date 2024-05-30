@@ -54,14 +54,14 @@ foreach ($pesanan as $order) :
                 </a>
             </div>
             <div class="border border-dark py-3 fw-bold col text-center d-flex flex-column justify-content-center align-items-center" style="background-color: <?= $table_color; ?>;">
-                <a href="#" style="border-radius:1rem; border:1px solid #7DE9A8; background-color: #7DE9A8; font-size:14px; width:45%; color:#000; text-decoration:none;">
+                <a href="<?= BASEURL . 'controller/admin/confirm-order.php?Order=' . $order['ID_ORDER']; ?>" style="border-radius:1rem; border:1px solid #7DE9A8; background-color: #7DE9A8; font-size:14px; width:45%; color:#000; text-decoration:none;">
                     Konfirmasi
                 </a>
             </div>
         <?php else : ?>
             <div class="border border-dark py-3 fw-bold col text-center d-flex flex-column align-items-center" style="background-color: <?= $table_color; ?>;">
-                <div style="color: red; font-size: 12px">Pesanan Telah Dikonfirmasi</div>
-                <a href="detail_pesanan.php?DetailPesanan=<?= $order['ID_ORDER'] ?>" style="width:35%; border: 1px solid red; border-radius:1rem; background-color:red; text-decoration:none; color:black;">
+                <div style="color: green; font-size: 12px">Pesanan Telah Dikonfirmasi</div>
+                <a href="detail_pesanan.php?DetailPesanan=<?= $order['ID_ORDER'] ?>" style="width:35%; border: 1px solid green; border-radius:1rem; background-color:green; text-decoration:none; color:black;">
                     <div class="p-0 m-0" style="font-size: 10px; text-align:center;">Detail Pesanan</div>
                 </a>
             </div>

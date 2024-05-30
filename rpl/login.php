@@ -32,7 +32,7 @@ include("templates/navbar.php")
                                     <input type="email" class="form-control" name="email" id="email" placeholder="name@example.com" required>
                                 </div>                                 -->
                                 <div class="col-12">
-                                    <label for="username" class="form-label">Email <span class="text-danger">*</span></label>
+                                    <label for="username" class="form-label">Username <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" name="username" placeholder="your username" required>
                                 </div>
                                 <div class="col-12">

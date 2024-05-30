@@ -1,5 +1,7 @@
 <?php
-//ambil data spesifik dari suatu tabel berdasarkan id
+// -------------------------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------- U N I V E R S A L F U N C T I O N -----------------------------------------------------
+// -------------------------------------------------------------------------------------------------------------------------------------
 function getData($data, $table, $id)
 {
     try {
@@ -83,7 +85,23 @@ function getDataAllWhere2($table, $column, $id, $AND_OR, $column2, $id2)
         echo $err->getMessage();
     }
 }
-//Pesanan
+
+function updatevalue($table, $column, $change, $column_condition, $id)
+{
+    try {
+        $builder = DB->prepare("UPDATE $table SET $column = :change WHERE $column_condition = :id");
+        $builder->bindValue(':change', $change);
+        $builder->bindValue(':id', $id);
+        $builder->execute();
+    } catch (PDOException $err) {
+        echo $err->getMessage();
+    }
+}
+
+// -------------------------------------------------------------------------------------------------------------------------------------
+// ---------------------------------------------- K E L O L A    P E S A N A N ---------------------------------------------------------
+// -------------------------------------------------------------------------------------------------------------------------------------
+
 function getDataPesanan($data, $id)
 {
     try {
@@ -147,17 +165,6 @@ function regist($post, $kota, $provinsi)
     }
 }
 
-function updateakun($change, $id)
-{
-    try {
-        $builder = DB->prepare("UPDATE customer SET PASSWORD = :change WHERE ID_CUSTOMER = :id");
-        $builder->bindValue(':change', $change);
-        $builder->bindValue(':id', $id);
-        $builder->execute();
-    } catch (PDOException $err) {
-        echo $err->getMessage();
-    }
-}
 
 // -------------------------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------- K E L O L A    P R O D U K -----------------------------------------------------
@@ -175,12 +182,13 @@ function addProduct($post)
 
         $supplier = '1010';
 
-        $statement = DB->prepare("INSERT INTO barang (`ID_KATEGORI`, `ID_SUPPLIER`, `NAMA_BARANG`, `HARGA_BARANG`, `STOCK`, `FOTO_BARANG`) VALUES (:kategori, :supplier, :nama, :harga, :stock, :foto)");
+        $statement = DB->prepare("INSERT INTO barang (`ID_KATEGORI`, `ID_SUPPLIER`, `NAMA_BARANG`, `HARGA_BARANG`, `STOCK`, `FOTO_BARANG`, `Deskripsi`) VALUES (:kategori, :supplier, :nama, :harga, :stock, :foto, :deskripsi)");
         $statement->bindValue(':kategori', $post[0]['kategori']);
         $statement->bindValue(':supplier', $supplier);
         $statement->bindValue(':nama', $post[0]['namaproduk']);
         $statement->bindValue(':harga', $post[0]['hargaproduk']);
         $statement->bindValue(':stock', $post[0]['stockproduk']);
+        $statement->bindValue(':deskripsi', $post[0]['deskripsi']);
         $statement->bindValue(':foto', $new);
         $statement->execute();
     } catch (PDOException $err) {
