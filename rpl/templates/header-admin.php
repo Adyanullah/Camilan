@@ -20,7 +20,7 @@
         </div>
         <div class="sidebar-menu d-flex flex-column" style="background-color: #3E3E3E; height: 84%; width:100%;">
             <div style="margin: 20px 0 0 0; text-align: center; color: white; font-size: 20px; font-family: Inter; font-weight: 400; word-wrap: break-word">Halaman Utama</div>
-            <a href="<?= BASEURL . 'admin/detail_produk.php' ?>" style="margin: 20px 0 0 0; text-align: center; color: white; font-size: 20px; font-family: Inter; font-weight: 400; word-wrap: break-word">Detail Produk</a>
+            <a href="<?= BASEURL . 'admin/listallproduk.php' ?>" style="margin: 20px 0 0 0; text-align: center; color: white; font-size: 20px; font-family: Inter; font-weight: 400; word-wrap: break-word">Detail Produk</a>
             <a href="<?= BASEURL . 'admin/index.php' ?>" style="margin: 20px 0 0 0; text-align: center; color: white; font-size: 20px; font-family: Inter; font-weight: 400; word-wrap: break-word">Management Transaksi</a>
             <a href="<?= BASEURL . 'admin/tambahproduk.php' ?>" style="margin: 20px 0 0 0; text-align: center; color: white; font-size: 20px; font-family: Inter; font-weight: 400; word-wrap: break-word">Tambah Produk</a>
             <div style="margin: 20px 0 0 0; text-align: center; color: white; font-size: 20px; font-family: Inter; font-weight: 400; word-wrap: break-word">Detail Pesanan</div>

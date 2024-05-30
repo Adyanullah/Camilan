@@ -1,6 +1,12 @@
 <?php
 require_once('../Database/base.php');
 require_once('../Database/database.php');
+
+if (!isset($_SESSION['user'])) {
+    header('location: login.php');
+    exit();
+}
+
 ?>
 
 <style>
