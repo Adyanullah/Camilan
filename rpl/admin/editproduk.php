@@ -1,3 +1,4 @@
+<?php $title = "Edit Produk"; ?>
 <?php
 require_once('../Database/base.php');
 require_once('../Database/database.php');

@@ -303,14 +303,14 @@ include("templates/navbar.php")
                         <div class="card" style="margin:1.25vh; margin-left:0; width: 100px; height:80px; border-radius:0;"><img src="gambar/produk/<?= $kanda['FOTO_BARANG'] ?>" alt="produk" style="max-width: 100%; max-height: 100%;"></div>
                         <div class="descpro">
                             <span class="titlepro"><?= $kanda['NAMA_BARANG']; ?></span>
-                            <span>( <?= $kanda['Berat']; ?>g ) Pedas</span>
+                            <span>( <?= $kanda['Berat'] / $kanda['Jumlah']; ?>g ) Pedas</span>
                             <span class="singleprice"><?= "Rp. " . number_format($kanda['HARGA_BARANG'], 0, ',', '.'); ?> / pcs</span>
                         </div>
-                        <a href="controller/transaksi/plus_onecartpieces.php?pro=<?= $kanda['ID_BARANG']; ?>">
+                        <a href="controller/transaksi/plus_onecartpieces.php?pro=<?= $kanda['ID_BARANG']; ?>&w=<?= $kanda['ID_UKURAN']; ?>">
                             <div class="plus"><span style="font-size: 18px;color:white;display:flex;justify-content:center;text-align:center;">+</span></div>
                         </a>
                         <div class="qty"><?= $kanda['Jumlah']; ?></div>
-                        <a href="controller/transaksi/min_onecartpieces.php?pro=<?= $kanda['ID_BARANG']; ?>">
+                        <a href="controller/transaksi/min_onecartpieces.php?pro=<?= $kanda['ID_BARANG']; ?>&w=<?= $kanda['ID_UKURAN']; ?>">
                             <div class="min"><span style="font-size: 18px;color:white;">-</span></div>
                         </a>
                         <a href="<?= BASEURL . 'controller/transaksi/hapusbarangkeranjang.php?pro=' . $kanda['ID_BARANG']; ?>" class="x">✘</a>

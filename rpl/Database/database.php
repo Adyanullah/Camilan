@@ -38,6 +38,16 @@ function getDataAllWhere($table, $column, $id)
         echo $err->getMessage();
     }
 }
+function getDataAllWhereIN($table, $column, $str_array)
+{
+    try {
+        $statement = DB->prepare("SELECT * FROM $table WHERE $column IN (" . $str_array . ")");
+        $statement->execute();
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    } catch (PDOException $err) {
+        echo $err->getMessage();
+    }
+}
 function getDataAllJoin($table, $column, $columnid)
 {
     try {
@@ -255,14 +265,31 @@ function deletebarang($id)
 // ---------------------------------------------- K E L O L A    K E R A N J A N G -----------------------------------------------------
 // -------------------------------------------------------------------------------------------------------------------------------------
 
-
-function insertcart($id, $ip)
+function insertcart($POST)
 {
     try {
-        $statement = DB->prepare("INSERT INTO keranjang(ID_BARANG, ID_CUSTOMER) VALUES(:idProduk, :idCust)");
+        $statement = DB->prepare("INSERT INTO keranjang(ID_BARANG, ID_CUSTOMER, ID_UKURAN) VALUES(:idProduk, :idCust, :ukuran)");
+
+        $statement->bindValue(':idProduk', $_POST['idbarang']);
+        $statement->bindValue(':idCust', $_SESSION['user']['ID_CUSTOMER']);
+        $statement->bindValue(':ukuran', $_POST['idukuran']);
+        $statement->execute();
+
+        $st = DB->prepare("UPDATE barang SET STOCK = STOCK-1 WHERE ID_BARANG = :id");
+        $st->bindValue(':id',  $_POST['idbarang']);
+        $st->execute();
+    } catch (PDOException $err) {
+        echo $err->getMessage();
+    }
+}
+function pluscart($id, $ip, $ukuran)
+{
+    try {
+        $statement = DB->prepare("INSERT INTO keranjang(ID_BARANG, ID_CUSTOMER, ID_UKURAN) VALUES(:idProduk, :idCust, :ukuran)");
 
         $statement->bindValue(':idProduk', $id);
         $statement->bindValue(':idCust', $ip);
+        $statement->bindValue(':ukuran', $ukuran);
         $statement->execute();
 
         $st = DB->prepare("UPDATE barang SET STOCK = STOCK-1 WHERE ID_BARANG = :id");
@@ -275,12 +302,13 @@ function insertcart($id, $ip)
         echo $err->getMessage();
     }
 }
-function mincart($id, $ip)
+function mincart($id, $ip, $ukuran)
 {
     try {
-        $statement = DB->prepare("DELETE FROM keranjang WHERE ID_BARANG = :idproduk AND ID_CUSTOMER = :idCust LIMIT 1");
+        $statement = DB->prepare("DELETE FROM keranjang WHERE ID_BARANG = :idproduk AND ID_CUSTOMER = :idCust AND ID_UKURAN = :ukuran LIMIT 1");
         $statement->bindValue(':idproduk', $id);
         $statement->bindValue(':idCust', $ip);
+        $statement->bindValue(':ukuran', $ukuran);
         $statement->execute();
 
         $st = DB->prepare("UPDATE barang SET STOCK = STOCK + 1 WHERE ID_BARANG = :id");
@@ -301,12 +329,12 @@ function mincart($id, $ip)
 function getListKeranjang($id)
 {
     try {
-        $statement = DB->prepare("SELECT barang.ID_BARANG, barang.ID_KATEGORI, barang.NAMA_BARANG, barang.HARGA_BARANG, barang.STOCK, barang.FOTO_BARANG, barang.Deskripsi, keranjang.ID_KERANJANG, COUNT(barang.ID_BARANG) AS Jumlah, barang.HARGA_BARANG * COUNT(barang.ID_BARANG) AS TotalHarga, SUM(ukuran_barang.BERAT) AS Berat
+        $statement = DB->prepare("SELECT barang.ID_BARANG, barang.ID_KATEGORI, barang.NAMA_BARANG, barang.HARGA_BARANG, barang.STOCK, barang.FOTO_BARANG, barang.Deskripsi, keranjang.ID_KERANJANG, keranjang.ID_UKURAN, COUNT(barang.ID_BARANG) AS Jumlah, barang.HARGA_BARANG * COUNT(barang.ID_BARANG) AS TotalHarga, SUM(ukuran_barang.BERAT) AS Berat
         FROM keranjang
         JOIN ukuran_barang ON keranjang.ID_UKURAN = ukuran_barang.ID_UKURAN
         JOIN barang ON keranjang.ID_BARANG = barang.ID_BARANG 
         WHERE keranjang.ID_CUSTOMER = :id
-        GROUP BY barang.ID_BARANG
+        GROUP BY barang.ID_BARANG, ukuran_barang.ID_UKURAN
     ");
         $statement->bindValue(':id', $id);
         $statement->execute();
@@ -338,7 +366,7 @@ function Pesan($user, $total, $str_array_keranjang)
         JOIN ukuran_barang ON k.ID_UKURAN = ukuran_barang.ID_UKURAN
         JOIN barang AS b ON k.ID_BARANG = b.ID_BARANG
         WHERE k.ID_CUSTOMER = :idcustomer AND k.ID_BARANG IN (" . $str_array_keranjang . ")
-        GROUP BY k.ID_CUSTOMER, k.ID_BARANG;
+        GROUP BY k.ID_CUSTOMER, k.ID_BARANG, ukuran_barang.ID_UKURAN;
         ");
         $query_barang->bindValue(':idcustomer', $user);
         $query_barang->execute();
@@ -362,6 +390,24 @@ function Pesan($user, $total, $str_array_keranjang)
         // $previousPage = $_SERVER['HTTP_REFERER'];
         // header("Location: $previousPage");
         header('Location: ' . BASEURL . 'menu.php');
+    } catch (PDOException $err) {
+        echo $err->getMessage();
+    }
+}
+
+
+// -------------------------------------------------------------------------------------------------------------------------------------
+// ---------------------------------------------- K E L O L A    K O M E N T A R -------------------------------------------------------
+// -------------------------------------------------------------------------------------------------------------------------------------
+
+function say_comment($POST)
+{
+    try {
+        $statement = DB->prepare("INSERT INTO `komentar`(`ID_CUSTOMER`, `ID_BARANG`, `ISI_KOMENTAR`) VALUES (:user, :barang, :comment)");
+        $statement->bindValue(":user", $POST['iduser']);
+        $statement->bindValue(":barang", $POST['idbarang']);
+        $statement->bindValue(":comment", $POST['komentar']);
+        $statement->execute();
     } catch (PDOException $err) {
         echo $err->getMessage();
     }

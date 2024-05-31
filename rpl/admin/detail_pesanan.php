@@ -1,3 +1,4 @@
+<?php $title = "Detail Pesanan"; ?>
 <?php
 require_once('../Database/base.php');
 require_once('../Database/database.php');
