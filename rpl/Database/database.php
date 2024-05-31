@@ -190,12 +190,9 @@ function addProduct($post)
         $new = time() . $img;
         move_uploaded_file($tmp, $dir . $new);
 
-        $supplier = '1010';
-
-        $statement = DB->prepare("INSERT INTO barang (`ID_KATEGORI`, `ID_SUPPLIER`, `NAMA_BARANG`, `HARGA_BARANG`, `STOCK`, `FOTO_BARANG`, `Deskripsi`, `Ukuran`) 
-        VALUES (:kategori, :supplier, :nama, :harga, :stock, :foto, :deskripsi, :ukuran)");
+        $statement = DB->prepare("INSERT INTO barang (`ID_KATEGORI`, `NAMA_BARANG`, `HARGA_BARANG`, `STOCK`, `FOTO_BARANG`, `Deskripsi`, `Ukuran`) 
+        VALUES (:kategori, :nama, :harga, :stock, :foto, :deskripsi, :ukuran)");
         $statement->bindValue(':kategori', $post[0]['kategori']);
-        $statement->bindValue(':supplier', $supplier);
         $statement->bindValue(':nama', $post[0]['namaproduk']);
         $statement->bindValue(':harga', $post[0]['hargaproduk']);
         $statement->bindValue(':stock', $post[0]['stockproduk']);
@@ -216,11 +213,8 @@ function updateProduct($post)
         $new = time() . $img;
         move_uploaded_file($tmp, $dir . $new);
 
-        $supplier = '1010';
-
-        $statement = DB->prepare("UPDATE `barang` SET `ID_KATEGORI`=:kategori,`ID_SUPPLIER`=:supplier,`NAMA_BARANG`=:nama,`HARGA_BARANG`=:harga,`STOCK`=:stock,`FOTO_BARANG`=:foto,`Deskripsi`=:deskripsi, `Ukuran`=:ukuran WHERE `ID_BARANG`=:id");
+        $statement = DB->prepare("UPDATE `barang` SET `ID_KATEGORI`=:kategori,`NAMA_BARANG`=:nama,`HARGA_BARANG`=:harga,`STOCK`=:stock,`FOTO_BARANG`=:foto,`Deskripsi`=:deskripsi, `Ukuran`=:ukuran WHERE `ID_BARANG`=:id");
         $statement->bindValue(':kategori', $post[0]['kategori']);
-        $statement->bindValue(':supplier', $supplier);
         $statement->bindValue(':nama', $post[0]['namaproduk']);
         $statement->bindValue(':harga', $post[0]['hargaproduk']);
         $statement->bindValue(':stock', $post[0]['stockproduk']);
