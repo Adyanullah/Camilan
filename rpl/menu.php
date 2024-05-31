@@ -76,6 +76,7 @@ $produk = getDataAll('barang');
     background: #2F2F2F;
     gap: 0px;
     opacity: 0px;
+    margin-top:-10vh;
     ">
     <h1 style="margin: 4vh; color: white; font-family: 'La Belle Aurore';
         font-size: 64px;

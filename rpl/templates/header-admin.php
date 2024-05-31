@@ -33,7 +33,7 @@
                 <div style="width: 32px; height: 2px; left: 0px; top: 0px; position: absolute; background: white"></div>
                 <div style="width: 32px; height: 2px; left: 0px; top: 8px; position: absolute; background: white"></div>
             </div>
-            <div style="width: 414px; height: 44px; text-align: center; color: white; font-size: 40px; font-family: Kaushan Script; font-weight: 400; word-wrap: break-word">Manajemen Transaksi</div>
+            <div style="width: 50vw; text-align: center; color: white; font-size: 40px; font-family: Kaushan Script; font-weight: 400; word-wrap: break-word; padding-left:8vw;">Manajemen Transaksi</div>
             <div class="d-flex justify-content-around align-items-center" style="width: 10vw; height: 72px;">
                 <img class="mx-2" style="width: 52px; height: 52px; border-radius: 9999px" src="<?= BASEURL . 'gambar/profile/Default-Profile.svg' ?>" />
                 <img class="mx-2" style="width: 52px; height: 72px;" src="<?= BASEURL . 'gambar/Logo.png' ?>" />

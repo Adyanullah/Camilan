@@ -190,6 +190,31 @@ function addProduct($post)
         $statement->bindValue(':stock', $post[0]['stockproduk']);
         $statement->bindValue(':deskripsi', $post[0]['deskripsi']);
         $statement->bindValue(':foto', $new);
+        $statement->bindValue(':id', $post[0]['idbarang']);
+        $statement->execute();
+    } catch (PDOException $err) {
+        echo $err->getMessage();
+    }
+}
+function updateProduct($post)
+{
+    try {
+        $img = $post[1]['fotoproduk']['name'];
+        $tmp = $post[1]['fotoproduk']['tmp_name'];
+        $dir = "../../gambar/produk/";
+        $new = time() . $img;
+        move_uploaded_file($tmp, $dir . $new);
+
+        $supplier = '1010';
+
+        $statement = DB->prepare("UPDATE `barang` SET `ID_KATEGORI`=:kategori,`ID_SUPPLIER`=:supplier,`NAMA_BARANG`=:nama,`HARGA_BARANG`=:harga,`STOCK`=:stock,`FOTO_BARANG`=:foto,`Deskripsi`=:deskripsi WHERE `ID_BARANG`=:id");
+        $statement->bindValue(':kategori', $post[0]['kategori']);
+        $statement->bindValue(':supplier', $supplier);
+        $statement->bindValue(':nama', $post[0]['namaproduk']);
+        $statement->bindValue(':harga', $post[0]['hargaproduk']);
+        $statement->bindValue(':stock', $post[0]['stockproduk']);
+        $statement->bindValue(':deskripsi', $post[0]['deskripsi']);
+        $statement->bindValue(':foto', $new);
         $statement->execute();
     } catch (PDOException $err) {
         echo $err->getMessage();
