@@ -5,5 +5,6 @@ require_once('../../Database/database.php');
 
 updateProduct([$_POST, $_FILES]);
 
-header("Location: ../tambahproduk.php");
+$previousPage = $_SERVER['HTTP_REFERER'];
+header("Location: $previousPage");
 exit();

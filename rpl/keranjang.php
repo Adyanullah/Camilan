@@ -14,7 +14,7 @@ $stringlist = "";
 foreach ($keranjanganda as $price) {
     $sumprice = $sumprice + $price['TotalHarga'];
     $stringlist = $stringlist . $price['ID_BARANG'] . ',';
-    $berat += 100;
+    $berat += $price['Berat'];
 }
 $stringlist = rtrim($stringlist, ", ");
 
@@ -298,14 +298,12 @@ include("templates/navbar.php")
                 <?php foreach ($keranjanganda as $kanda) : ?>
                     <div class="d-flex barang">
                         <div class="d-flex justify-content-center" style="align-items:center; width: 100px; color:white">
-                            <!-- <input class="form-check-input square" type="checkbox" name="radioprice" id="checkboxNoLabel" value="<?= $kanda['TotalHarga']; ?>" aria-label="..."> -->
                             <input class="form-check-input square" type="checkbox" name="radioprice" id="checkboxNoLabel" value="<?= $kanda['ID_BARANG']; ?> <?= $kanda['TotalHarga']; ?>" checked>
-                            <!-- <div class="x-constant">✘</div> -->
                         </div>
                         <div class="card" style="margin:1.25vh; margin-left:0; width: 100px; height:80px; border-radius:0;"><img src="gambar/produk/<?= $kanda['FOTO_BARANG'] ?>" alt="produk" style="max-width: 100%; max-height: 100%;"></div>
                         <div class="descpro">
                             <span class="titlepro"><?= $kanda['NAMA_BARANG']; ?></span>
-                            <span>( 100 g ) Pedas</span>
+                            <span>( <?= $kanda['Berat']; ?>g ) Pedas</span>
                             <span class="singleprice"><?= "Rp. " . number_format($kanda['HARGA_BARANG'], 0, ',', '.'); ?> / pcs</span>
                         </div>
                         <a href="controller/transaksi/plus_onecartpieces.php?pro=<?= $kanda['ID_BARANG']; ?>">

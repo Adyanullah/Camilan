@@ -182,7 +182,8 @@ function addProduct($post)
 
         $supplier = '1010';
 
-        $statement = DB->prepare("INSERT INTO barang (`ID_KATEGORI`, `ID_SUPPLIER`, `NAMA_BARANG`, `HARGA_BARANG`, `STOCK`, `FOTO_BARANG`, `Deskripsi`) VALUES (:kategori, :supplier, :nama, :harga, :stock, :foto, :deskripsi)");
+        $statement = DB->prepare("INSERT INTO barang (`ID_KATEGORI`, `ID_SUPPLIER`, `NAMA_BARANG`, `HARGA_BARANG`, `STOCK`, `FOTO_BARANG`, `Deskripsi`, `Ukuran`) 
+        VALUES (:kategori, :supplier, :nama, :harga, :stock, :foto, :deskripsi, :ukuran)");
         $statement->bindValue(':kategori', $post[0]['kategori']);
         $statement->bindValue(':supplier', $supplier);
         $statement->bindValue(':nama', $post[0]['namaproduk']);
@@ -190,7 +191,7 @@ function addProduct($post)
         $statement->bindValue(':stock', $post[0]['stockproduk']);
         $statement->bindValue(':deskripsi', $post[0]['deskripsi']);
         $statement->bindValue(':foto', $new);
-        $statement->bindValue(':id', $post[0]['idbarang']);
+        $statement->bindValue(':ukuran', $post[0]['berat']);
         $statement->execute();
     } catch (PDOException $err) {
         echo $err->getMessage();
@@ -207,7 +208,7 @@ function updateProduct($post)
 
         $supplier = '1010';
 
-        $statement = DB->prepare("UPDATE `barang` SET `ID_KATEGORI`=:kategori,`ID_SUPPLIER`=:supplier,`NAMA_BARANG`=:nama,`HARGA_BARANG`=:harga,`STOCK`=:stock,`FOTO_BARANG`=:foto,`Deskripsi`=:deskripsi WHERE `ID_BARANG`=:id");
+        $statement = DB->prepare("UPDATE `barang` SET `ID_KATEGORI`=:kategori,`ID_SUPPLIER`=:supplier,`NAMA_BARANG`=:nama,`HARGA_BARANG`=:harga,`STOCK`=:stock,`FOTO_BARANG`=:foto,`Deskripsi`=:deskripsi, `Ukuran`=:ukuran WHERE `ID_BARANG`=:id");
         $statement->bindValue(':kategori', $post[0]['kategori']);
         $statement->bindValue(':supplier', $supplier);
         $statement->bindValue(':nama', $post[0]['namaproduk']);
@@ -215,6 +216,8 @@ function updateProduct($post)
         $statement->bindValue(':stock', $post[0]['stockproduk']);
         $statement->bindValue(':deskripsi', $post[0]['deskripsi']);
         $statement->bindValue(':foto', $new);
+        $statement->bindValue(':id', $post[0]['idbarang']);
+        $statement->bindValue(':ukuran', $post[0]['berat']);
         $statement->execute();
     } catch (PDOException $err) {
         echo $err->getMessage();
@@ -298,17 +301,11 @@ function mincart($id, $ip)
 function getListKeranjang($id)
 {
     try {
-        // $statement = DB->prepare("SELECT *
-        // FROM keranjang
-        // INNER JOIN barang ON keranjang.ID_BARANG = barang.ID_BARANG WHERE keranjang.ID_CUSTOMER = :id;
-        // ");
-        // $statement->bindValue(':id', $id);
-        // $statement->execute();
-        // return $statement->fetchAll(PDO::FETCH_ASSOC);
-
-        $statement = DB->prepare("SELECT barang.ID_BARANG, barang.ID_KATEGORI, barang.NAMA_BARANG, barang.HARGA_BARANG, barang.STOCK, barang.FOTO_BARANG, barang.Deskripsi, keranjang.ID_KERANJANG, COUNT(barang.ID_BARANG) AS Jumlah, barang.HARGA_BARANG * COUNT(barang.ID_BARANG) AS TotalHarga
+        $statement = DB->prepare("SELECT barang.ID_BARANG, barang.ID_KATEGORI, barang.NAMA_BARANG, barang.HARGA_BARANG, barang.STOCK, barang.FOTO_BARANG, barang.Deskripsi, keranjang.ID_KERANJANG, COUNT(barang.ID_BARANG) AS Jumlah, barang.HARGA_BARANG * COUNT(barang.ID_BARANG) AS TotalHarga, SUM(ukuran_barang.BERAT) AS Berat
         FROM keranjang
-        INNER JOIN barang ON keranjang.ID_BARANG = barang.ID_BARANG WHERE keranjang.ID_CUSTOMER = :id
+        JOIN ukuran_barang ON keranjang.ID_UKURAN = ukuran_barang.ID_UKURAN
+        JOIN barang ON keranjang.ID_BARANG = barang.ID_BARANG 
+        WHERE keranjang.ID_CUSTOMER = :id
         GROUP BY barang.ID_BARANG
     ");
         $statement->bindValue(':id', $id);
@@ -336,8 +333,9 @@ function Pesan($user, $total, $str_array_keranjang)
 
         $id_pesanan = DB->LastInsertId();
         $query_barang = DB->prepare("
-        SELECT k.ID_CUSTOMER, k.ID_BARANG, COUNT(k.ID_BARANG) AS QTY, SUM(b.HARGA_BARANG) AS TOTAL_HARGA
+        SELECT k.ID_CUSTOMER, k.ID_BARANG, COUNT(k.ID_BARANG) AS QTY, SUM(b.HARGA_BARANG) AS TOTAL_HARGA, ukuran_barang.BERAT * COUNT(k.ID_BARANG) AS TotalBerat
         FROM keranjang AS k
+        JOIN ukuran_barang ON k.ID_UKURAN = ukuran_barang.ID_UKURAN
         JOIN barang AS b ON k.ID_BARANG = b.ID_BARANG
         WHERE k.ID_CUSTOMER = :idcustomer AND k.ID_BARANG IN (" . $str_array_keranjang . ")
         GROUP BY k.ID_CUSTOMER, k.ID_BARANG;
@@ -347,11 +345,12 @@ function Pesan($user, $total, $str_array_keranjang)
         $query_barang = $query_barang->fetchAll(PDO::FETCH_ASSOC);
 
         foreach ($query_barang as $menu) {
-            $insert_pesanan =  DB->prepare("INSERT INTO detail_pesanan(ID_BARANG, ID_ORDER, JUMLAH_PRODUK, HARGA) VALUES(:id_barang, :id_order, :qty, :harga)");
+            $insert_pesanan =  DB->prepare("INSERT INTO detail_pesanan(ID_BARANG, ID_ORDER, JUMLAH_PRODUK, HARGA, BERAT) VALUES(:id_barang, :id_order, :qty, :harga, :totalweight)");
             $insert_pesanan->bindValue('id_barang', $menu['ID_BARANG']);
             $insert_pesanan->bindValue('id_order', $id_pesanan);
             $insert_pesanan->bindValue('qty', $menu['QTY']);
             $insert_pesanan->bindValue(':harga', $menu['TOTAL_HARGA']);
+            $insert_pesanan->bindValue(':totalweight', $menu['TotalBerat']);
             $insert_pesanan->execute();
         }
 
