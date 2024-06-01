@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 31, 2024 at 06:01 PM
+-- Generation Time: Jun 01, 2024 at 05:24 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -106,18 +106,6 @@ CREATE TABLE `customer` (
 INSERT INTO `customer` (`NAMA_CUSTOMER`, `ID_CUSTOMER`, `NOMOR_TELPON_CUSTOMER`, `USERNAME`, `PASSWORD`, `EMAIL`, `ALAMAT`, `KOTA`, `ID_KOTA`, `PROVINSI`, `ID_PROVINSI`, `FOTO`) VALUES
 ('Ahmad Ar rosyid Hidayatullah', 1, '088888888888', 'Rosyid711', 'sayasukakrupuk', 'rosyi.drey@gmail.com', 'Sukodadi', 'Lamongan', 222, 'Jawa Timur', 11, 'Default-Profile.svg'),
 ('Adyan', 2, '081357999222', 'adyan98', '123456', 'adyan@gmail.com', 'Babat, Sukodadi, Jalan Kartini No.99 Kiri Jalan', 'Lamongan', 222, 'Jawa Timur', 11, 'Default-Profile.svg');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `detail_barang`
---
-
-CREATE TABLE `detail_barang` (
-  `ID_DETAIL_BARANG` int(11) NOT NULL,
-  `ID_BARANG` varchar(50) NOT NULL,
-  `KET_BARANG` text DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -321,12 +309,6 @@ ALTER TABLE `customer`
   ADD UNIQUE KEY `CUSTOMER_PK` (`ID_CUSTOMER`);
 
 --
--- Indexes for table `detail_barang`
---
-ALTER TABLE `detail_barang`
-  ADD PRIMARY KEY (`ID_DETAIL_BARANG`);
-
---
 -- Indexes for table `detail_pesanan`
 --
 ALTER TABLE `detail_pesanan`
@@ -397,12 +379,6 @@ ALTER TABLE `barang`
 --
 ALTER TABLE `customer`
   MODIFY `ID_CUSTOMER` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `detail_barang`
---
-ALTER TABLE `detail_barang`
-  MODIFY `ID_DETAIL_BARANG` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `detail_pesanan`

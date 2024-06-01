@@ -76,7 +76,11 @@ include("templates/navbar.php")
             <div class="col-12">
                 <hr class="mt-5 mb-4 border-secondary-subtle">
                 <div class="d-flex gap-2 gap-md-4 flex-column flex-md-row justify-content-md-end">
-                    <a href="login.php" class="link-secondary text-decoration-none">Back To Login</a>
+                    <?php if (isset($_SESSION['user'])) : ?>
+                        <a href="profile" class="link-secondary text-decoration-none">Go Back</a>
+                    <?php else : ?>
+                        <a href="login.php" class="link-secondary text-decoration-none">Back To Login</a>
+                    <?php endif; ?>
                     <a href="register.php" class="link-secondary text-decoration-none">Create new account?</a>
                 </div>
             </div>
@@ -103,7 +107,11 @@ include("templates/navbar.php")
             <div class="col-12">
                 <hr class="mt-5 mb-4 border-secondary-subtle">
                 <div class="d-flex gap-2 gap-md-4 flex-column flex-md-row justify-content-md-end">
-                    <a href="login.php" class="link-secondary text-decoration-none">Back To Login</a>
+                    <?php if (isset($_SESSION['user'])) : ?>
+                        <a href="profile" class="link-secondary text-decoration-none">Go Back</a>
+                    <?php else : ?>
+                        <a href="login.php" class="link-secondary text-decoration-none">Back To Login</a>
+                    <?php endif; ?>
                     <a href="register.php" class="link-secondary text-decoration-none">Create new account?</a>
                 </div>
             </div>

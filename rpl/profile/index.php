@@ -93,7 +93,7 @@ include("../templates/navbar.php")
 
 <section style="background-color: white; min-height:100vh; min-width:100vw; margin:0;">
     <div style=" margin: 2vh 0 0 0;">
-        <img class="img-fluid rounded-circle mx-auto d-block" style="width: 200px; height: 200px;" src="https://via.placeholder.com/200x200" />
+        <img class="img-fluid rounded-circle mx-auto d-block" style="width: 200px; height: 200px;" src="<?= BASEURL . 'gambar/profile/' . $_SESSION['user']['FOTO']; ?>" />
         <p class="text-center profilename"><?= $_SESSION['user']['USERNAME']; ?>'s Account</p>
         <p class="text-center profileguide">You can manage your account and track your order here</p>
     </div>
