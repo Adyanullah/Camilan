@@ -103,18 +103,9 @@ $produk = getDataAll('barang');
                                 <h5 class="card-title titleproduk"><?= $pro['NAMA_BARANG'] ?></h5>
                                 <p class="card-text desc">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                                 <p> <?= "Rp " . number_format($pro['HARGA_BARANG'], 0, ',', '.'); ?>,-</p>
-                                <?php if (isset($_SESSION['user'])) { ?>
-                                    <a href="<?= BASEURL . 'viewProduct.php?product=' . $pro['ID_BARANG'] ?>" style="display: flex; justify-content:center; text-decoration: none;">
-                                        <div class="keranjangstyle">Lihat Produk</div>
-                                    </a>
-                                    <a href="#" style="display: flex; justify-content:center; text-decoration: none; margin-top:10px;">
-                                        <div class="keranjangstyle">Komentar (0)</div>
-                                    </a>
-                                <?php } else { ?>
-                                    <a href="<?= BASEURL . 'viewProduct.php?product=' . $pro['ID_BARANG'] ?>" style="display: flex; justify-content:center; text-decoration: none;">
-                                        <div class="keranjangstyle">Lihat Produk</div>
-                                    </a>
-                                <?php } ?>
+                                <a href="<?= BASEURL . 'viewProduct.php?product=' . $pro['ID_BARANG'] ?>" style="display: flex; justify-content:center; text-decoration: none;">
+                                    <div class="keranjangstyle">Lihat Produk</div>
+                                </a>
                             </div>
                         </div>
 

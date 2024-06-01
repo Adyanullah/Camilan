@@ -71,7 +71,6 @@ $comment_section = getDataAllJoinWhere('komentar', 'customer', 'ID_CUSTOMER', 'k
 
     .description-title-detail-produk {
         display: flex;
-        height: 67px;
         flex-direction: column;
         justify-content: center;
         flex-shrink: 0;
@@ -84,7 +83,6 @@ $comment_section = getDataAllJoinWhere('komentar', 'customer', 'ID_CUSTOMER', 'k
     }
 
     .description-text-detail-produk {
-        height: 396px;
         flex-shrink: 0;
         color: #FFF;
         font-family: Inter;
@@ -147,7 +145,7 @@ $comment_section = getDataAllJoinWhere('komentar', 'customer', 'ID_CUSTOMER', 'k
     <section>
         <form class="container py-5" action="<?= BASEURL . 'controller/transaksi/insertcart.php'; ?>" method="post">
             <div class="d-flex justify-content-between px-5">
-                <div class="d-flex flex-column justify-content-center">
+                <div class="d-flex flex-column justify-content-center" style="width: 50%;">
                     <img style="width: 21.4vw; height: 266px; border: 1px white solid" src="<?= BASEURL . 'gambar/produk/' . $produk[0]['FOTO_BARANG']; ?>" />
                     <button class="keranjangstyle-detailproduk mt-5 button-submit" type="submit">
                         Tambah Ke Keranjang
@@ -164,7 +162,7 @@ $comment_section = getDataAllJoinWhere('komentar', 'customer', 'ID_CUSTOMER', 'k
                         endforeach; ?>
                     </select>
                 </div>
-                <div class="d-flex flex-column justify-content-center">
+                <div class="d-flex flex-column text-start mx-2" style="width: 50%;">
                     <div class="description-title-detail-produk"><?= $produk[0]['NAMA_BARANG']; ?></div>
                     <div class="description-text-detail-produk mt-4"><?= $produk[0]['Deskripsi']; ?></div>
                 </div>
