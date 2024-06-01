@@ -164,7 +164,7 @@ $comment_section = getDataAllJoinWhere('komentar', 'customer', 'ID_CUSTOMER', 'k
                 </div>
                 <div class="d-flex flex-column text-start mx-2" style="width: 50%;">
                     <div class="description-title-detail-produk"><?= $produk[0]['NAMA_BARANG']; ?></div>
-                    <div class="description-text-detail-produk mt-4"><?= $produk[0]['Deskripsi']; ?></div>
+                    <div class="description-text-detail-produk mt-4" id="produkdeskripsi"></div>
                 </div>
             </div>
         </form>
@@ -204,3 +204,25 @@ $comment_section = getDataAllJoinWhere('komentar', 'customer', 'ID_CUSTOMER', 'k
 </div>
 
 <?php include("templates/footer.php") ?>
+
+<script>
+    function textToHtml(text) {
+        const container = document.createElement('div');
+
+        const paragraphs = text.split('\n');
+        paragraphs.forEach(paragraph => {
+            const p = document.createElement('p');
+            p.textContent = paragraph.trim();
+            container.appendChild(p);
+        });
+
+        return container.innerHTML;
+    }
+
+    const text = `
+    <?php echo $produk[0]['Deskripsi']; ?>
+        `;
+
+    const htmlOutput = textToHtml(text);
+    document.getElementById('produkdeskripsi').innerHTML = htmlOutput;
+</script>
