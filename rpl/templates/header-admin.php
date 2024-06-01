@@ -19,12 +19,17 @@
             <div class="toko-camilan text-light text-center" style="margin-top: 10%; height: 47%; font-size: 24px; font-family: Times New Roman; font-weight: 400; word-wrap: break-word;">Toko Camilan's</div>
             <div style="margin-left: 3%; width: 90%; height: 0px; border: 1px white solid"></div>
         </div>
-        <div class="sidebar-menu d-flex flex-column" style="background-color: #3E3E3E; height: 84%; width:100%;">
-            <a href="<?= BASEURL . 'admin/index.php' ?>" style="margin: 20px 0 0 0; text-align: center; color: white; font-size: 20px; font-family: Inter; font-weight: 400; word-wrap: break-word">Halaman Utama</a>
-            <a href="<?= BASEURL . 'admin/listallproduk.php' ?>" style="margin: 20px 0 0 0; text-align: center; color: white; font-size: 20px; font-family: Inter; font-weight: 400; word-wrap: break-word">Detail Produk</a>
-            <a href="<?= BASEURL . 'admin/Manajemen_Transaksi.php' ?>" style="margin: 20px 0 0 0; text-align: center; color: white; font-size: 20px; font-family: Inter; font-weight: 400; word-wrap: break-word">Management Transaksi</a>
-            <a href="<?= BASEURL . 'admin/tambahproduk.php' ?>" style="margin: 20px 0 0 0; text-align: center; color: white; font-size: 20px; font-family: Inter; font-weight: 400; word-wrap: break-word">Tambah Produk</a>
-            <div style="margin: 20px 0 0 0; text-align: center; color: white; font-size: 20px; font-family: Inter; font-weight: 400; word-wrap: break-word">Detail Pesanan</div>
+        <div class="sidebar-menu d-flex flex-column pt-3" style="background-color: #3E3E3E; height: 84%; width:100%;">
+            <?php $point_color = ($title == "") ? '#6E6D6D' : '#3E3E3E'; ?>
+            <a class="sidebar-menu-link" href="<?= BASEURL . 'admin/index.php' ?>" style="background-color:<?= $point_color ?>">Halaman Utama</a>
+            <?php $point_color = ($title == "Manajemen Produk") ? '#6E6D6D' : '#3E3E3E'; ?>
+            <a class="sidebar-menu-link" href="<?= BASEURL . 'admin/listallproduk.php' ?>" style="background-color:<?= $point_color ?>">Detail Produk</a>
+            <?php $point_color = ($title == "Manajemen Transaksi") ? '#6E6D6D' : '#3E3E3E'; ?>
+            <a class="sidebar-menu-link" href="<?= BASEURL . 'admin/Manajemen_Transaksi.php' ?>" style="background-color:<?= $point_color ?>">Management Transaksi</a>
+            <?php $point_color = ($title == "Tambah Produk") ? '#6E6D6D' : '#3E3E3E'; ?>
+            <a class="sidebar-menu-link" href="<?= BASEURL . 'admin/tambahproduk.php' ?>" style="background-color:<?= $point_color ?>">Tambah Produk</a>
+            <?php $point_color = ($title == "Detail Pesanan") ? '#6E6D6D' : '#3E3E3E'; ?>
+            <div class="sidebar-menu-link" style="background-color:<?= $point_color ?>">Detail Pesanan</div>
         </div>
     </div>
     <div class="layar-admin bg-white" style="width: 79vw; min-height:100vh;">

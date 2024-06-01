@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 01, 2024 at 05:24 AM
+-- Generation Time: Jun 01, 2024 at 01:46 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -75,8 +75,7 @@ INSERT INTO `barang` (`ID_BARANG`, `ID_KATEGORI`, `NAMA_BARANG`, `HARGA_BARANG`,
 (3, '002', 'Hot Jelatos Keripik Kaca', 9000, 40, '1717159705keripikkacahot.jpeg', 'Kripik Kaca kini tersedia di semua ukuran !!!', '1,2,3'),
 (4, '003', 'Mushome Rumput Laut Gurih', 14000, 60, '1717159831mushomerumputlaut.jpeg', 'Rumput Laut ASLI Indonesia, Cintai Produk Lokal, Tersedia di 2 Ukuran!!!', '1,2'),
 (5, '001', 'Sukade Manisan Pepaya', 20000, 39, '1713757061sukademanisanpepaya.jpeg', '', '1'),
-(6, '001', 'Carica Dieng', 17000, 18, '1713757290caricadieng.jpeg', '', '1'),
-(9, '002', 'TEST SUBJECT', 10000, 99, '17171579085.jpg', 'This Is Test Subject', '1,2,3');
+(6, '001', 'Carica Dieng', 17000, 18, '1713757290caricadieng.jpeg', '', '1');
 
 -- --------------------------------------------------------
 
@@ -216,8 +215,7 @@ INSERT INTO `komentar` (`ID_KOMENTAR`, `ID_CUSTOMER`, `ID_BARANG`, `ISI_KOMENTAR
 --
 
 CREATE TABLE `metode_pembayaran` (
-  `ID_METODE_PEMBAYARAN` varchar(50) NOT NULL,
-  `ID_ORDER` varchar(50) DEFAULT NULL,
+  `ID_METODE_PEMBAYARAN` int(11) NOT NULL,
   `NAMA_METODE_PEMBAYARAN` varchar(50) DEFAULT NULL,
   `REKENING` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -230,7 +228,7 @@ CREATE TABLE `metode_pembayaran` (
 
 CREATE TABLE `pesanan` (
   `ID_ORDER` int(11) NOT NULL,
-  `ID_METODE_PEMBAYARAN` varchar(50) DEFAULT NULL,
+  `ID_METODE_PEMBAYARAN` int(11) DEFAULT NULL,
   `ID_CUSTOMER` int(11) DEFAULT NULL,
   `TANGGAL_ORDER` timestamp NULL DEFAULT current_timestamp(),
   `TOTAL_ORDER` int(11) DEFAULT NULL,
@@ -245,7 +243,7 @@ INSERT INTO `pesanan` (`ID_ORDER`, `ID_METODE_PEMBAYARAN`, `ID_CUSTOMER`, `TANGG
 (5, NULL, 1, '2024-05-20 14:05:23', 120000, 0),
 (6, NULL, 1, '2024-05-20 14:10:59', 87000, 0),
 (7, NULL, 1, '2024-05-20 14:11:43', 127000, 1),
-(9, NULL, 1, '2024-05-27 03:27:51', 34000, 0),
+(9, NULL, 1, '2024-05-27 03:27:51', 34000, 1),
 (10, NULL, 1, '2024-05-27 06:38:06', 11000, 1),
 (11, NULL, 1, '2024-05-27 06:38:41', 16000, 1),
 (12, NULL, 1, '2024-05-27 11:12:05', 157000, 1),
@@ -346,8 +344,7 @@ ALTER TABLE `komentar`
 --
 ALTER TABLE `metode_pembayaran`
   ADD PRIMARY KEY (`ID_METODE_PEMBAYARAN`),
-  ADD UNIQUE KEY `METODE_PEMBAYARAN_PK` (`ID_METODE_PEMBAYARAN`),
-  ADD KEY `MEMBAYAR2_FK` (`ID_ORDER`);
+  ADD UNIQUE KEY `METODE_PEMBAYARAN_PK` (`ID_METODE_PEMBAYARAN`);
 
 --
 -- Indexes for table `pesanan`
@@ -399,6 +396,12 @@ ALTER TABLE `komentar`
   MODIFY `ID_KOMENTAR` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT for table `metode_pembayaran`
+--
+ALTER TABLE `metode_pembayaran`
+  MODIFY `ID_METODE_PEMBAYARAN` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `pesanan`
 --
 ALTER TABLE `pesanan`
@@ -445,8 +448,8 @@ ALTER TABLE `komentar`
 -- Constraints for table `pesanan`
 --
 ALTER TABLE `pesanan`
-  ADD CONSTRAINT `FK_PESANAN_MELAKUKAN_CUSTOMER` FOREIGN KEY (`ID_CUSTOMER`) REFERENCES `customer` (`ID_CUSTOMER`),
-  ADD CONSTRAINT `FK_PESANAN_MEMBAYAR_METODE_P` FOREIGN KEY (`ID_METODE_PEMBAYARAN`) REFERENCES `metode_pembayaran` (`ID_METODE_PEMBAYARAN`);
+  ADD CONSTRAINT `FK_PEMBAYARAN_PESANAN` FOREIGN KEY (`ID_METODE_PEMBAYARAN`) REFERENCES `metode_pembayaran` (`ID_METODE_PEMBAYARAN`),
+  ADD CONSTRAINT `FK_PESANAN_MELAKUKAN_CUSTOMER` FOREIGN KEY (`ID_CUSTOMER`) REFERENCES `customer` (`ID_CUSTOMER`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

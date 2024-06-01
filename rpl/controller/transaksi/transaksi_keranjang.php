@@ -14,6 +14,8 @@ if ($_SESSION['user']) {
     }
 
     Pesan($user, $total, $str_array_keranjang);
+    $_SESSION['status'] = "Pesanan Sedang Di Proses";
+    header('Location: ' . BASEURL . 'menu.php');
 } else {
     header('Location: ../../login.php');
 }

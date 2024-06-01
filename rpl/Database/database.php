@@ -228,19 +228,6 @@ function updateProduct($post)
     }
 }
 
-function deletebarangdikeranjang($id, $user)
-{
-    try {
-        $statement = DB->prepare("DELETE FROM keranjang WHERE ID_BARANG = $id AND ID_CUSTOMER = $user");
-        $statement->execute();
-        $previousPage = $_SERVER['HTTP_REFERER'];
-        header("Location: $previousPage");
-    } catch (PDOException $err) {
-        echo "Hapus data gagal";
-        echo $err->getMessage();
-    }
-}
-
 function deletebarang($id)
 {
     try {
@@ -289,9 +276,6 @@ function pluscart($id, $ip, $ukuran)
         $st = DB->prepare("UPDATE barang SET STOCK = STOCK-1 WHERE ID_BARANG = :id");
         $st->bindValue(':id', $id);
         $st->execute();
-
-        $previousPage = $_SERVER['HTTP_REFERER'];
-        header("Location: $previousPage");
     } catch (PDOException $err) {
         echo $err->getMessage();
     }
@@ -308,15 +292,19 @@ function mincart($id, $ip, $ukuran)
         $st = DB->prepare("UPDATE barang SET STOCK = STOCK + 1 WHERE ID_BARANG = :id");
         $st->bindValue(':id', $id);
         $st->execute();
-
-
-        $previousPage = $_SERVER['HTTP_REFERER'];
-        header("Location: $previousPage");
     } catch (PDOException $err) {
         echo $err->getMessage();
     }
 }
-
+function deletebarangdikeranjang($id, $user)
+{
+    try {
+        $statement = DB->prepare("DELETE FROM keranjang WHERE ID_BARANG = $id AND ID_CUSTOMER = $user");
+        $statement->execute();
+    } catch (PDOException $err) {
+        echo $err->getMessage();
+    }
+}
 
 
 //Ambildata
@@ -379,11 +367,6 @@ function Pesan($user, $total, $str_array_keranjang)
         $delete_item_dikeranjang = DB->prepare("DELETE FROM keranjang WHERE ID_CUSTOMER = :idcustomer AND ID_BARANG IN (" . $str_array_keranjang . ");");
         $delete_item_dikeranjang->bindValue(':idcustomer', $user);
         $delete_item_dikeranjang->execute();
-
-        $_SESSION['status'] = "Pesanan Sedang Di Proses";
-        // $previousPage = $_SERVER['HTTP_REFERER'];
-        // header("Location: $previousPage");
-        header('Location: ' . BASEURL . 'menu.php');
     } catch (PDOException $err) {
         echo $err->getMessage();
     }
