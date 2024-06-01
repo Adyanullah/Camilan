@@ -16,11 +16,23 @@ foreach ($data as $userdata) {
         break; // Keluar dari loop jika login berhasil
     }
 }
+$data = getDataAll('admin');
+foreach ($data as $admindata) {
+    if ($_POST['username'] == $admindata['USERNAME_ADMIN'] && $_POST['password'] == $admindata['PASSWORD_ADMIN']) {
+        $_SESSION['admin'] = $admindata;
+        $gagal = false; // Login berhasil
+        break; // Keluar dari loop jika login berhasil
+    }
+}
 
 if ($gagal) {
     echo "Login gagal. Silakan coba lagi.";
     header("Location: ../login.php"); // Redirect jika login gagal
 } else {
-    header("Location: ../index.php"); // Redirect jika index berhasil
+    if (isset($_SESSION['admin'])) {
+        header("Location: " . BASEURL . "admin");
+    } elseif (isset($_SESSION['user'])) {
+        header("Location: " . BASEURL . "index.php"); // Redirect jika index berhasil
+    }
     exit;
 }
