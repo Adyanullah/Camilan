@@ -29,6 +29,12 @@ body {
     font-weight: 700; /* Specify the correct font weight */
     font-style: normal;
 }
+@font-face {
+    font-family: 'Kaushan Script';
+    src: url('../font/KaushanScript-Regular.ttf') format('truetype'); /* Bold font */
+    font-weight: 400; /* Specify the correct font weight */
+    font-style: normal;
+}
 .image-container {
     height: 720px;
     display: flex;

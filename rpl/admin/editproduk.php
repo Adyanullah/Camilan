@@ -105,7 +105,7 @@ $weight = getDataAll('ukuran_barang');
     </div>
     <div class="mb-1">
         <label class="font-form" for="deskripsi">Deskripsi</label>
-        <input type="text" class="input-form px-3" id="formGroupExampleInput2" placeholder="Tambah Deskripsi" name="deskripsi" value="<?= $produk[0]['Deskripsi'] ?>" required>
+        <textarea style="padding-top: 1.2%;" class="input-form px-3" id="formGroupExampleInput2" placeholder="Tambah Deskripsi" name="deskripsi" required><?= $produk[0]['Deskripsi'] ?></textarea>
     </div>
     <div class="mb-5">
         <label class="font-form mb-2" for="WeightForm">Ukuran yang tersedia</label>

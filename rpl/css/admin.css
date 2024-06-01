@@ -1,0 +1,56 @@
+@font-face {
+    font-family: 'La Belle Aurore';
+    src: url('../font/LaBelleAurore.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('../font/Inter.ttf') format('truetype'); /* Regular font */
+    font-weight: 400; /* Specify the correct font weight */
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'InterV';
+    src: url('../font/Inter-V.ttf') format('truetype'); /* Bold font */
+    font-weight: 700; /* Specify the correct font weight */
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Kaushan Script';
+    src: url('../font/KaushanScript-Regular.ttf') format('truetype'); /* Bold font */
+    font-weight: 400; /* Specify the correct font weight */
+    font-style: normal;
+}
+/* --------------------------------------------------------------------------------------------------------------- */
+/* -----------------------------Index.php / Halaman Utama Admin--------------------------------------------------- */
+/* --------------------------------------------------------------------------------------------------------------- */
+
+.welcome-message{
+    background: url(../gambar/logo-trans.png); 
+    background-size: 27% 80%; 
+    background-repeat: no-repeat; 
+    background-position:center; 
+    width:100%; 
+    height:100%;
+}
+.sub-welcome-text{
+    width: 100%;
+    text-align: center; 
+    color: black; 
+    font-size: 24px; 
+    font-family: Kaushan Script; 
+    font-weight: 400; 
+    word-wrap: break-word;
+}
+.header-welcome-text{
+    width: 100%;
+    text-align: center; 
+    color: black; 
+    font-size: 64px; 
+    font-family: Kaushan Script;
+    font-weight: 400; 
+    word-wrap: break-word;
+}
