@@ -333,10 +333,18 @@ function getListKeranjang($id)
 
 
 //Order
-function Pesan($user, $total, $str_array_keranjang)
+function Pesan($user, $total, $str_array_keranjang, $bankname, $rekening)
 {
     try {
-        $statement = DB->prepare("INSERT INTO pesanan(ID_CUSTOMER, TOTAL_ORDER) VALUES(:idcustomer, :totalorder)");
+        $insert_paymethod = DB->prepare("INSERT INTO `metode_pembayaran`(`NAMA_METODE_PEMBAYARAN`, `REKENING`) VALUES (:bankname, :rekening)");
+        $insert_paymethod->bindValue(':bankname', $bankname);
+        $insert_paymethod->bindValue(':rekening', $rekening);
+        $insert_paymethod->execute();
+
+        $id_paymethod = DB->LastInsertId();
+
+        $statement = DB->prepare("INSERT INTO pesanan(ID_CUSTOMER, TOTAL_ORDER, ID_METODE_PEMBAYARAN) VALUES(:idcustomer, :totalorder, :paymethod)");
+        $statement->bindValue(':paymethod', $id_paymethod);
         $statement->bindValue(':idcustomer', $user);
         $statement->bindValue(':totalorder', $total);
         $statement->execute();

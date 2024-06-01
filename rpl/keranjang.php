@@ -227,6 +227,7 @@ include("templates/navbar.php")
         border-bottom: 1px solid white;
         outline: none;
         padding-bottom: 8px;
+        color: #FFFFFF;
     }
 
     .payment-input-txt input::placeholder {
@@ -345,25 +346,25 @@ include("templates/navbar.php")
             </div>
         </div>
         <div class="payment-method" style="margin-top: 50px;">
-            <div class="title-info">Metode Pembayaran</div>
-            <div class="payment-info" style="display: flex; flex-direction:column; color:white; font-family:'Inter'; font-size:12px; padding: 1.5vh 0 1.5vh 0;">
-                <div class="form-check">
-                    <input class="form-check-input" style="width:15px; height:15px; margin:3px 15px 0 0;" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="Bank Jatim" checked>
-                    <label class="form-check-label" for="flexRadioDefault1" style="margin: 3px 0 0 0;">
-                        <span style="font-size: 12px; font-family:'Inter'; padding-left:10px; font-style:italic;"> Transfer Bank Jatim</span>
-                    </label>
-                </div>
-
-
-                <div class="form-check">
-                    <input class="form-check-input" style="width:15px; height:15px; margin:3px 15px 0 0;" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="BRI">
-                    <label class="form-check-label" for="flexRadioDefault1" style="margin: 3px 0 0 0;">
-                        <span style="font-size: 12px; font-family:'Inter'; padding-left:10px; padding-top:4px; font-style:italic;"> Transfer BRI</span>
-                    </label>
-                </div>
-
-            </div>
             <form action="controller/transaksi/transaksi_keranjang.php" method="post">
+                <div class="title-info">Metode Pembayaran</div>
+                <div class="payment-info" style="display: flex; flex-direction:column; color:white; font-family:'Inter'; font-size:12px; padding: 1.5vh 0 1.5vh 0;">
+                    <div class="form-check">
+                        <input class="form-check-input" style="width:15px; height:15px; margin:3px 15px 0 0;" type="radio" name="namabank" id="flexRadioDefault1" value="Bank Jatim" checked>
+                        <label class="form-check-label" for="flexRadioDefault1" style="margin: 3px 0 0 0;">
+                            <span style="font-size: 12px; font-family:'Inter'; padding-left:10px; font-style:italic;"> Transfer Bank Jatim</span>
+                        </label>
+                    </div>
+
+
+                    <div class="form-check">
+                        <input class="form-check-input" style="width:15px; height:15px; margin:3px 15px 0 0;" type="radio" name="namabank" id="flexRadioDefault1" value="BRI">
+                        <label class="form-check-label" for="flexRadioDefault1" style="margin: 3px 0 0 0;">
+                            <span style="font-size: 12px; font-family:'Inter'; padding-left:10px; padding-top:4px; font-style:italic;"> Transfer BRI</span>
+                        </label>
+                    </div>
+
+                </div>
                 <!-- HIDDEN INPUT -->
                 <input type="hidden" name="array_keranjang" id="array_keranjang" value="<?= $stringlist; ?>">
                 <input type="hidden" name="harga_ongkir" id="harga_ongkir" value="<?= $cost; ?>">
@@ -372,24 +373,24 @@ include("templates/navbar.php")
                 <div class="payment-input" id="cardpayment">
                     <div class="payment-input-txt">
                         <label for="nameoncard">Name On Card</label>
-                        <input type="text" name="nameoncard" id="nameoncard" placeholder="Nama,ex : Babang Santoso">
+                        <input type="text" name="nameoncard" id="nameoncard" placeholder="Nama,ex : Babang Santoso" required>
                     </div>
                     <div class="payment-input-txt">
                         <label for="cardnumber">Nomor Kartu</label>
-                        <input type="text" name="cardnumber" id="cardnumber" placeholder="Card Number,ex : 0000 0000 0000 000">
+                        <input type="text" name="cardnumber" id="cardnumber" placeholder="Card Number,ex : 0000 0000 0000 000" required>
                     </div>
                     <div class="d-flex justify-content-between">
                         <div class="payment-input-txt">
                             <label for="experied">Exp</label>
                             <div class="experied d-flex">
-                                <input type="text" name="MM" id="MM" placeholder="MM, ex : 10" style="width: 108px;">
-                                <input type="text" name="YY" id="YY" placeholder="YY, ex : 24" style="width: 108px; margin-left:30px;">
+                                <input type="text" name="MM" id="MM" placeholder="MM, ex : 10" style="width: 108px;" required>
+                                <input type="text" name="YY" id="YY" placeholder="YY, ex : 24" style="width: 108px; margin-left:30px;" required>
                             </div>
                         </div>
                         <div class="payment-input-txt">
                             <label for="cvv">CVV</label>
                             <div class="cvv">
-                                <input type="text" name="cvv" id="MM" placeholder="123" style="width: 108px;">
+                                <input type="text" name="cvv" id="MM" placeholder="123" style="width: 108px;" required>
                             </div>
                         </div>
                     </div>
