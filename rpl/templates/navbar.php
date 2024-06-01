@@ -77,12 +77,11 @@
                 <?php if (!isset($_SESSION['user'])) : ?>
                     <a href="<?= BASEURL . 'login.php' ?>">Sign In</a>
                 <?php else : ?>
-                    <a href="<?= BASEURL . 'profile' ?>">Profile</a>
+                    <a href="<?= BASEURL ?>./autentikasi/logout.php">Sign Out</a>
                 <?php endif; ?>
             </div>
             <div>
                 <ul>
-                    <!-- <li><a href="<?= BASEURL . 'login.php' ?>">Sign In</a></li> -->
                     <li><a href="<?= BASEURL . 'index.php' ?>">Home</a></li>
                     <li><a href="<?= BASEURL . 'menu.php' ?>">Menu</a></li>
                     <li><a href="<?= BASEURL . 'contact.php' ?>">Contact</a></li>
@@ -92,7 +91,12 @@
                 </ul>
             </div>
             <div class="logo" id="balik">
-                <h4>Logo</h4>
+                <div class="d-flex justify-content-end align-items-center" style="width: 10vw;">
+                    <?php if (isset($_SESSION['user'])) : ?>
+                        <a href="<?= BASEURL . 'profile' ?>"><img class="mx-2" style="width: 52px; height: 52px; border-radius: 9999px" src="<?= BASEURL . 'gambar/profile/' . $_SESSION['user']['FOTO'] ?>" /></a>
+                    <?php endif; ?>
+                    <img class="mx-2" style="width: 52px; height: 72px;" src="<?= BASEURL . 'gambar/Logo.png' ?>" />
+                </div>
             </div>
         </nav>
     </div>

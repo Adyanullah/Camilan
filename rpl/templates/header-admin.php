@@ -29,7 +29,13 @@
             <?php $point_color = ($title == "Tambah Produk") ? '#6E6D6D' : '#3E3E3E'; ?>
             <a class="sidebar-menu-link" href="<?= BASEURL . 'admin/tambahproduk.php' ?>" style="background-color:<?= $point_color ?>">Tambah Produk</a>
             <?php $point_color = ($title == "Detail Pesanan") ? '#6E6D6D' : '#3E3E3E'; ?>
-            <div class="sidebar-menu-link" style="background-color:<?= $point_color ?>">Detail Pesanan</div>
+            <?php if ($title == "Detail Pesanan") : ?>
+                <div class="sidebar-menu-link" style="background-color:<?= $point_color ?>">Detail Pesanan</div>
+            <?php endif; ?>
+            <?php $point_color = ($title == "Edit Produk") ? '#6E6D6D' : '#3E3E3E'; ?>
+            <?php if ($title == "Edit Produk") : ?>
+                <div class="sidebar-menu-link" style="background-color:<?= $point_color ?>">Edit Produk</div>
+            <?php endif; ?>
         </div>
     </div>
     <div class="layar-admin bg-white" style="width: 79vw; min-height:100vh;">
