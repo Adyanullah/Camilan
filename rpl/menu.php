@@ -6,7 +6,11 @@ require_once('Database/database.php');
 
 <?php
 include("templates/navbar.php");
-$produk = getDataAll('barang');
+if (isset($_GET['rasa'])) {
+    $produk = getDataAllWhere('barang', 'ID_KATEGORI', $_GET['rasa']);
+} else {
+    $produk = getDataAll('barang');
+}
 ?>
 <style>
     .desc {

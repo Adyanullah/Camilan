@@ -1,3 +1,8 @@
+<?php try {
+    $kategori = getDataAll('kategori');
+} catch (Exception $e) {
+    $kategori = "";
+} ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -60,6 +65,47 @@
         position: sticky;
         background-color: #000000;
     }
+
+    .dropdown:hover .dropdown-menu-navbar {
+        display: block;
+    }
+
+    .dropdown-menu-navbar {
+        display: none;
+        position: absolute;
+        background-color: black;
+        color: white;
+        /* background color of dropdown */
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        /* box shadow for dropdown */
+        z-index: 999;
+        /* z-index to ensure the dropdown is on top of other elements */
+        padding: 3vh 0 0 0;
+        /* padding inside the dropdown */
+        margin: 0;
+        /* remove default margin */
+        list-style: none;
+        /* remove default list style */
+    }
+
+    .dropdown-menu-navbar li {
+        display: block;
+    }
+
+    .dropdown-menu-navbar li a {
+        display: block;
+        padding: 10px 20px;
+        /* padding for each dropdown item */
+        color: white;
+        /* text color of dropdown items */
+        text-decoration: none;
+        /* remove underline */
+    }
+
+    .dropdown-menu-navbar li a:hover {
+        background-color: #3E3E3E;
+        /* background color on hover */
+    }
 </style>
 <script>
     <?php if (isset($_SESSION['status'])) : ?>
@@ -83,7 +129,16 @@
             <div>
                 <ul>
                     <li><a href="<?= BASEURL . 'index.php' ?>">Home</a></li>
-                    <li><a href="<?= BASEURL . 'menu.php' ?>">Menu</a></li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle-navbar" href="<?= BASEURL . 'menu.php' ?>">Menu</a>
+                        <?php if (isset($kategori) or !empty($kategori)) : ?>
+                            <ul class="dropdown-menu-navbar">
+                                <?php foreach ($kategori as $navkategori) : ?>
+                                    <li><a class="dropdown-item" href="<?= BASEURL . 'menu.php?rasa=' . $navkategori['ID_KATEGORI']; ?>"><?= $navkategori['NAMA_KATEGORI']; ?></a></li>
+                                <?php endforeach; ?>
+                            </ul>
+                        <?php endif; ?>
+                    </li>
                     <li><a href="<?= BASEURL . 'contact.php' ?>">Contact</a></li>
                     <li><a href="<?= BASEURL . 'keranjang.php' ?>">Keranjang</a></li>
                     <li><a>About Us</a></li>
