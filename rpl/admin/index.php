@@ -8,7 +8,7 @@ require_once('../Database/database.php');
 
 
 <div class="welcome-message text-center flex-column d-flex justify-content-center align-items-center">
-    <div class="header-welcome-text">Welcome Bagas</div>
+    <div class="header-welcome-text">Welcome Admin</div>
     <div class="sub-welcome-text">Keep Working in this company until you die !!</div>
 </div>
 
