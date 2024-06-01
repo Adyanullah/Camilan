@@ -52,18 +52,42 @@ include("templates/navbar.php")
                                 <div class="col-12">
                                     <label for="username" class="form-label">Username <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" name="username" id="" placeholder="Username" required>
+                                    <small class="text-danger">
+                                        <?php
+                                        $error = (isset($_SESSION['error']['username'])) ? $_SESSION['error']['username'] : '';
+                                        echo $error;
+                                        ?>
+                                    </small>
                                 </div>
                                 <div class="col-12">
                                     <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
                                     <input type="email" class="form-control" name="email" id="email" placeholder="name@example.com" required>
+                                    <small class="text-danger">
+                                        <?php
+                                        $error = (isset($_SESSION['error']['email'])) ? $_SESSION['error']['email'] : '';
+                                        echo $error;
+                                        ?>
+                                    </small>
                                 </div>
                                 <div class="col-12">
                                     <label for="password" class="form-label">Password <span class="text-danger">*</span></label>
                                     <input type="password" class="form-control" name="password" id="password" value="" required>
+                                    <small class="text-danger">
+                                        <?php
+                                        $error = (isset($_SESSION['error']['password'])) ? $_SESSION['error']['password'] : '';
+                                        echo $error;
+                                        ?>
+                                    </small>
                                 </div>
                                 <div class="col-12">
                                     <label for="fullname" class="form-label">Nomor WA : <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" name="notelp" id="" placeholder="Nomor WA" required>
+                                    <small class="text-danger">
+                                        <?php
+                                        $error = (isset($_SESSION['error']['notelp'])) ? $_SESSION['error']['notelp'] : '';
+                                        echo $error;
+                                        ?>
+                                    </small>
                                 </div>
                                 <div class="col-12">
                                     <label for="alamat" class="form-label">Provinsi : <span class="text-danger">*</span></label>

@@ -75,7 +75,7 @@ $weight = getDataAll('ukuran_barang');
 
 <?php include("../templates/header-admin.php") ?>
 
-<form name="myForm" action="<?= BASEURL . 'admin/eksekusiperintah/tambahbarang.php' ?>" method="post" enctype="multipart/form-data" style="width: 70%; color:black;" class="mb-5 pb-5">
+<form name="myForm" action="<?= BASEURL . 'controller/admin/tambahbarang.php' ?>" method="post" enctype="multipart/form-data" style="width: 70%; color:black;" class="mb-5 pb-5">
     <div class="mb-1">
         <label class="font-form" for="namaproduk">Nama Produk</label>
         <input type="text" class="input-form px-3" id="formGroupExampleInput" placeholder="Nama Product" name="namaproduk" required>

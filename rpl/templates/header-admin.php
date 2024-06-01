@@ -1,3 +1,9 @@
+<?php
+if (!isset($_SESSION['admin'])) {
+    header('Location: ' . BASEURL . 'login.php');
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 

@@ -1,3 +1,9 @@
+<?php
+if (isset($_SESSION['error'])) {
+    // Unset the user session variable
+    unset($_SESSION['error']);
+}
+?>
 <style>
     .footer {
         display: flex;
