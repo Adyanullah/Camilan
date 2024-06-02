@@ -4,6 +4,7 @@ require_once('../Database/base.php');
 require_once('../Database/database.php');
 
 $pesanan = getDataAllJoinWhere('detail_pesanan', 'barang', 'ID_BARANG', 'ID_ORDER', $_GET['DetailPesanan']);
+$pemesanan = getDataAllJoinWhere('pesanan', 'metode_pembayaran', 'ID_METODE_PEMBAYARAN', 'ID_ORDER', $_GET['DetailPesanan']);
 // var_dump($_GET);
 // die;
 ?>
@@ -13,8 +14,8 @@ $pesanan = getDataAllJoinWhere('detail_pesanan', 'barang', 'ID_BARANG', 'ID_ORDE
 <?php $table_color = "#D9D9D9;" ?>
 <div class="row pt-5" style="width: 85%;">
     <div class="border border-dark py-4 fw-bold col-sm-1 text-center" style="background-color: <?= $table_color; ?>;">No.</div>
-    <div class="border border-dark py-4 fw-bold col-md-3 text-center" style="background-color: <?= $table_color; ?>;">Nama Makanan</div>
-    <div class="border border-dark py-4 fw-bold col-md-3 text-center" style="background-color: <?= $table_color; ?>;">Harga</div>
+    <div class="border border-dark py-4 fw-bold col-md-4 text-center" style="background-color: <?= $table_color; ?>;">Nama Makanan</div>
+    <div class="border border-dark py-4 fw-bold col-md-2 text-center" style="background-color: <?= $table_color; ?>;">Harga</div>
     <div class="border border-dark py-4 fw-bold col text-center" style="background-color: <?= $table_color; ?>;">Jumlah</div>
     <div class="border border-dark py-4 fw-bold col-md-3 text-center" style="background-color: <?= $table_color; ?>;">Total</div>
 </div>
@@ -32,8 +33,8 @@ foreach ($pesanan as $order) :
 ?>
     <div class="row" style="width: 85%;">
         <div class="border border-dark py-3 fw-bold col-sm-1 text-center d-flex flex-column align-items-center" style="background-color: <?= $table_color; ?>;"><?= $row_count; ?>.</div>
-        <div class="border border-dark py-3 fw-bold col-md-3 text-center d-flex flex-column align-items-center" style="background-color: <?= $table_color; ?>;"><?= $order['NAMA_BARANG']; ?></div>
-        <div class="border border-dark py-3 fw-bold col-md-3 text-center d-flex flex-column align-items-center" style="background-color: <?= $table_color; ?>;"><?= "Rp. " . number_format($order['HARGA_BARANG'], 0, ',', '.'); ?></div>
+        <div class="border border-dark py-3 fw-bold col-md-4 text-center d-flex flex-column align-items-center" style="background-color: <?= $table_color; ?>;"><?= $order['NAMA_BARANG']; ?></div>
+        <div class="border border-dark py-3 fw-bold col-md-2 text-center d-flex flex-column align-items-center" style="background-color: <?= $table_color; ?>;"><?= "Rp. " . number_format($order['HARGA_BARANG'], 0, ',', '.'); ?></div>
         <div class="border border-dark py-3 fw-bold col text-center d-flex flex-column align-items-center" style="background-color: <?= $table_color; ?>;"><?= $order['JUMLAH_PRODUK']; ?></div>
         <div class="border border-dark py-3 fw-bold col-md-3 text-center d-flex flex-column align-items-center" style="background-color: <?= $table_color; ?>;"><?= "Rp. " . number_format($order['HARGA'], 0, ',', '.'); ?></div>
     </div>
@@ -41,6 +42,12 @@ foreach ($pesanan as $order) :
 <div class="row" style="width: 85%;">
     <div class="border border-dark py-3 fw-bold col text-center d-flex flex-column align-items-center" style="background-color: <?= $table_color; ?>;">Total Pembelian</div>
     <div class="border border-dark py-3 fw-bold col-md-3 text-center d-flex flex-column align-items-center" style="background-color: <?= $table_color; ?>;"><?= "Rp. " . number_format($total_harga, 0, ',', '.'); ?></div>
+</div>
+<div class="row" style="width: 85%;">
+    <div class="border border-dark py-3 fw-bold col-sm-2 text-center d-flex flex-column align-items-center" style="background-color: <?= $table_color; ?>;">Harga Ongkir</div>
+    <div class="border border-dark py-3 fw-bold col-sm-3 text-center d-flex flex-column align-items-center" style="background-color: <?= $table_color; ?>;"><?= "Rp. " . number_format($pemesanan[0]['TOTAL_ORDER'] - $total_harga, 0, ',', '.'); ?></div>
+    <div class="border border-dark py-3 fw-bold col-md-4 text-center d-flex flex-column align-items-center" style="background-color: <?= $table_color; ?>;">TOTAL</div>
+    <div class="border border-dark py-3 fw-bold col-md-3 text-center d-flex flex-column align-items-center" style="background-color: <?= $table_color; ?>;"><?= "Rp. " . number_format($pemesanan[0]['TOTAL_ORDER'], 0, ',', '.'); ?></div>
 </div>
 
 

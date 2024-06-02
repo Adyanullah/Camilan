@@ -95,6 +95,22 @@ function getDataAllWhere2($table, $column, $id, $AND_OR, $column2, $id2)
         echo $err->getMessage();
     }
 }
+function getDataAllWhere2JOIN($table, $column, $id, $AND_OR, $column2, $id2, $tablejoin, $tablejoincolumn)
+{
+    try {
+        if ($AND_OR == 'OR') :
+            $statement = DB->prepare("SELECT * FROM $table JOIN $tablejoin ON $tablejoin.$tablejoincolumn = $table.$tablejoincolumn WHERE $column = :id OR $column2 = :id2");
+        else :
+            $statement = DB->prepare("SELECT * FROM $table JOIN $tablejoin ON $tablejoin.$tablejoincolumn = $table.$tablejoincolumn WHERE $column = :id AND $column2 = :id2");
+        endif;
+        $statement->bindValue(':id', $id);
+        $statement->bindValue(':id2', $id2);
+        $statement->execute();
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    } catch (PDOException $err) {
+        echo $err->getMessage();
+    }
+}
 
 function updatevalue($table, $column, $change, $column_condition, $id)
 {
