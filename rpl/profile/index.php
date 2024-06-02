@@ -54,6 +54,17 @@ if (!isset($_SESSION['user'])) {
         line-height: normal;
     }
 
+    .accountinfo-txt-value-edit-mode {
+        color: #000;
+        font-family: Inter;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        border: none;
+        border-bottom: 1px solid black;
+    }
+
     .widgetcontainer-list button {
         text-decoration: none;
         border: none;
@@ -132,6 +143,7 @@ include("../templates/navbar.php")
             <?php include "profile_menu/myorder_info.php" ?>
             <?php include "profile_menu/myorder_viewdetails.php" ?>
             <?php include "profile_menu/address_info.php" ?>
+            <?php include "profile_menu/edit_akun.php" ?>
         </div>
     </div>
     <div class="jarak" style="min-height:100px; background-color:white; width:100vw; margin:0;"></div>
@@ -152,8 +164,15 @@ include("../templates/navbar.php")
         togglePage("page4");
     });
 
-    <?php if (isset($_GET['order_id'])) : ?>
+    <?php if (isset($_POST['order_id'])) : ?>
         togglePage("page5");
+    <?php endif; ?>
+
+    <?php if (isset($_POST['edit_user'])) : ?>
+        togglePage("page6");
+    <?php endif; ?>
+    <?php if (isset($_GET['errors'])) : ?>
+        togglePage("page6");
     <?php endif; ?>
 
     function togglePage(pageId) {

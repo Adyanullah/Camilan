@@ -19,6 +19,14 @@ if (isset($_GET['rasa'])) {
         font-weight: 400;
         line-height: 16.94px;
         text-align: center;
+        width: 100%;
+        height: auto;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
     }
 
     .titleproduk {
@@ -35,6 +43,26 @@ if (isset($_GET['rasa'])) {
         white-space: nowrap;
         text-overflow: ellipsis;
     }
+
+    /* .card-title {
+        font-family: InterV;
+        font-size: 18px;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 50px;
+        text-align: center;
+    }*/
+
+    .shrink {
+        white-space: nowrap;
+        /* font-size: 80px; */
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
 
 
     .produkimg {
@@ -104,8 +132,10 @@ if (isset($_GET['rasa'])) {
                         <div class="card" style="width: 13rem; margin:10px; background:transparent; color:white; border:none;">
                             <div class="card-img-top produkimg" style=" margin-top:10px; background:url('gambar/produk/<?= $pro['FOTO_BARANG'] ?>'); background-size:cover; border-radius:0;"></div>
                             <div class="card-body">
-                                <h5 class="card-title titleproduk"><?= $pro['NAMA_BARANG'] ?></h5>
-                                <p class="card-text desc">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                <div class="card-title titleproduk">
+                                    <p class="shrink"><?= $pro['NAMA_BARANG'] ?></p>
+                                </div>
+                                <p class="card-text desc"><?= $pro['Deskripsi']; ?></p>
                                 <p> <?= "Rp " . number_format($pro['HARGA_BARANG'], 0, ',', '.'); ?>,-</p>
                                 <a href="<?= BASEURL . 'viewProduct.php?product=' . $pro['ID_BARANG'] ?>" style="display: flex; justify-content:center; text-decoration: none;">
                                     <div class="keranjangstyle">Lihat Produk</div>
@@ -123,3 +153,13 @@ if (isset($_GET['rasa'])) {
 </div>
 
 <?php include("templates/footer.php") ?>
+<script>
+    // for (const element of document.getElementsByClassName("shrink")) {
+    //     var size = parseInt(getComputedStyle(element).getPropertyValue('font-size'));
+    //     const parent_width = parseInt(getComputedStyle(element.parentElement).getPropertyValue('width'))
+    //     while (element.offsetWidth > parent_width) {
+    //         element.style.fontSize = size + "px"
+    //         size -= 1
+    //     }
+    // }
+</script>

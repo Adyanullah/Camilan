@@ -1,46 +1,14 @@
 <div id="page1" class="page show">
-  <div style="
-      color: black;
-      font-size: 18px;
-      font-family: Inter;
-      font-weight: 700;
-      word-wrap: break-word;
-      margin:3.9vh 0 0 0;
-    ">
+  <div class="profile-container-title">
     Account info
   </div>
-  <div style="
-      width: 650px;
-      min-height: 300px;
-      background: rgba(0, 0, 0, 0);
-      border-radius: 20px;
-      border: 2px black solid;
-      margin: 4vh 0 0 0;
-      padding: 0 1.2vw 0 1.2vw;
-    ">
-    <div class="d-flex justify-content-between" style="margin: 1.6vh 0 1.6vh 0">
-      <span style="
-          color: black;
-          font-size: 14px;
-          font-family: Inter;
-          font-weight: 400;
-          word-wrap: break-word;
-        ">My details<br /></span>
-      <a href="#" style="
-          color: black;
-          font-size: 14px;
-          font-family: Inter;
-          font-weight: 400;
-          text-decoration: underline;
-          word-wrap: break-word;
-        ">Edit</a>
-    </div>
-    <div style="
-        width: 100%;
-        height: 0px;
-        border-top: 0.5px black solid;
-        margin: 0.3vh 0 2vh 0;
-      "></div>
+  <div class="profile-container-card">
+    <form action="" method="post" class="d-flex justify-content-between" style="margin: 1.6vh 0 1.6vh 0">
+      <input type="hidden" name="edit_user" value="<?= $_SESSION['user']['ID_CUSTOMER']; ?>">
+      <span class="profile-nonunderline-sidelink">My details<br /></span>
+      <input type="submit" class="profile-underline-link" value="Edit">
+    </form>
+    <div class="profile-header-card-line"></div>
     <div class="accountinfo-txt">
       <span class="accountinfo-txt-key">Name</span>
       <span class="accountinfo-txt-value"><?= $_SESSION['user']['NAMA_CUSTOMER']; ?></span>
@@ -58,32 +26,10 @@
       <span class="accountinfo-txt-value"><?= $_SESSION['user']['NOMOR_TELPON_CUSTOMER']; ?></span>
     </div>
   </div>
-  <div class="d-flex justify-content-between" style="
-      align-items: center;
-      width: 650px;
-      min-height: 50px;
-      background: rgba(0, 0, 0, 0);
-      border-radius: 20px;
-      border: 2px black solid;
-      padding: 0 2.5vw 0 2.5vw;
-      margin-top: 0.7vh;
-    ">
-    <div style="
-        color: black;
-        font-size: 12px;
-        font-family: Inter;
-        font-weight: 400;
-        word-wrap: break-word;
-      ">
+  <div class="d-flex justify-content-between profile-container-card-bottom">
+    <div class="profile-nonunderline-sidelink-smaller">
       Password
     </div>
-    <a href="<?= BASEURL . 'forgotpassword.php' ?>" style="
-        color: black;
-        font-size: 12px;
-        font-family: Inter;
-        font-weight: 400;
-        text-decoration: underline;
-        word-wrap: break-word;
-      ">Change Password</a>
+    <a href="<?= BASEURL . 'forgotpassword.php' ?>" class="profile-underline-link-smaller">Change Password</a>
   </div>
 </div>

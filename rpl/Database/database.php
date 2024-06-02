@@ -191,6 +191,20 @@ function regist($post, $kota, $provinsi)
     }
 }
 
+function edit_akun($fullname, $username, $phone, $email, $user_id)
+{
+    try {
+        $account = DB->prepare("UPDATE `customer` SET `NAMA_CUSTOMER`=:fullname,`NOMOR_TELPON_CUSTOMER`=:phone,`USERNAME`=:username,`EMAIL`=:email WHERE ID_CUSTOMER = $user_id");
+        $account->bindValue(':fullname', $fullname);
+        $account->bindValue(':phone', $phone);
+        $account->bindValue(':username', $username);
+        $account->bindValue(':email', $email);
+        $account->execute();
+    } catch (PDOException $err) {
+        echo $err->getMessage();
+    }
+}
+
 
 // -------------------------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------- K E L O L A    P R O D U K -----------------------------------------------------

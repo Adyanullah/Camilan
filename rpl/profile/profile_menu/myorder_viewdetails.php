@@ -1,6 +1,6 @@
-<?php if (isset($_GET['order_id'])) : ?>
-    <?php $order_detail = getDataAllWhere2JOIN('pesanan', 'ID_CUSTOMER', $_SESSION['user']['ID_CUSTOMER'], 'AND', 'ID_ORDER', $_GET['order_id'], 'metode_pembayaran', 'ID_METODE_PEMBAYARAN') ?>
-    <?php $order_detail_item = DataOrderDetailTransaction($_GET['order_id']) ?>
+<?php if (isset($_POST['order_id'])) : ?>
+    <?php $order_detail = getDataAllWhere2JOIN('pesanan', 'ID_CUSTOMER', $_SESSION['user']['ID_CUSTOMER'], 'AND', 'ID_ORDER', $_POST['order_id'], 'metode_pembayaran', 'ID_METODE_PEMBAYARAN') ?>
+    <?php $order_detail_item = DataOrderDetailTransaction($_POST['order_id']) ?>
     <div id="page5" class="page">
         <div style="margin: 3.9vh 0 2.3vh 0; color: black; font-size: 18px; font-family: Inter; font-weight: 700; word-wrap: break-word"><- Transaction Detail</div>
                 <div class="border border-2" style="width: 49vw; height:20vh; border-radius:1em">

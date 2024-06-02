@@ -49,6 +49,10 @@ foreach ($pesanan as $order) :
     <div class="border border-dark py-3 fw-bold col-md-4 text-center d-flex flex-column align-items-center" style="background-color: <?= $table_color; ?>;">TOTAL</div>
     <div class="border border-dark py-3 fw-bold col-md-3 text-center d-flex flex-column align-items-center" style="background-color: <?= $table_color; ?>;"><?= "Rp. " . number_format($pemesanan[0]['TOTAL_ORDER'], 0, ',', '.'); ?></div>
 </div>
+<?php $previousPage = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : 'Manajemen_Transaksi.php'; ?>
+<div class="d-flex justify-content-end" style="width: 85%;">
+    <a href="<?= $previousPage; ?>" class="button-submit-form mx-5 d-flex justify-content-center align-items-center my-5" style="background-color: red;">Cancel </a>
+</div>
 
 
 <?php include("../templates/footer-admin.php") ?>

@@ -21,7 +21,7 @@
                     <div class="column" style="margin-left: 1vw;">
                         <div style="color: #555252; font-size: 12px; font-family: Inter; font-weight: 400; word-wrap: break-word">CAL081708660862086303300752</div>
                     </div>
-                    <form action="">
+                    <form action="" method="POST">
                         <div class="column" style="margin-right: 1.9vw; text-align:right;">
                             <div style="color: #6B6B6B; font-size: 14px; font-family: Inter; font-weight: 400; word-wrap: break-word">Total Amount<br /></div>
                             <div style="color: black; font-size: 14px; font-family: Inter; font-weight: 400; word-wrap: break-word"><?= "Rp " . number_format($order['TOTAL_ORDER'], 0, ',', '.'); ?><br /></div>

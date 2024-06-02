@@ -26,11 +26,11 @@ $produk = getDataAllJoinLimit('barang', 'kategori', 'ID_KATEGORI', $start, $per_
     <?php if ($produk) : ?>
         <?php foreach ($produk as $pro) : ?>
             <div class="py-3 ps-4 mt-4 d-flex" style="width: 78%; background: #D9D9D9; align-self:center;">
-                <img style="width: 131px; height: 102px; border: 1px white solid" src="../gambar/produk/<?= $pro['FOTO_BARANG'] ?>" />
-                <div class="ms-2">
-                    <div class="text-dark fw-bold"><?= $pro["NAMA_BARANG"]; ?></div>
-                    <div class="text-dark ">Kategori ( <?= $pro["NAMA_KATEGORI"]; ?> )</div>
-                    <div class="text-dark mt-2">Harga : Rp. <?= number_format($pro['HARGA_BARANG'], 0, ',', '.'); ?></div>
+                <img style="min-width: 8vw; min-height: 12vh; max-width: 8.01vw; max-height: 12.01vh; border: 1px white solid" src="../gambar/produk/<?= $pro['FOTO_BARANG'] ?>" />
+                <div class="ms-2 d-flex flex-column">
+                    <div class="text-dark fw-bold d-inline-block text-truncate"><?= $pro["NAMA_BARANG"]; ?></div>
+                    <div class="text-dark d-inline-block text-truncate">Kategori ( <?= $pro["NAMA_KATEGORI"]; ?> )</div>
+                    <div class="text-dark mt-2 d-inline-block text-truncate">Harga : Rp. <?= number_format($pro['HARGA_BARANG'], 0, ',', '.'); ?></div>
                 </div>
                 <div class="d-flex align-items-center justify-content-end" style="width: 76%;">
                     <a href="<?= BASEURL . 'admin/editproduk.php?product=' . $pro['ID_BARANG'] ?>" style="padding: 10px;" class="d-flex flex-column justify-content-center align-items-center">
