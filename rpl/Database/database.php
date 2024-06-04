@@ -270,6 +270,17 @@ function edit_akun($fullname, $username, $phone, $email, $user_id)
         echo $err->getMessage();
     }
 }
+function UpdateAlamat($post, $kota, $provinsi, $user_id)
+{
+    $update_address = DB->prepare("UPDATE `customer` SET `ALAMAT`=:alamat,`KOTA`=:kota,`ID_KOTA`=:id_kota,`PROVINSI`=:provinsi,`ID_PROVINSI`=:id_provinsi WHERE `ID_CUSTOMER` = :id");
+    $update_address->bindValue(':alamat', $post['alamat']);
+    $update_address->bindValue(':id_kota', $post['kabupaten']);
+    $update_address->bindValue(':id_provinsi', $post['provinsi']);
+    $update_address->bindValue(':kota', $kota);
+    $update_address->bindValue(':provinsi', $provinsi);
+    $update_address->bindValue(':id', $user_id);
+    $update_address->execute();
+}
 
 
 // -------------------------------------------------------------------------------------------------------------------------------------

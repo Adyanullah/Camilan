@@ -1,3 +1,19 @@
+<?php
+// AMBIL KOTA ONGKIR DARI RAJAONGKIR API------------------------
+
+require_once "../controller/function/ongkir.php";
+$data = new rajaongkir();
+
+$kota = $data->get_city();
+$kota = json_decode($kota, true);
+$kota = $kota['rajaongkir']['results'];
+
+$data_2 = new rajaongkir();
+
+$provinsi = $data_2->get_prov();
+$provinsi = json_decode($provinsi, true);
+$provinsi = $provinsi['rajaongkir']['results'];
+?>
 <style>
     .full-page {
         background-color: rgba(0, 0, 0, 0.2);
@@ -17,33 +33,42 @@
     }
 </style>
 <div class="full-page d-flex justify-content-center align-items-center">
-    <div style="width: 430px; height: 633px; position: relative; background: #DFDEDE; border-radius: 10px; overflow: hidden">
-        <div style="width: 304px; height: 59px; left: 19px; top: 21px; position: absolute; color: black; font-size: 30px; font-family: Inter; font-weight: 400; word-wrap: break-word">Edit Address</div>
-        <div style="width: 391px; height: 436px; left: 19px; top: 68px; position: absolute; background: rgba(124.31, 121.72, 121.72, 0.10); border-radius: 10px; border: 0.50px #999595 solid"></div>
-        <div style="width: 364px; height: 33px; left: 33px; top: 354px; position: absolute; color: black; font-size: 12px; font-family: Inter; font-weight: 400; word-wrap: break-word">Postal Code*</div>
-        <div style="width: 360px; height: 38px; left: 33px; top: 375px; position: absolute; color: black; font-size: 14px; font-family: Inter; font-weight: 400; word-wrap: break-word">Postal Code</div>
-        <div style="width: 365px; height: 0px; left: 32px; top: 405px; position: absolute; border: 1px black solid"></div>
-        <div style="width: 364px; height: 33px; left: 34px; top: 419px; position: absolute; color: black; font-size: 12px; font-family: Inter; font-weight: 400; word-wrap: break-word">Phone*</div>
-        <div style="width: 360px; height: 38px; left: 34px; top: 440px; position: absolute; color: black; font-size: 14px; font-family: Inter; font-weight: 400; word-wrap: break-word">+62 Your phone number</div>
-        <div style="width: 365px; height: 0px; left: 33px; top: 470px; position: absolute; border: 1px black solid"></div>
-        <div style="width: 364px; height: 33px; left: 33px; top: 80px; position: absolute; color: black; font-size: 12px; font-family: Inter; font-weight: 400; word-wrap: break-word">Address Label*</div>
-        <div style="width: 364px; height: 33px; left: 34px; top: 241px; position: absolute; color: black; font-size: 12px; font-family: Inter; font-weight: 400; word-wrap: break-word">Province*</div>
-        <div style="width: 364px; height: 33px; left: 224px; top: 246px; position: absolute; color: black; font-size: 12px; font-family: Inter; font-weight: 400; word-wrap: break-word">City*</div>
-        <div style="width: 360px; height: 38px; left: 33px; top: 101px; position: absolute; color: black; font-size: 14px; font-family: Inter; font-weight: 400; word-wrap: break-word">Home</div>
-        <div style="width: 360px; height: 38px; left: 32px; top: 203px; position: absolute; color: black; font-size: 14px; font-family: Inter; font-weight: 400; word-wrap: break-word">Enter your address</div>
-        <div style="width: 360px; height: 38px; left: 34px; top: 259px; position: absolute; color: black; font-size: 14px; font-family: Inter; font-weight: 400; word-wrap: break-word">Province</div>
-        <div style="width: 360px; height: 38px; left: 224px; top: 259px; position: absolute; color: black; font-size: 14px; font-family: Inter; font-weight: 400; word-wrap: break-word">City</div>
-        <div style="width: 364px; height: 33px; left: 32px; top: 182px; position: absolute; color: black; font-size: 12px; font-family: Inter; font-weight: 400; word-wrap: break-word">Address*</div>
-        <div style="width: 175px; height: 0px; left: 32px; top: 288px; position: absolute; border: 1px black solid"></div>
-        <div style="width: 175px; height: 0px; left: 224px; top: 288px; position: absolute; border: 1px black solid"></div>
-        <div style="width: 364px; height: 33px; left: 34px; top: 293px; position: absolute; color: black; font-size: 12px; font-family: Inter; font-weight: 400; word-wrap: break-word">District*</div>
-        <div style="width: 364px; height: 33px; left: 224px; top: 293px; position: absolute; color: black; font-size: 12px; font-family: Inter; font-weight: 400; word-wrap: break-word">Sub District*</div>
-        <div style="width: 360px; height: 38px; left: 34px; top: 311px; position: absolute; color: black; font-size: 14px; font-family: Inter; font-weight: 400; word-wrap: break-word">Disrict</div>
-        <div style="width: 360px; height: 38px; left: 224px; top: 311px; position: absolute; color: black; font-size: 14px; font-family: Inter; font-weight: 400; word-wrap: break-word">Sub District</div>
-        <div style="width: 175px; height: 0px; left: 32px; top: 340px; position: absolute; border: 1px black solid"></div>
-        <div style="width: 175px; height: 0px; left: 224px; top: 340px; position: absolute; border: 1px black solid"></div>
-        <div style="width: 283px; height: 46px; left: 73px; top: 531px; position: absolute; background: #7D7B7B; border-radius: 10px"></div>
-        <div style="width: 51px; height: 20px; left: 189px; top: 544px; position: absolute; color: white; font-size: 18px; font-family: Inter; font-weight: 700; word-wrap: break-word">SAVE</div>
-        <div style="width: 73px; height: 11px; left: 187px; top: 591px; position: absolute; color: black; font-size: 16px; font-family: Inter; font-weight: 400; text-decoration: underline; word-wrap: break-word">Cancel</div>
+    <div style="width: 430px; height: 633px; position: relative; background: #DFDEDE; border-radius: 10px; overflow: hidden" class="d-flex flex-column align-items-center">
+        <div class="pt-4 ps-4 mb-3" style="width: 100%; height: 59px;"><span class="text-start" style="color: black; font-size: 30px; font-family: Inter; font-weight: 400; word-wrap: break-word">Edit Address</span></div>
+        <form action="<?= BASEURL . 'controller/function/edit_address.php'; ?>" method="post">
+            <div style="width: 391px; height: 436px; flex-shrink: 0; border-radius: 10px; border: 0.5px solid #999595; background: rgba(124, 122, 122, 0.10);">
+                <div class="col-12 d-flex flex-column mb-3 px-3 mt-3">
+                    <label for="alamat">Provinsi : <span class="text-danger">*</span></label>
+                    <select style="background-color: transparent; border:none;" name="provinsi" id="" required>
+                        <option selected>Pilih Provinsi</option>
+                        <?php foreach ($provinsi as $prov) : ?>
+                            <option value="<?= $prov['province_id']; ?>"><?= $prov['province']; ?></option>
+                        <?php endforeach ?>
+                    </select>
+                </div>
+                <div class="col-12 d-flex flex-column mb-3 px-3">
+                    <label for="alamat">Kabupaten : <span class="text-danger">*</span></label>
+                    <select style="background-color: transparent; border:none;" name="kabupaten" id="" required>
+                        <option selected>Pilih Kabupaten</option>
+                        <?php foreach ($kota as $cities) : ?>
+                            <option value="<?= $cities['city_id']; ?>"><?= $cities['city_name']; ?></option>
+                        <?php endforeach ?>
+                    </select>
+                </div>
+                <div class="col-12 d-flex flex-column mb-3 px-3">
+                    <label for="alamat">Detail Lainnya : <span class="text-danger">*</span></label>
+                    <input type="text-area" style="background-color: transparent; border:none;" name="alamat" id="" placeholder="Desa, Jalan, No., Gedung, Etc." required>
+                    <div style="width:100%; height: 0px; border: 1px black solid"></div>
+                </div>
+            </div>
+            <div class="d-flex flex-column justify-content-center align-items-center" style="width: 100%;">
+                <button type="submit" style="width: 283px;height: 46px;flex-shrink: 0;border-radius: 10px;background: #7D7B7B;" class="mt-3 d-flex justify-content-center align-items-center">
+                    <div class="text-light fw-bold text-center fs-5">SAVE</div>
+                </button>
+            </div>
+            <div style="height: 46px;flex-shrink: 0;" class="mt-1 d-flex justify-content-center align-items-center">
+                <a href="<?= BASEURL . 'profile'; ?>" class="profile-underline-sidelink" style="color: black;">Cancel</a>
+            </div>
+        </form>
     </div>
 </div>

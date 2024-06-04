@@ -18,7 +18,7 @@
                     </div>
                     <div class="d-flex justify-content-between py-2 px-4">
                         <div class="text-grey">Order ID</div>
-                        <div class="text-grey">CAL081708660862086303300752</div>
+                        <div class="text-grey">ORD<?= $_SESSION['user']['NOMOR_TELPON_CUSTOMER'] ?><?= $order_detail[0]['ID_ORDER']; ?></div>
                     </div>
                     <div class="d-flex justify-content-between py-2 px-4">
                         <div class="text-grey">Order Date</div>
@@ -47,8 +47,22 @@
                         </div>
                     </div>
                 <?php endforeach; ?>
+                <div class="text-dark fw-bold my-4 fs-5">Delivery Details</div>
+                <div class="card px-4 py-2 border-2" style="border-radius: 10px;">
+                    <div class="row border-bottom border-1 border-dark my-2">
+                        <div class="fw-lighter">Delivery Type</div>
+                        <div class="text-dark">Official Delivery</div>
+                    </div>
+                    <div class="row my-2">
+                        <div class="fw-lighter">Address</div>
+                        <div class="text-dark"><?= $_SESSION['user']['NAMA_CUSTOMER'] ?></div>
+                        <div class="text-dark"><?= $_SESSION['user']['PROVINSI'] ?>,<?= $_SESSION['user']['KOTA'] ?></div>
+                        <div class="text-dark"><?= $_SESSION['user']['ALAMAT'] ?></div>
+                        <div class="text-dark"><?= $_SESSION['user']['NOMOR_TELPON_CUSTOMER'] ?></div>
+                    </div>
+                </div>
                 <div class="text-dark fw-bold my-4 fs-5">Payment Details</div>
-                <div class="card px-4 py-2 border-2">
+                <div class="card px-4 py-2 border-2" style="border-radius: 10px;">
                     <div class="row border-bottom border-1 border-dark my-2">
                         <div class="col">Payment Method</div>
                         <div class="col text-end"><?= $order_detail[0]['NAMA_METODE_PEMBAYARAN']; ?> Virtual Account</div>

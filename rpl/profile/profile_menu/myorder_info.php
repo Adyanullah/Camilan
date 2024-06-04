@@ -35,7 +35,7 @@ $orders = getDataAllWhereLimit('pesanan', 'ID_CUSTOMER', $_SESSION['user']['ID_C
                 </div>
                 <div class="detail-myorder" style="display: flex; justify-content:space-between; margin: 0.4vh 0 0 0">
                     <div class="column" style="margin-left: 1vw;">
-                        <div style="color: #555252; font-size: 12px; font-family: Inter; font-weight: 400; word-wrap: break-word">CAL081708660862086303300752</div>
+                        <div style="color: #555252; font-size: 12px; font-family: Inter; font-weight: 400; word-wrap: break-word">ORD<?= $_SESSION['user']['NOMOR_TELPON_CUSTOMER'] ?><?= $order['ID_ORDER']; ?></div>
                     </div>
                     <form action="" method="POST">
                         <div class="column" style="margin-right: 1.9vw; text-align:right;">

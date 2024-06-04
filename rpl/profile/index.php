@@ -144,7 +144,9 @@ include("../templates/navbar.php")
             <?php include "profile_menu/myorder_viewdetails.php" ?>
             <?php include "profile_menu/address_info.php" ?>
             <?php include "profile_menu/edit_akun.php" ?>
-            <!-- <?php include "profile_menu/edit_address.php" ?> -->
+            <?php if (isset($_POST['edit_alamat_akun'])) :
+                include "profile_menu/edit_address.php";
+            endif; ?>
         </div>
     </div>
     <div class="jarak" style="min-height:100px; background-color:white; width:100vw; margin:0;"></div>
@@ -177,6 +179,10 @@ include("../templates/navbar.php")
 
     <?php if (isset($_GET['errors'])) : ?>
         togglePage("page6");
+    <?php endif; ?>
+
+    <?php if (isset($_POST['edit_alamat_akun'])) : ?>
+        togglePage("page4");
     <?php endif; ?>
 
     function togglePage(pageId) {
