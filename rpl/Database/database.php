@@ -47,6 +47,16 @@ function getDataAllLIKE($table, $column, $str_array)
         echo $err->getMessage();
     }
 }
+function getDataAllLIKELimit($table, $column, $str_array,  $start, $perpage)
+{
+    try {
+        $statement = DB->prepare("SELECT * FROM $table WHERE $column LIKE '%" . $str_array . "%' LIMIT $start, $perpage");
+        $statement->execute();
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    } catch (PDOException $err) {
+        echo $err->getMessage();
+    }
+}
 function getDataAllFindInSet($table, $column, $str_array)
 {
     try {
@@ -61,6 +71,17 @@ function getDataAllWhere($table, $column, $id)
 {
     try {
         $statement = DB->prepare("SELECT * FROM $table WHERE $column = :id");
+        $statement->bindValue(':id', $id);
+        $statement->execute();
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    } catch (PDOException $err) {
+        echo $err->getMessage();
+    }
+}
+function getDataAllWhereLimit($table, $column, $id, $start, $perpage)
+{
+    try {
+        $statement = DB->prepare("SELECT * FROM $table WHERE $column = :id LIMIT $start, $perpage");
         $statement->bindValue(':id', $id);
         $statement->execute();
         return $statement->fetchAll(PDO::FETCH_ASSOC);

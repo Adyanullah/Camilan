@@ -1,4 +1,20 @@
-<?php $orders = getDataAllWhere('pesanan', 'ID_CUSTOMER', $_SESSION['user']['ID_CUSTOMER']) ?>
+<?php
+$result = getDataAllWhere('pesanan', 'ID_CUSTOMER', $_SESSION['user']['ID_CUSTOMER']);
+$per_page = 3; // Number of items per page
+$total_results = count($result);
+$total_pages = ceil($total_results / $per_page);
+
+
+if (!isset($_GET['MyOrder_Page'])) {
+    $page = 1;
+} else {
+    $page = $_GET['MyOrder_Page'];
+}
+
+$start = ($page - 1) * $per_page;
+$orders = getDataAllWhereLimit('pesanan', 'ID_CUSTOMER', $_SESSION['user']['ID_CUSTOMER'], $start, $per_page);
+
+?>
 <div id="page3" class="page">
     <div style="margin: 3.9vh 0 2.3vh 0; color: black; font-size: 18px; font-family: Inter; font-weight: 700; word-wrap: break-word">My Order</div>
     <?php foreach ($orders as $order) : ?>
@@ -33,4 +49,13 @@
             </div>
         </div>
     <?php endforeach; ?>
+    <div class="d-flex justify-content-center pe-5 me-5">
+        <?php for ($i = 1; $i <= $total_pages; $i++) : ?>
+            <a class="border border-2 text-decoration-none px-2 py-1 my-4 mx-1" style="color: #000;" href='?MyOrder_Page=<?= $i ?>'>
+                <div class="paginate-link p-0 m-0" style="width:100%; height:100%">
+                    <?= $i; ?>
+                </div>
+            </a>
+        <?php endfor; ?>
+    </div>
 </div>

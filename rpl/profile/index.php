@@ -164,7 +164,9 @@ include("../templates/navbar.php")
     document.getElementById("page4Btn").addEventListener("click", function() {
         togglePage("page4");
     });
-
+    <?php if (isset($_GET['MyOrder_Page'])) : ?>
+        togglePage("page3");
+    <?php endif; ?>
     <?php if (isset($_POST['order_id'])) : ?>
         togglePage("page5");
     <?php endif; ?>

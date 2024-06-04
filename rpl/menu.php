@@ -5,12 +5,27 @@ require_once('Database/database.php');
 
 
 <?php
-include("templates/navbar.php");
-if (isset($_GET['rasa'])) {
-    $produk = getDataAllLIKE('barang', 'VARIAN', $_GET['rasa']);
+$per_page = 8; // Number of items per page
+
+if (!isset($_GET['Menu_Page'])) {
+    $page = 1;
 } else {
-    $produk = getDataAll('barang');
+    $page = $_GET['Menu_Page'];
 }
+$start = ($page - 1) * $per_page;
+if (isset($_GET['rasa'])) {
+    $result = getDataAllLIKE('barang', 'VARIAN', $_GET['rasa']);
+    $total_results = count($result);
+    $total_pages = ceil($total_results / $per_page);
+    $produk = getDataAllLIKELimit('barang', 'VARIAN', $_GET['rasa'], $start, $per_page);
+} else {
+    $result = getDataAll('barang');
+    $total_results = count($result);
+    $total_pages = ceil($total_results / $per_page);
+    $produk = getDataAllLimit('barang', $start, $per_page);
+}
+
+include("templates/navbar.php");
 ?>
 <style>
     .desc {
@@ -148,7 +163,15 @@ if (isset($_GET['rasa'])) {
 
             </div>
         </div>
-
+        <div class="d-flex justify-content-center">
+            <?php for ($i = 1; $i <= $total_pages; $i++) : ?>
+                <a class="border border-2 text-decoration-none px-2 py-1 my-4 mx-1" style="color: black;" href='?Menu_Page=<?= $i ?>'>
+                    <div class="paginate-link p-0 m-0" style="width:100%; height:100%; background-color:transparent; color:black">
+                        <?= $i; ?>
+                    </div>
+                </a>
+            <?php endfor; ?>
+        </div>
     </section>
 </div>
 
