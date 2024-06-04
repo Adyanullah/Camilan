@@ -8,6 +8,7 @@ if (!isset($_SESSION['user'])) {
 }
 
 $keranjanganda = getListKeranjang($_SESSION['user']['ID_CUSTOMER']);
+$jumlah_produk = 0;
 $sumprice = 0;
 $berat = 0;
 $stringlist = "";
@@ -15,6 +16,7 @@ foreach ($keranjanganda as $price) {
     $sumprice = $sumprice + $price['TotalHarga'];
     $stringlist = $stringlist . $price['ID_BARANG'] . ',';
     $berat += $price['Berat'];
+    $jumlah_produk += $price['Jumlah'];
 }
 $stringlist = rtrim($stringlist, ", ");
 
@@ -301,10 +303,10 @@ include("templates/navbar.php")
                         <div class="d-flex justify-content-center" style="align-items:center; width: 100px; color:white">
                             <input class="form-check-input square" type="checkbox" name="radioprice" id="checkboxNoLabel" value="<?= $kanda['ID_BARANG']; ?> <?= $kanda['TotalHarga']; ?>" checked>
                         </div>
-                        <div class="card" style="margin:1.25vh; margin-left:0; width: 100px; height:80px; border-radius:0;"><img src="gambar/produk/<?= $kanda['FOTO_BARANG'] ?>" alt="produk" style="max-width: 100%; max-height: 100%;"></div>
+                        <div class="card" style="margin:1.25vh; margin-left:0; width: 100px; height:80px; border-radius:0;"><img src="gambar/produk/<?= $kanda['FOTO_BARANG'] ?>" alt="produk" style="max-width: 100%; max-height: 100%; min-width: 99.9%; min-height: 99.9%;"></div>
                         <div class="descpro">
                             <span class="titlepro"><?= $kanda['NAMA_BARANG']; ?></span>
-                            <span>( <?= $kanda['Berat'] / $kanda['Jumlah']; ?>g ) Pedas</span>
+                            <span>( <?= $kanda['Berat'] / $kanda['Jumlah']; ?>g ) <?= $kanda['NAMA_KATEGORI']; ?></span>
                             <span class="singleprice"><?= "Rp. " . number_format($kanda['HARGA_BARANG'], 0, ',', '.'); ?> / pcs</span>
                         </div>
                         <a href="controller/transaksi/plus_onecartpieces.php?pro=<?= $kanda['ID_BARANG']; ?>&w=<?= $kanda['ID_UKURAN']; ?>">
@@ -400,7 +402,7 @@ include("templates/navbar.php")
             <div class="payment-price-info">
                 <div class="payment-price-txt-container">
                     <div class="payment-price-info-txt">
-                        <span>Total ( 5 Produk )</span>
+                        <span>Total ( <?= $jumlah_produk; ?> Produk )</span>
                         <span>Biaya Pengiriman</span>
                     </div>
                     <div class="payment-price-info-txt">

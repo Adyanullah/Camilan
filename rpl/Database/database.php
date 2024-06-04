@@ -27,6 +27,36 @@ function getDataAll($table)
         echo $err->getMessage();
     }
 }
+function getDataAllLimit($table, $start, $perpage)
+{
+    try {
+        $statement = DB->prepare("SELECT * FROM $table LIMIT $start, $perpage");
+        $statement->execute();
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    } catch (PDOException $err) {
+        echo $err->getMessage();
+    }
+}
+function getDataAllLIKE($table, $column, $str_array)
+{
+    try {
+        $statement = DB->prepare("SELECT * FROM $table WHERE $column LIKE '%" . $str_array . "%'");
+        $statement->execute();
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    } catch (PDOException $err) {
+        echo $err->getMessage();
+    }
+}
+function getDataAllFindInSet($table, $column, $str_array)
+{
+    try {
+        $statement = DB->prepare("SELECT * FROM $table WHERE FIND_IN_SET('" . $str_array . "', $column) > 0");
+        $statement->execute();
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    } catch (PDOException $err) {
+        echo $err->getMessage();
+    }
+}
 function getDataAllWhere($table, $column, $id)
 {
     try {
@@ -62,6 +92,17 @@ function getDataAllJoinWhere($table, $column, $columnid, $columnWhere, $WhereId)
 {
     try {
         $statement = DB->prepare("SELECT * FROM $table JOIN $column ON $table.$columnid = $column.$columnid WHERE $columnWhere = :id");
+        $statement->bindValue(':id', $WhereId);
+        $statement->execute();
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    } catch (PDOException $err) {
+        echo $err->getMessage();
+    }
+}
+function getDataAll2JoinWhere($table, $column, $columnid, $column_2, $columnid_2, $columnWhere, $WhereId)
+{
+    try {
+        $statement = DB->prepare("SELECT * FROM $table JOIN $column ON $table.$columnid = $column.$columnid JOIN $column_2 ON $table.$columnid_2 = $column_2.$columnid_2 WHERE $columnWhere = :id");
         $statement->bindValue(':id', $WhereId);
         $statement->execute();
         return $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -154,7 +195,11 @@ function getDataPesananDetail($data, $id)
 function DataOrderDetailTransaction($IDORDER)
 {
     try {
-        $builder = DB->prepare("SELECT b.FOTO_BARANG, b.HARGA_BARANG, d.JUMLAH_PRODUK, b.NAMA_BARANG FROM detail_pesanan d JOIN barang b ON d.ID_BARANG = b.ID_BARANG WHERE d.ID_ORDER = $IDORDER");
+        $builder = DB->prepare("SELECT *
+        FROM detail_pesanan d 
+        JOIN barang b ON d.ID_BARANG = b.ID_BARANG 
+        JOIN kategori ON d.ID_KATEGORI = kategori.ID_KATEGORI
+        WHERE d.ID_ORDER = $IDORDER");
         $builder->execute();
         return $builder->fetchAll(PDO::FETCH_ASSOC);
     } catch (PDOException $err) {
@@ -220,13 +265,13 @@ function addProduct($post)
         $new = time() . $img;
         move_uploaded_file($tmp, $dir . $new);
 
-        $statement = DB->prepare("INSERT INTO barang (`ID_KATEGORI`, `NAMA_BARANG`, `HARGA_BARANG`, `STOCK`, `FOTO_BARANG`, `Deskripsi`, `Ukuran`) 
-        VALUES (:kategori, :nama, :harga, :stock, :foto, :deskripsi, :ukuran)");
-        $statement->bindValue(':kategori', $post[0]['kategori']);
+        $statement = DB->prepare("INSERT INTO barang (`NAMA_BARANG`, `HARGA_BARANG`, `STOCK`, `FOTO_BARANG`, `Deskripsi`, `Ukuran`, `VARIAN`) 
+        VALUES (:nama, :harga, :stock, :foto, :deskripsi, :ukuran, :varian)");
         $statement->bindValue(':nama', $post[0]['namaproduk']);
         $statement->bindValue(':harga', $post[0]['hargaproduk']);
         $statement->bindValue(':stock', $post[0]['stockproduk']);
         $statement->bindValue(':deskripsi', $post[0]['deskripsi']);
+        $statement->bindValue(':varian', $post[0]['varian']);
         $statement->bindValue(':foto', $new);
         $statement->bindValue(':ukuran', $post[0]['berat']);
         $statement->execute();
@@ -243,12 +288,12 @@ function updateProduct($post)
         $new = time() . $img;
         move_uploaded_file($tmp, $dir . $new);
 
-        $statement = DB->prepare("UPDATE `barang` SET `ID_KATEGORI`=:kategori,`NAMA_BARANG`=:nama,`HARGA_BARANG`=:harga,`STOCK`=:stock,`FOTO_BARANG`=:foto,`Deskripsi`=:deskripsi, `Ukuran`=:ukuran WHERE `ID_BARANG`=:id");
-        $statement->bindValue(':kategori', $post[0]['kategori']);
+        $statement = DB->prepare("UPDATE `barang` SET `NAMA_BARANG`=:nama,`HARGA_BARANG`=:harga,`STOCK`=:stock,`FOTO_BARANG`=:foto,`Deskripsi`=:deskripsi, `Ukuran`=:ukuran, `VARIAN` = :varian WHERE `ID_BARANG`=:id");
         $statement->bindValue(':nama', $post[0]['namaproduk']);
         $statement->bindValue(':harga', $post[0]['hargaproduk']);
         $statement->bindValue(':stock', $post[0]['stockproduk']);
         $statement->bindValue(':deskripsi', $post[0]['deskripsi']);
+        $statement->bindValue(':varian', $post[0]['varian']);
         $statement->bindValue(':foto', $new);
         $statement->bindValue(':id', $post[0]['idbarang']);
         $statement->bindValue(':ukuran', $post[0]['berat']);
@@ -279,11 +324,12 @@ function deletebarang($id)
 function insertcart($POST)
 {
     try {
-        $statement = DB->prepare("INSERT INTO keranjang(ID_BARANG, ID_CUSTOMER, ID_UKURAN) VALUES(:idProduk, :idCust, :ukuran)");
+        $statement = DB->prepare("INSERT INTO keranjang(ID_BARANG, ID_CUSTOMER, ID_UKURAN, ID_KATEGORI) VALUES(:idProduk, :idCust, :ukuran, :kategori)");
 
         $statement->bindValue(':idProduk', $_POST['idbarang']);
         $statement->bindValue(':idCust', $_SESSION['user']['ID_CUSTOMER']);
         $statement->bindValue(':ukuran', $_POST['idukuran']);
+        $statement->bindValue(':kategori', $_POST['idvarian']);
         $statement->execute();
 
         $st = DB->prepare("UPDATE barang SET STOCK = STOCK-1 WHERE ID_BARANG = :id");
@@ -341,12 +387,13 @@ function deletebarangdikeranjang($id, $user)
 function getListKeranjang($id)
 {
     try {
-        $statement = DB->prepare("SELECT barang.ID_BARANG, barang.ID_KATEGORI, barang.NAMA_BARANG, barang.HARGA_BARANG, barang.STOCK, barang.FOTO_BARANG, barang.Deskripsi, keranjang.ID_KERANJANG, keranjang.ID_UKURAN, COUNT(barang.ID_BARANG) AS Jumlah, barang.HARGA_BARANG * COUNT(barang.ID_BARANG) AS TotalHarga, SUM(ukuran_barang.BERAT) AS Berat
+        $statement = DB->prepare("SELECT barang.ID_BARANG, keranjang.ID_KATEGORI, kategori.NAMA_KATEGORI, barang.NAMA_BARANG, barang.HARGA_BARANG, barang.STOCK, barang.FOTO_BARANG, barang.Deskripsi, keranjang.ID_KERANJANG, keranjang.ID_UKURAN, COUNT(barang.ID_BARANG) AS Jumlah, barang.HARGA_BARANG * COUNT(barang.ID_BARANG) AS TotalHarga, SUM(ukuran_barang.BERAT) AS Berat
         FROM keranjang
         JOIN ukuran_barang ON keranjang.ID_UKURAN = ukuran_barang.ID_UKURAN
+        JOIN kategori ON keranjang.ID_KATEGORI = kategori.ID_KATEGORI
         JOIN barang ON keranjang.ID_BARANG = barang.ID_BARANG 
         WHERE keranjang.ID_CUSTOMER = :id
-        GROUP BY barang.ID_BARANG, ukuran_barang.ID_UKURAN
+        GROUP BY barang.ID_BARANG, ukuran_barang.ID_UKURAN, kategori.ID_KATEGORI
     ");
         $statement->bindValue(':id', $id);
         $statement->execute();
@@ -381,24 +428,26 @@ function Pesan($user, $total, $str_array_keranjang, $bankname, $rekening)
 
         $id_pesanan = DB->LastInsertId();
         $query_barang = DB->prepare("
-        SELECT k.ID_CUSTOMER, k.ID_BARANG, COUNT(k.ID_BARANG) AS QTY, SUM(b.HARGA_BARANG) AS TOTAL_HARGA, ukuran_barang.BERAT * COUNT(k.ID_BARANG) AS TotalBerat
+        SELECT k.ID_CUSTOMER, k.ID_BARANG, k.ID_KATEGORI, kategori.NAMA_KATEGORI, COUNT(k.ID_BARANG) AS QTY, SUM(b.HARGA_BARANG) AS TOTAL_HARGA, ukuran_barang.BERAT * COUNT(k.ID_BARANG) AS TotalBerat
         FROM keranjang AS k
         JOIN ukuran_barang ON k.ID_UKURAN = ukuran_barang.ID_UKURAN
+        JOIN kategori ON k.ID_KATEGORI = kategori.ID_KATEGORI
         JOIN barang AS b ON k.ID_BARANG = b.ID_BARANG
         WHERE k.ID_CUSTOMER = :idcustomer AND k.ID_BARANG IN (" . $str_array_keranjang . ")
-        GROUP BY k.ID_CUSTOMER, k.ID_BARANG, ukuran_barang.ID_UKURAN;
+        GROUP BY k.ID_CUSTOMER, k.ID_BARANG, ukuran_barang.ID_UKURAN, kategori.ID_KATEGORI;
         ");
         $query_barang->bindValue(':idcustomer', $user);
         $query_barang->execute();
         $query_barang = $query_barang->fetchAll(PDO::FETCH_ASSOC);
 
         foreach ($query_barang as $menu) {
-            $insert_pesanan =  DB->prepare("INSERT INTO detail_pesanan(ID_BARANG, ID_ORDER, JUMLAH_PRODUK, HARGA, BERAT) VALUES(:id_barang, :id_order, :qty, :harga, :totalweight)");
+            $insert_pesanan =  DB->prepare("INSERT INTO detail_pesanan(ID_BARANG, ID_ORDER, JUMLAH_PRODUK, HARGA, BERAT, ID_KATEGORI) VALUES(:id_barang, :id_order, :qty, :harga, :totalweight, :kategori)");
             $insert_pesanan->bindValue('id_barang', $menu['ID_BARANG']);
             $insert_pesanan->bindValue('id_order', $id_pesanan);
             $insert_pesanan->bindValue('qty', $menu['QTY']);
             $insert_pesanan->bindValue(':harga', $menu['TOTAL_HARGA']);
             $insert_pesanan->bindValue(':totalweight', $menu['TotalBerat']);
+            $insert_pesanan->bindValue(':kategori', $menu['ID_KATEGORI']);
             $insert_pesanan->execute();
         }
 

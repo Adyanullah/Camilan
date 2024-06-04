@@ -17,7 +17,7 @@ if ($_SESSION['user']) {
 
     Pesan($user, $total, $str_array_keranjang, $bankname, $rekening);
     $_SESSION['status'] = "Pesanan Sedang Di Proses";
-    header('Location: ' . BASEURL . 'menu.php');
+    header('Location: ' . BASEURL . 'feedbackterimakasih.php');
 } else {
     header('Location: ../../login.php');
 }

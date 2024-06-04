@@ -7,7 +7,7 @@ require_once('Database/database.php');
 <?php
 include("templates/navbar.php");
 if (isset($_GET['rasa'])) {
-    $produk = getDataAllWhere('barang', 'ID_KATEGORI', $_GET['rasa']);
+    $produk = getDataAllLIKE('barang', 'VARIAN', $_GET['rasa']);
 } else {
     $produk = getDataAll('barang');
 }
@@ -95,9 +95,9 @@ if (isset($_GET['rasa'])) {
 </style>
 
 <div class="image-container">
-    <p>the reason you crave camilan</p>
+    <p>Belanja Puas Harga Pass !!!</p>
     <div class="pesan">
-        <a href="pesan.php">Pesan sekarang</a>
+        <a href="menu.php">Pesan sekarang</a>
     </div>
 </div>
 <div class="box_menudesign" style="

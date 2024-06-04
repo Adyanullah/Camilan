@@ -141,8 +141,8 @@
                     </li>
                     <li><a href="<?= BASEURL . 'contact.php' ?>">Contact</a></li>
                     <li><a href="<?= BASEURL . 'keranjang.php' ?>">Keranjang</a></li>
-                    <li><a>About Us</a></li>
-                    <li><a href="<?= BASEURL . 'admin/index.php' ?>">Halaman Admin</a></li>
+
+                    <!-- <li><a href="<?= BASEURL . 'admin/index.php' ?>">Halaman Admin</a></li> -->
                 </ul>
             </div>
             <div class="logo" id="balik">

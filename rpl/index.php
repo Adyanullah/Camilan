@@ -10,7 +10,7 @@ include("templates/navbar.php")
 <div class="image-container">
     <p>the reason you crave camilan</p>
     <div class="pesan">
-        <a href="pesan.php">Pesan sekarang</a>
+        <a href="menu.php">Pesan sekarang</a>
     </div>
 </div>
 <div class="konten">

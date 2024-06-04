@@ -3,7 +3,7 @@
 require_once('../Database/base.php');
 require_once('../Database/database.php');
 
-$pesanan = getDataAllJoinWhere('detail_pesanan', 'barang', 'ID_BARANG', 'ID_ORDER', $_GET['DetailPesanan']);
+$pesanan = getDataAll2JoinWhere('detail_pesanan', 'barang', 'ID_BARANG', 'kategori', 'ID_KATEGORI', 'ID_ORDER', $_GET['DetailPesanan']);
 $pemesanan = getDataAllJoinWhere('pesanan', 'metode_pembayaran', 'ID_METODE_PEMBAYARAN', 'ID_ORDER', $_GET['DetailPesanan']);
 // var_dump($_GET);
 // die;
@@ -33,7 +33,7 @@ foreach ($pesanan as $order) :
 ?>
     <div class="row" style="width: 85%;">
         <div class="border border-dark py-3 fw-bold col-sm-1 text-center d-flex flex-column align-items-center" style="background-color: <?= $table_color; ?>;"><?= $row_count; ?>.</div>
-        <div class="border border-dark py-3 fw-bold col-md-4 text-center d-flex flex-column align-items-center" style="background-color: <?= $table_color; ?>;"><?= $order['NAMA_BARANG']; ?></div>
+        <div class="border border-dark py-3 fw-bold col-md-4 text-center d-flex flex-column align-items-center" style="background-color: <?= $table_color; ?>;"><?= $order['NAMA_BARANG']; ?> ( <?= $order['NAMA_KATEGORI']; ?> )</div>
         <div class="border border-dark py-3 fw-bold col-md-2 text-center d-flex flex-column align-items-center" style="background-color: <?= $table_color; ?>;"><?= "Rp. " . number_format($order['HARGA_BARANG'], 0, ',', '.'); ?></div>
         <div class="border border-dark py-3 fw-bold col text-center d-flex flex-column align-items-center" style="background-color: <?= $table_color; ?>;"><?= $order['JUMLAH_PRODUK']; ?></div>
         <div class="border border-dark py-3 fw-bold col-md-3 text-center d-flex flex-column align-items-center" style="background-color: <?= $table_color; ?>;"><?= "Rp. " . number_format($order['HARGA'], 0, ',', '.'); ?></div>

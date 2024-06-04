@@ -5,7 +5,7 @@ require_once('../Database/database.php');
 ?>
 
 <?php
-$result = getDataAllJoin('barang', 'kategori', 'ID_KATEGORI');
+$result = getDataAll('barang');
 
 $per_page = 4; // Number of items per page
 $total_results = count($result);
@@ -18,7 +18,7 @@ if (!isset($_GET['page'])) {
 }
 
 $start = ($page - 1) * $per_page;
-$produk = getDataAllJoinLimit('barang', 'kategori', 'ID_KATEGORI', $start, $per_page);
+$produk = getDataAllLimit('barang', $start, $per_page);
 ?>
 <?php include("../templates/header-admin.php") ?>
 <!-- content -->
@@ -29,7 +29,6 @@ $produk = getDataAllJoinLimit('barang', 'kategori', 'ID_KATEGORI', $start, $per_
                 <img style="min-width: 8vw; min-height: 12vh; max-width: 8.01vw; max-height: 12.01vh; border: 1px white solid" src="../gambar/produk/<?= $pro['FOTO_BARANG'] ?>" />
                 <div class="ms-2 d-flex flex-column">
                     <div class="text-dark fw-bold d-inline-block text-truncate"><?= $pro["NAMA_BARANG"]; ?></div>
-                    <div class="text-dark d-inline-block text-truncate">Kategori ( <?= $pro["NAMA_KATEGORI"]; ?> )</div>
                     <div class="text-dark mt-2 d-inline-block text-truncate">Harga : Rp. <?= number_format($pro['HARGA_BARANG'], 0, ',', '.'); ?></div>
                 </div>
                 <div class="d-flex align-items-center justify-content-end" style="width: 76%;">
@@ -48,13 +47,6 @@ $produk = getDataAllJoinLimit('barang', 'kategori', 'ID_KATEGORI', $start, $per_
 
                         </svg>
                     </a>
-                    <!-- <a href="#open" style="padding: 10px;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="black" class="bi bi-box-arrow-up-right" viewBox="0 0 23 23">
-                            <path fill-rule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5" />
-                            <path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0z" />
-                            <text x="1" y="23" font-family="Arial" font-size="8" fill="black">View</text>
-                        </svg>
-                    </a> -->
                 </div>
             </div>
         <?php endforeach ?>

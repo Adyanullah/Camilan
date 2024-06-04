@@ -144,6 +144,7 @@ include("../templates/navbar.php")
             <?php include "profile_menu/myorder_viewdetails.php" ?>
             <?php include "profile_menu/address_info.php" ?>
             <?php include "profile_menu/edit_akun.php" ?>
+            <!-- <?php include "profile_menu/edit_address.php" ?> -->
         </div>
     </div>
     <div class="jarak" style="min-height:100px; background-color:white; width:100vw; margin:0;"></div>
@@ -171,6 +172,7 @@ include("../templates/navbar.php")
     <?php if (isset($_POST['edit_user'])) : ?>
         togglePage("page6");
     <?php endif; ?>
+
     <?php if (isset($_GET['errors'])) : ?>
         togglePage("page6");
     <?php endif; ?>
@@ -182,6 +184,17 @@ include("../templates/navbar.php")
                 pages[i].classList.add("show");
             } else {
                 pages[i].classList.remove("show");
+            }
+        }
+    }
+
+    function Pop_Up(pageId) {
+        var pages = document.getElementsByClassName("PopUp");
+        for (var i = 0; i < pages.length; i++) {
+            if (pages[i].classList.contains("show")) {
+                pages[i].classList.remove("show");
+            } else {
+                pages[i].classList.add("show");
             }
         }
     }

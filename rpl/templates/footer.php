@@ -120,7 +120,7 @@ if (isset($_SESSION['error'])) {
 </style>
 <div class="footer" id="tentang">
     <div class="footer-kiri">
-        <h3>Toko<span> Camilan</span></h3>
+        <h3>Toko<span> Cemilan'S</span></h3>
         <h3>RPL-IF4C</h3>
     </div>
     <div class="footer-tengah">
@@ -134,7 +134,7 @@ if (isset($_SESSION['error'])) {
     <div class="footer-kanan">
         <p class="tentang">
             <span>Tentang Kami</span>
-            Selamat datang di Toko Camilan, .
+            Selamat datang di Toko Cemilan, .
         </p>
         <form action="logout.php" method="post">
             <button class="btnLogout" name="logout">Logout</button>
@@ -143,7 +143,7 @@ if (isset($_SESSION['error'])) {
 </div>
 <div class="copyright">
     <p class="text-copyright">
-        ©2024 Toko Camilan. | All Rights Reserved
+        ©2024 Toko Cemilan. | All Rights Reserved
     </p>
 </div>
 </body>

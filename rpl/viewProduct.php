@@ -7,11 +7,8 @@ require_once('Database/database.php');
 $c = 0;
 $produk = getDataAllWhere('barang', 'ID_BARANG', $_GET['product']);
 $weight = getDataAllWhereIN('ukuran_barang', 'ID_UKURAN', $produk[0]['Ukuran']);
+$category = getDataAllWhereIN('kategori', 'ID_KATEGORI', $produk[0]['VARIAN']);
 $comment_section = getDataAllJoinWhere('komentar', 'customer', 'ID_CUSTOMER', 'komentar.ID_BARANG', $_GET['product']);
-// var_dump($produk);
-// var_dump($weight);
-// var_dump($produk[0]['Ukuran']);
-// die;
 ?>
 <?php include("templates/navbar.php"); ?>
 <style>
@@ -61,6 +58,14 @@ $comment_section = getDataAllJoinWhere('komentar', 'customer', 'ID_CUSTOMER', 'k
 
     .keranjangstyle-detailproduk:hover {
         color: #FFF;
+    }
+
+    .hover-none {
+        background-color: transparent;
+    }
+
+    .hover-none:hover {
+        background-color: transparent;
     }
 
     select option {
@@ -151,16 +156,30 @@ $comment_section = getDataAllJoinWhere('komentar', 'customer', 'ID_CUSTOMER', 'k
                         Tambah Ke Keranjang
                     </button>
                     <input type="hidden" name="idbarang" value="<?= $produk[0]['ID_BARANG']; ?>">
-                    <select class="keranjangstyle-detailproduk mt-3" style="background-color: transparent; height:4.2889vh;" name="idukuran">
-                        <?php foreach ($weight as $w) : ?>
-                            <?php if ($c == 0) : ?>
-                                <option value="<?= $w['ID_UKURAN']; ?>" selected><?= $w['BERAT']; ?>g</option>
-                            <?php else : ?>
-                                <option value="<?= $w['ID_UKURAN']; ?>"><?= $w['BERAT']; ?>g</option>
-                            <?php endif; ?>
-                        <?php $c += 1;
-                        endforeach; ?>
-                    </select>
+                    <div class="d-flex keranjangstyle-detailproduk mt-3 me-2" style="border: none;">
+                        <select class="keranjangstyle-detailproduk" style="background-color: transparent; height:4.2889vh; width:50%;" name="idukuran">
+                            <?php foreach ($weight as $w) : ?>
+                                <?php if ($c == 0) : ?>
+                                    <option value="<?= $w['ID_UKURAN']; ?>" selected><?= $w['BERAT']; ?>g</option>
+                                <?php else : ?>
+                                    <option value="<?= $w['ID_UKURAN']; ?>"><?= $w['BERAT']; ?>g</option>
+                                <?php endif; ?>
+                            <?php $c += 1;
+                            endforeach;
+                            $c = 0;
+                            ?>
+                        </select>
+                        <select class="keranjangstyle-detailproduk ms-2" style="background-color: transparent; height:4.2889vh; width:50%;" name="idvarian">
+                            <?php foreach ($category as $category_item) : ?>
+                                <?php if ($c == 0) : ?>
+                                    <option value="<?= $category_item['ID_KATEGORI']; ?>" selected><?= $category_item['NAMA_KATEGORI']; ?></option>
+                                <?php else : ?>
+                                    <option value="<?= $category_item['ID_KATEGORI']; ?>"><?= $category_item['NAMA_KATEGORI']; ?></option>
+                                <?php endif; ?>
+                            <?php $c += 1;
+                            endforeach; ?>
+                        </select>
+                    </div>
                 </div>
                 <div class="d-flex flex-column text-start mx-2" style="width: 50%;">
                     <div class="description-title-detail-produk"><?= $produk[0]['NAMA_BARANG']; ?></div>

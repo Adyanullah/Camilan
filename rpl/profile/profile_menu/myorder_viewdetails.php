@@ -35,10 +35,10 @@
                 <?php $harga_non_ongkir = 0; ?>
                 <?php foreach ($order_detail_item as $orderitem) : ?>
                     <div class="d-flex my-4">
-                        <div class="pl-2" style="height: 17.4vh; width:12.8vw; background-image: url(<?= BASEURL ?>gambar/produk/<?= $orderitem['FOTO_BARANG'] ?>); background-size: cover; background-position: center; background-repeat: no-repeat;"></div>
+                        <img class="pl-2" style="min-height: 17.39vh; min-width:12.79vw;max-height: 17.4vh; max-width:12.8vw;" src="<?= BASEURL . 'gambar/produk/' . $orderitem['FOTO_BARANG']; ?>" alt="">
                         <div class="ms-3">
                             <div class="row">
-                                <div class="fw-bold"><?= $orderitem['NAMA_BARANG']; ?></div>
+                                <div class="fw-bold"><?= $orderitem['NAMA_BARANG']; ?> ( <?= $orderitem['NAMA_KATEGORI']; ?> )</div>
                             </div>
                             <div class="row">
                                 <div style="font-size: 14px;">Qty <?= $orderitem['JUMLAH_PRODUK']; ?> x <?= "Rp." . number_format($orderitem['HARGA_BARANG'], 0, ',', '.'); ?></div>

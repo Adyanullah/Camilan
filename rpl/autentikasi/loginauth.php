@@ -29,7 +29,7 @@ if ($gagal) {
     echo "Login gagal. Silakan coba lagi.";
     header("Location: ../login.php"); // Redirect jika login gagal
 } else {
-    if (isset($_SESSION['admin'])) {
+    if (isset($_SESSION['admin']) and !isset($_SESSION['user'])) {
         header("Location: " . BASEURL . "admin");
     } elseif (isset($_SESSION['user'])) {
         header("Location: " . BASEURL . "index.php"); // Redirect jika index berhasil
