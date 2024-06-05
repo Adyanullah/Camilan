@@ -25,6 +25,47 @@ foreach ($data as $admindata) {
     }
 }
 
+//Check Error Jika gagal
+if ($gagal) {
+    $username = false;
+    $password = false;
+    $data = getDataAll('customer');
+    foreach ($data as $userdata) {
+        if ($_POST['username'] == $userdata['USERNAME']) {
+            $username = true; // detected
+            break; // Keluar dari loop jika login berhasil
+        }
+    }
+    $data = getDataAll('admin');
+    foreach ($data as $userdata) {
+        if ($_POST['username'] == $userdata['USERNAME_ADMIN']) {
+            $username = true; // detected
+            break; // Keluar dari loop jika login berhasil
+        }
+    }
+    if ($username) {
+        $data = getDataAll('customer');
+        foreach ($data as $userdata) {
+            if ($_POST['password'] == $userdata['PASSWORD']) {
+                $password = true; // detected
+                break; // Keluar dari loop jika login berhasil
+            }
+        }
+        $data = getDataAll('admin');
+        foreach ($data as $userdata) {
+            if ($_POST['password'] == $userdata['PASSWORD_ADMIN']) {
+                $password = true; // detected
+                break; // Keluar dari loop jika login berhasil
+            }
+        }
+    }
+    if (!$username) {
+        $_SESSION['error']['username'] = "Username Salah atau Belum Terdaftar !!";
+    } elseif (!$password) {
+        $_SESSION['error']['password'] = "Password Salah !!";
+    }
+}
+
 if ($gagal) {
     echo "Login gagal. Silakan coba lagi.";
     header("Location: ../login.php"); // Redirect jika login gagal
