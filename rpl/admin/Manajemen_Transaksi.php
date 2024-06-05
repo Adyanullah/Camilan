@@ -54,12 +54,15 @@ foreach ($pesanan as $order) :
                     <div class="p-0 m-0" style="font-size: 10px; text-align:center;">Detail Pesanan</div>
                 </a>
             </div>
-            <div class="border border-dark py-3 fw-bold col text-center d-flex flex-column justify-content-center align-items-center" style="background-color: <?= $table_color; ?>;">
-                <a href="<?= BASEURL . 'controller/admin/confirm-order.php?Order=' . $order['ID_ORDER']; ?>" style="border-radius:1rem; border:1px solid #7DE9A8; background-color: #7DE9A8; font-size:14px; width:45%; color:#000; text-decoration:none;">
+            <div class="border border-dark py-3 fw-bold col text-center d-flex justify-content-center align-items-center" style="background-color: <?= $table_color; ?>;">
+                <a href="<?= BASEURL . 'controller/admin/confirm-order.php?Order=' . $order['ID_ORDER']; ?>" style="border-radius:1rem; border:1px solid #7DE9A8; background-color: #7DE9A8; font-size:14px; width:45%; color:#000; text-decoration:none;" class="mx-1">
                     Konfirmasi
                 </a>
+                <a href="<?= BASEURL . 'controller/admin/cancel-order.php?Order=' . $order['ID_ORDER']; ?>" style="border-radius:1rem; border:1px solid #7DE9A8; background-color: red; font-size:14px; width:45%; color:#000; text-decoration:none;" class="mx-1">
+                    Dibatalkan
+                </a>
             </div>
-        <?php else : ?>
+        <?php elseif ($order['Status'] == 1) : ?>
             <div class="border border-dark py-3 fw-bold col text-center d-flex flex-column align-items-center" style="background-color: <?= $table_color; ?>;">
                 <div style="color: green; font-size: 12px">Pesanan Telah Dikonfirmasi</div>
                 <a href="detail_pesanan.php?DetailPesanan=<?= $order['ID_ORDER'] ?>" style="width:35%; border: 1px solid green; border-radius:1rem; background-color:green; text-decoration:none; color:black;">
@@ -67,6 +70,14 @@ foreach ($pesanan as $order) :
                 </a>
             </div>
             <div class="border border-dark py-3 fw-bold col text-center d-flex flex-column justify-content-center align-items-center" style="background-color: <?= $table_color; ?>; font-size:14px;">Selesai</div>
+        <?php elseif ($order['Status'] == 2) : ?>
+            <div class="border border-dark py-3 fw-bold col text-center d-flex flex-column align-items-center" style="background-color: <?= $table_color; ?>;">
+                <div style="color: red; font-size: 12px">Pesanan Telah Dibatalkan</div>
+                <a href="" style="width:35%; border: 1px solid grey; border-radius:1rem; background-color:grey; text-decoration:none; color:black;">
+                    <div class="p-0 m-0" style="font-size: 10px; text-align:center;">Detail Pesanan</div>
+                </a>
+            </div>
+            <div class="border border-dark py-3 fw-bold col text-center d-flex flex-column justify-content-center align-items-center" style="background-color: <?= $table_color; ?>; font-size:14px;">Pesan Dibatalkan</div>
         <?php endif; ?>
     </div>
 <?php endforeach; ?>
