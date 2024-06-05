@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 01, 2024 at 01:46 PM
+-- Generation Time: Jun 05, 2024 at 08:52 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -48,6 +48,13 @@ CREATE TABLE `admin` (
   `EMAIL_ADMIN` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `admin`
+--
+
+INSERT INTO `admin` (`NAMA_ADMIN`, `ID_ADMIN`, `NOMER_TELPON_ADMIN`, `ALAMAT_ADMIN`, `USERNAME_ADMIN`, `PASSWORD_ADMIN`, `EMAIL_ADMIN`) VALUES
+('Mas Admin', '001', '081357885321', 'Dagelan, Tuban, Bali', 'Admin1', 'seblakgakenak', 'Admin@gmail.com');
+
 -- --------------------------------------------------------
 
 --
@@ -56,26 +63,28 @@ CREATE TABLE `admin` (
 
 CREATE TABLE `barang` (
   `ID_BARANG` int(11) NOT NULL,
-  `ID_KATEGORI` varchar(50) DEFAULT NULL,
   `NAMA_BARANG` varchar(50) DEFAULT NULL,
   `HARGA_BARANG` int(11) DEFAULT NULL,
   `STOCK` int(11) DEFAULT NULL,
   `FOTO_BARANG` text DEFAULT NULL,
   `Deskripsi` text NOT NULL,
-  `Ukuran` text NOT NULL DEFAULT '1'
+  `Ukuran` text NOT NULL DEFAULT '1',
+  `VARIAN` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `barang`
 --
 
-INSERT INTO `barang` (`ID_BARANG`, `ID_KATEGORI`, `NAMA_BARANG`, `HARGA_BARANG`, `STOCK`, `FOTO_BARANG`, `Deskripsi`, `Ukuran`) VALUES
-(1, '002', 'Basreng Pedas', 15000, 44, '1713756150basrenghot.jpeg', '<p>Cemilan ini memiliki bentuk seperti buluh pipa, yang dilapisi dengan bumbu cabai dan rempah-rempah lainnya. Rasanya tidak terlalu pedas, kamu bisa memakannya dengan santai.</p>\r\n\r\n<ul>Bahan-bahan Berkualitas:\r\n<li>1. Makaroni berkualitas tinggi </li>\r\n<li>2. Bumbu-bumbu rempah alami </li>\r\n<li>3. Minyak nabati berkualitas untuk penggorengan  </li></ul>\r\n\r\nKemasan: \r\n1. Tersedia dalam kemasan yang mudah dibawa dan disimpan \r\n2. Sachet kecil untuk camilan sehari-hari \r\n3. Kemasan besar untuk berbagi atau acara tertentu', '1'),
-(2, '002', 'Kerupuk Seblak', 5000, 58, '1717159566kerupukseblak.jpeg', 'Kerupuk Seblak Enak !!!', '1,2'),
-(3, '002', 'Hot Jelatos Keripik Kaca', 9000, 40, '1717159705keripikkacahot.jpeg', 'Kripik Kaca kini tersedia di semua ukuran !!!', '1,2,3'),
-(4, '003', 'Mushome Rumput Laut Gurih', 14000, 60, '1717159831mushomerumputlaut.jpeg', 'Rumput Laut ASLI Indonesia, Cintai Produk Lokal, Tersedia di 2 Ukuran!!!', '1,2'),
-(5, '001', 'Sukade Manisan Pepaya', 20000, 39, '1713757061sukademanisanpepaya.jpeg', '', '1'),
-(6, '001', 'Carica Dieng', 17000, 18, '1713757290caricadieng.jpeg', '', '1');
+INSERT INTO `barang` (`ID_BARANG`, `NAMA_BARANG`, `HARGA_BARANG`, `STOCK`, `FOTO_BARANG`, `Deskripsi`, `Ukuran`, `VARIAN`) VALUES
+(10, 'Mi Lidi', 5000, 10, '1717409136Mi Lidi Original.jpeg', 'sejenis mi yang terbuat dari tepung beras yang dipadatkan dan dikeringkan sehingga menjadi seperti lidi atau stik tipis. Biasanya mi lidi ini digoreng dalam minyak panas hingga menjadi renyah dan sering disajikan sebagai camilan atau tambahan pada hidangan seperti bakso atau mie kuah. Mi lidi memiliki tekstur yang renyah dan ringan serta sering diolah dengan berbagai bumbu dan rempah untuk memberikan cita rasa yang khas.', '1,2', '2,3'),
+(11, 'Basreng', 7000, 2, '1717398087Basreng Original.jpeg', 'Basreng adalah singkatan dari \"Bakso Goreng\", merupakan camilan populer di Indonesia. Basreng terbuat dari campuran bakso yang dicincang, tepung terigu, dan berbagai bumbu rempah lainnya. Adonan kemudian dibentuk bulat dan digoreng hingga berwarna kecokelatan dan renyah. Biasanya, basreng disajikan dengan taburan bumbu seperti bubuk cabe atau balutan saus sambal untuk memberikan rasa pedas yang khas. Camilan ini memiliki cita rasa gurih, pedas, dan renyah yang sangat disukai oleh banyak orang di Indonesia.\r\n\r\nKomposisi umum dari basreng meliputi:\r\n\r\n1. Bakso: Bakso yang digunakan bisa berupa bakso sapi, ayam, atau campuran kedua jenis bakso tersebut. Bakso dihaluskan atau dicincang kecil-kecil sebelum dicampur dengan bahan lainnya.\r\n\r\n2. Tepung Terigu: Tepung terigu berfungsi sebagai bahan pengikat untuk adonan basreng. Tepung terigu biasanya digunakan dalam proporsi yang cukup untuk memberikan tekstur yang renyah setelah digoreng.\r\n\r\n3. Bumbu Rempah: Bumbu rempah seperti bawang putih, bawang merah, ketumbar, garam, merica, dan penyedap rasa bisa ditambahkan untuk memberikan cita rasa yang khas pada basreng.\r\n\r\n4. Telur: Kadang-kadang telur juga ditambahkan untuk memberikan kekenyalan dan rasa yang lebih kaya pada adonan basreng.\r\n\r\n5. Penyedap Rasa: Penyedap rasa atau bumbu tambahan lainnya seperti gula, kaldu bubuk, atau bumbu lainnya bisa ditambahkan sesuai selera untuk meningkatkan cita rasa basreng.', '1', '3'),
+(12, 'Keripik Usus Goreng', 5000, 6, '1717398449Keripik Usus.jpg', 'Keripik usus adalah camilan yang terbuat dari usus hewan yang dipotong tipis, kemudian digoreng hingga renyah. Camilan ini populer di berbagai belahan dunia, terutama di banyak negara Asia dan Eropa.\r\n\r\nKomposisi umum dari keripik usus meliputi:\r\n\r\n1. Usus: Usus hewan seperti sapi, ayam, atau babi yang telah dibersihkan dan dipotong tipis menjadi bagian-bagian kecil. Usus yang digunakan biasanya adalah bagian usus halus atau usus besar.\r\n\r\n2. Tepung: Tepung terigu atau tepung bumbu digunakan sebagai bahan pengikat dan penambah tekstur pada adonan keripik. Tepung juga membantu dalam menciptakan lapisan renyah di luar usus saat digoreng.\r\n\r\n3. Bumbu: Bumbu-bumbu seperti garam, merica, bawang putih bubuk, bawang merah bubuk, paprika, atau bumbu lainnya ditambahkan untuk memberikan rasa dan aroma yang khas pada keripik usus.\r\n\r\n4. Minyak: Minyak digunakan untuk menggoreng keripik usus hingga matang dan berwarna kecokelatan. Minyak yang digunakan biasanya minyak nabati seperti minyak kedelai atau minyak jagung.', '1,2,3', '2,3'),
+(13, 'Makaroni', 7000, 10, '1717398839download.jpeg', 'Makaroni adalah jenis pasta yang terbuat dari campuran tepung terigu dan air, yang dibentuk menjadi silinder panjang dan pipih. Makaroni memiliki tekstur yang kenyal saat dimasak dan biasanya direbus sebelum disajikan. Camilan atau hidangan berbahan makaroni sering kali dimasak dengan saus atau dicampur dengan bahan lain seperti daging, sayuran, atau keju. Makaroni dapat disajikan sebagai hidangan utama atau sebagai camilan, dan sangat populer di berbagai masakan di seluruh dunia.\r\n\r\nKomposisi dasar :  \r\nmakaroni terdiri dari tepung terigu, air, dan biasanya sedikit garam. Tepung terigu dicampur dengan air hingga membentuk adonan yang elastis, kemudian adonan tersebut dibentuk menjadi silinder panjang dan dipotong-potong menjadi bentuk makaroni. Beberapa varian makaroni mungkin juga ditambahkan telur untuk memberikan kekayaan rasa dan warna yang lebih khas. Setelah dibentuk, makaroni kemudian direbus dalam air garam hingga matang sebelum disajikan atau diolah lebih lanjut dalam berbagai hidangan.', '1,2,3', '2,3'),
+(14, 'Kerupuk Seblak', 3500, 7, '1717399055Kerupuk Seblak.jpg', 'Kerupuk seblak adalah camilan yang terbuat dari kerupuk basah yang kemudian digoreng dan disajikan dengan bumbu-bumbu kering atau bumbu basah yang khas. Kerupuk basah yang digunakan biasanya terbuat dari tepung tapioka atau tepung kanji yang dicampur dengan air hingga membentuk adonan yang kental. \r\n\r\nKomposisi dasar dari kerupuk seblak antara lain meliputi:\r\n\r\n1. Kerupuk basah: Tepung tapioka atau tepung kanji yang dicampur dengan air dan bumbu-bumbu lainnya untuk membentuk adonan kerupuk.\r\n\r\n2. Bumbu-bumbu: Bumbu-bumbu seperti cabe bubuk, bawang putih, bawang merah, garam, gula, dan penyedap rasa lainnya seperti kaldu bubuk seringkali digunakan untuk memberikan cita rasa pedas, gurih, dan sedikit manis pada kerupuk seblak.\r\n\r\n3. Tambahkan bahan lain: Beberapa variasi kerupuk seblak bisa juga ditambahkan dengan bahan tambahan seperti kerupuk kering, kacang tanah, kerupuk mie, atau bahan lainnya sesuai selera dan kreasi masing-masing.', '1,2,3', '2,3'),
+(15, 'Keripik kaca', 5500, 15, '1717399271Keripik Kaca.jpeg', 'Keripik kaca adalah camilan yang terbuat dari adonan tipis yang kemudian dipanggang atau digoreng hingga menjadi keripik yang kering dan transparan, menyerupai kaca. Camilan ini memiliki tekstur yang sangat renyah dan seringkali disajikan dengan berbagai bumbu atau rasa tambahan.\r\n\r\nKomposisi dasar dari keripik kaca secara singkat adalah:\r\n\r\n1. Tepung: Tepung terigu atau tepung jagung merupakan bahan utama dalam membuat adonan keripik kaca.\r\n\r\n2. Air: Air digunakan untuk mencampur tepung dan membentuk adonan yang kental.\r\n\r\n3. Minyak: Minyak digunakan untuk memperoleh tekstur yang renyah dan membantu proses pembentukan adonan menjadi keripik.\r\n\r\n4. Bumbu: Bumbu-bumbu seperti garam, merica, bawang putih bubuk, atau bumbu lainnya sering ditambahkan untuk memberikan rasa pada keripik kaca. Beberapa varian juga bisa memiliki tambahan rasa seperti keju, pedas, atau manis sesuai dengan preferensi.', '1,2,3', '2,3'),
+(16, 'Kerupuk Pilus', 3500, 18, '1717399498Kerupuk pilus.jpg', 'Kerupuk pilus adalah camilan khas Indonesia yang terbuat dari adonan tepung tapioka yang ditarik tipis-tipis lalu digoreng hingga mengembang dan menjadi keriting. Camilan ini memiliki tekstur yang sangat renyah dan biasanya disajikan sebagai pelengkap hidangan atau sebagai camilan ringan.\r\n\r\nKomposisi dasar dari kerupuk pilus secara singkat adalah:\r\n\r\n1. Tepung Tapioka: Tepung tapioka merupakan bahan utama dalam pembuatan kerupuk pilus. Tepung ini memberikan kerupuk tekstur yang kenyal dan renyah.\r\n\r\n2. Air: Air digunakan untuk mencampur tepung tapioka menjadi adonan yang kental dan elastis.\r\n\r\n3. Garam: Garam ditambahkan untuk memberikan sedikit rasa pada kerupuk pilus.\r\n\r\n4. Minyak: Minyak digunakan untuk menggoreng kerupuk hingga matang dan kriuk.', '1,2,3', '2,3'),
+(17, 'Keripik Tempe', 7000, 13, '1717399744Keripik Tempe.jpg', 'Keripik tempe adalah camilan yang terbuat dari tempe yang dipotong tipis-tipis, kemudian digoreng hingga menjadi renyah. Tempe sendiri merupakan makanan tradisional Indonesia yang terbuat dari fermentasi biji kedelai.\r\n\r\nKomposisi dasar dari keripik tempe secara singkat adalah:\r\n\r\n1. Tempe: Tempe yang telah matang dan dingin dipotong tipis-tipis menjadi irisan yang seragam untuk dijadikan keripik.\r\n\r\n2. Tepung: Tepung terigu atau tepung beras digunakan sebagai bahan pelapis untuk memberikan tekstur renyah pada keripik tempe setelah digoreng.\r\n\r\n3. Bumbu: Bumbu-bumbu seperti garam, merica, bawang putih, atau bumbu lainnya dapat ditambahkan untuk memberikan cita rasa yang khas pada keripik tempe.\r\n\r\n4. Minyak: Minyak digunakan untuk menggoreng keripik tempe hingga matang dan berwarna kecokelatan.', '1,2,3', '2,3');
 
 -- --------------------------------------------------------
 
@@ -103,8 +112,10 @@ CREATE TABLE `customer` (
 --
 
 INSERT INTO `customer` (`NAMA_CUSTOMER`, `ID_CUSTOMER`, `NOMOR_TELPON_CUSTOMER`, `USERNAME`, `PASSWORD`, `EMAIL`, `ALAMAT`, `KOTA`, `ID_KOTA`, `PROVINSI`, `ID_PROVINSI`, `FOTO`) VALUES
-('Ahmad Ar rosyid Hidayatullah', 1, '088888888888', 'Rosyid711', 'sayasukakrupuk', 'rosyi.drey@gmail.com', 'Sukodadi', 'Lamongan', 222, 'Jawa Timur', 11, 'Default-Profile.svg'),
-('Adyan', 2, '081357999222', 'adyan98', '123456', 'adyan@gmail.com', 'Babat, Sukodadi, Jalan Kartini No.99 Kiri Jalan', 'Lamongan', 222, 'Jawa Timur', 11, 'Default-Profile.svg');
+('22-130 Ahmad Ar-rosyid Hidayatullah', 1, '089514735600', 'Rosyid711', 'sayasukakrupuk', 'ychronos13@gmail.com', 'Planet Bekasi, Jl. Margonda Gg.Melati No.3', 'Bekasi', 55, 'DKI Jakarta', 6, 'Default-Profile.svg'),
+('Adyan', 2, '081357999222', 'adyan98', '123456', 'adyan@gmail.com', 'Babat, Sukodadi, Jalan Kartini No.99 Kiri Jalan', 'Lamongan', 222, 'Jawa Timur', 11, 'Default-Profile.svg'),
+('Apa Cona', 4, '089514735692', 'apacona123', 'Cona123', 'apacona1967@gmail.com', 'Babat, Sukodadi, Jalan Kartini No.99 Kiri Jalan', 'Balikpapan', 19, 'Kalimantan Timur', 15, 'Default-Profile.svg'),
+('Habibur', 5, '089786567453', 'habibur23', 'joko23', 'Habibur23@gmail.com', 'Kedinding Lor Gg Apel', '', 441, '', 11, 'Default-Profile.svg');
 
 -- --------------------------------------------------------
 
@@ -118,41 +129,22 @@ CREATE TABLE `detail_pesanan` (
   `ID_ORDER` int(11) DEFAULT NULL,
   `JUMLAH_PRODUK` int(11) DEFAULT NULL,
   `HARGA` int(11) DEFAULT NULL,
-  `BERAT` int(11) NOT NULL
+  `BERAT` int(11) NOT NULL,
+  `ID_KATEGORI` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `detail_pesanan`
 --
 
-INSERT INTO `detail_pesanan` (`ID_ORDER_DETAIL`, `ID_BARANG`, `ID_ORDER`, `JUMLAH_PRODUK`, `HARGA`, `BERAT`) VALUES
-(1, 1, 5, 2, 30000, 200),
-(2, 2, 5, 3, 15000, 300),
-(3, 3, 5, 2, 18000, 200),
-(4, 6, 5, 3, 51000, 300),
-(5, 1, 6, 2, 30000, 200),
-(6, 6, 6, 3, 51000, 300),
-(7, 1, 7, 2, 30000, 200),
-(8, 5, 7, 2, 40000, 200),
-(9, 6, 7, 3, 51000, 300),
-(10, 2, 9, 2, 10000, 200),
-(11, 3, 9, 2, 18000, 200),
-(12, 2, 10, 1, 5000, 100),
-(13, 2, 11, 2, 10000, 200),
-(14, 3, 12, 1, 9000, 100),
-(15, 5, 12, 4, 80000, 400),
-(16, 6, 12, 4, 68000, 400),
-(17, 5, 13, 4, 80000, 400),
-(18, 6, 14, 5, 85000, 500),
-(19, 1, 16, 1, 15000, 100),
-(20, 5, 17, 1, 20000, 100),
-(21, 3, 18, 1, 9000, 100),
-(22, 1, 22, 2, 30000, 200),
-(23, 3, 22, 2, 18000, 200),
-(24, 2, 23, 5, 25000, 500),
-(25, 1, 24, 1, 15000, 100),
-(26, 3, 24, 2, 18000, 500),
-(27, 3, 24, 2, 18000, 1000);
+INSERT INTO `detail_pesanan` (`ID_ORDER_DETAIL`, `ID_BARANG`, `ID_ORDER`, `JUMLAH_PRODUK`, `HARGA`, `BERAT`, `ID_KATEGORI`) VALUES
+(32, 14, 28, 2, 7000, 200, 2),
+(33, 14, 28, 2, 7000, 200, 3),
+(34, 14, 28, 1, 3500, 500, 2),
+(35, 10, 29, 1, 5000, 250, 3),
+(36, 11, 30, 1, 7000, 100, 3),
+(37, 17, 31, 1, 7000, 100, 2),
+(38, 11, 32, 1, 7000, 100, 3);
 
 -- --------------------------------------------------------
 
@@ -161,7 +153,7 @@ INSERT INTO `detail_pesanan` (`ID_ORDER_DETAIL`, `ID_BARANG`, `ID_ORDER`, `JUMLA
 --
 
 CREATE TABLE `kategori` (
-  `ID_KATEGORI` varchar(50) NOT NULL,
+  `ID_KATEGORI` int(11) NOT NULL,
   `NAMA_KATEGORI` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -170,9 +162,9 @@ CREATE TABLE `kategori` (
 --
 
 INSERT INTO `kategori` (`ID_KATEGORI`, `NAMA_KATEGORI`) VALUES
-('001', 'Manis'),
-('002', 'Pedas'),
-('003', 'Gurih');
+(1, 'Manis'),
+(2, 'Pedas'),
+(3, 'Gurih');
 
 -- --------------------------------------------------------
 
@@ -184,7 +176,8 @@ CREATE TABLE `keranjang` (
   `ID_KERANJANG` int(11) NOT NULL,
   `ID_CUSTOMER` int(11) DEFAULT NULL,
   `ID_BARANG` varchar(50) NOT NULL,
-  `ID_UKURAN` int(11) NOT NULL DEFAULT 1
+  `ID_UKURAN` int(11) NOT NULL DEFAULT 1,
+  `ID_KATEGORI` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -200,14 +193,6 @@ CREATE TABLE `komentar` (
   `ISI_KOMENTAR` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `komentar`
---
-
-INSERT INTO `komentar` (`ID_KOMENTAR`, `ID_CUSTOMER`, `ID_BARANG`, `ISI_KOMENTAR`) VALUES
-(1, 1, 2, 'Saya Suka Produk Ini'),
-(2, 1, 3, 'Pedes COyyy!!!!');
-
 -- --------------------------------------------------------
 
 --
@@ -219,6 +204,17 @@ CREATE TABLE `metode_pembayaran` (
   `NAMA_METODE_PEMBAYARAN` varchar(50) DEFAULT NULL,
   `REKENING` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `metode_pembayaran`
+--
+
+INSERT INTO `metode_pembayaran` (`ID_METODE_PEMBAYARAN`, `NAMA_METODE_PEMBAYARAN`, `REKENING`) VALUES
+(4, 'Bank Jatim', '9908123256742323'),
+(5, 'BRI', '0989098798763422'),
+(6, 'Bank Jatim', '1234123412341234'),
+(7, 'Bank Jatim', '1234123412341234'),
+(8, 'Bank Jatim', '1234123412341234');
 
 -- --------------------------------------------------------
 
@@ -240,25 +236,11 @@ CREATE TABLE `pesanan` (
 --
 
 INSERT INTO `pesanan` (`ID_ORDER`, `ID_METODE_PEMBAYARAN`, `ID_CUSTOMER`, `TANGGAL_ORDER`, `TOTAL_ORDER`, `Status`) VALUES
-(5, NULL, 1, '2024-05-20 14:05:23', 120000, 0),
-(6, NULL, 1, '2024-05-20 14:10:59', 87000, 0),
-(7, NULL, 1, '2024-05-20 14:11:43', 127000, 1),
-(9, NULL, 1, '2024-05-27 03:27:51', 34000, 1),
-(10, NULL, 1, '2024-05-27 06:38:06', 11000, 1),
-(11, NULL, 1, '2024-05-27 06:38:41', 16000, 1),
-(12, NULL, 1, '2024-05-27 11:12:05', 157000, 1),
-(13, NULL, 1, '2024-05-27 11:16:45', 86000, 1),
-(14, NULL, 1, '2024-05-27 11:17:34', 85000, 1),
-(15, NULL, 1, '2024-05-27 11:17:39', 85000, 1),
-(16, NULL, 1, '2024-05-27 12:17:29', 21000, 1),
-(17, NULL, 1, '2024-05-27 12:23:43', 26000, 1),
-(18, NULL, 1, '2024-05-27 12:26:25', 15000, 1),
-(19, NULL, 1, '2024-05-31 11:41:37', 55000, 0),
-(20, NULL, 1, '2024-05-31 11:42:18', 55000, 0),
-(21, NULL, 1, '2024-05-31 11:49:21', 55000, 0),
-(22, NULL, 1, '2024-05-31 11:50:20', 55000, 0),
-(23, NULL, 1, '2024-05-31 15:36:17', 32000, 0),
-(24, NULL, 1, '2024-05-31 15:43:16', 65000, 0);
+(28, 4, 1, '2024-06-03 09:14:37', 24500, 1),
+(29, 5, 1, '2024-06-03 09:40:08', 12000, 2),
+(30, 6, 1, '2024-06-03 09:53:50', 14000, 0),
+(31, 7, 1, '2024-06-03 09:55:33', 14000, 0),
+(32, 8, 1, '2024-06-03 09:59:44', 14000, 2);
 
 -- --------------------------------------------------------
 
@@ -296,8 +278,7 @@ ALTER TABLE `admin`
 --
 ALTER TABLE `barang`
   ADD PRIMARY KEY (`ID_BARANG`),
-  ADD UNIQUE KEY `BARANG_PK` (`ID_BARANG`),
-  ADD KEY `MEMPUNYAI_FK` (`ID_KATEGORI`);
+  ADD UNIQUE KEY `BARANG_PK` (`ID_BARANG`);
 
 --
 -- Indexes for table `customer`
@@ -313,7 +294,8 @@ ALTER TABLE `detail_pesanan`
   ADD PRIMARY KEY (`ID_ORDER_DETAIL`),
   ADD UNIQUE KEY `ORDER_DETAIL_PK` (`ID_ORDER_DETAIL`),
   ADD KEY `MEMILIKI_FK` (`ID_ORDER`),
-  ADD KEY `MEMESAN_FK` (`ID_BARANG`);
+  ADD KEY `MEMESAN_FK` (`ID_BARANG`),
+  ADD KEY `FK_KATEGORI_D_PESANAN` (`ID_KATEGORI`);
 
 --
 -- Indexes for table `kategori`
@@ -329,7 +311,8 @@ ALTER TABLE `keranjang`
   ADD PRIMARY KEY (`ID_KERANJANG`),
   ADD UNIQUE KEY `KERANJANG_PK` (`ID_KERANJANG`),
   ADD KEY `MENAMBAH_FK` (`ID_CUSTOMER`),
-  ADD KEY `FK_UKURAN_BARANG_KERANJANG` (`ID_UKURAN`);
+  ADD KEY `FK_UKURAN_BARANG_KERANJANG` (`ID_UKURAN`),
+  ADD KEY `FK_KERANJANG_BARANGKATEGORI` (`ID_KATEGORI`);
 
 --
 -- Indexes for table `komentar`
@@ -369,25 +352,31 @@ ALTER TABLE `ukuran_barang`
 -- AUTO_INCREMENT for table `barang`
 --
 ALTER TABLE `barang`
-  MODIFY `ID_BARANG` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `ID_BARANG` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `ID_CUSTOMER` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `ID_CUSTOMER` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `detail_pesanan`
 --
 ALTER TABLE `detail_pesanan`
-  MODIFY `ID_ORDER_DETAIL` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `ID_ORDER_DETAIL` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+
+--
+-- AUTO_INCREMENT for table `kategori`
+--
+ALTER TABLE `kategori`
+  MODIFY `ID_KATEGORI` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `keranjang`
 --
 ALTER TABLE `keranjang`
-  MODIFY `ID_KERANJANG` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+  MODIFY `ID_KERANJANG` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=84;
 
 --
 -- AUTO_INCREMENT for table `komentar`
@@ -399,13 +388,13 @@ ALTER TABLE `komentar`
 -- AUTO_INCREMENT for table `metode_pembayaran`
 --
 ALTER TABLE `metode_pembayaran`
-  MODIFY `ID_METODE_PEMBAYARAN` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_METODE_PEMBAYARAN` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `pesanan`
 --
 ALTER TABLE `pesanan`
-  MODIFY `ID_ORDER` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `ID_ORDER` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `ukuran_barang`
@@ -418,22 +407,18 @@ ALTER TABLE `ukuran_barang`
 --
 
 --
--- Constraints for table `barang`
---
-ALTER TABLE `barang`
-  ADD CONSTRAINT `FK_BARANG_MEMPUNYAI_KATEGORI` FOREIGN KEY (`ID_KATEGORI`) REFERENCES `kategori` (`ID_KATEGORI`);
-
---
 -- Constraints for table `detail_pesanan`
 --
 ALTER TABLE `detail_pesanan`
   ADD CONSTRAINT `FK_DETAIL_P_MEMESAN_BARANG` FOREIGN KEY (`ID_BARANG`) REFERENCES `barang` (`ID_BARANG`),
+  ADD CONSTRAINT `FK_KATEGORI_D_PESANAN` FOREIGN KEY (`ID_KATEGORI`) REFERENCES `kategori` (`ID_KATEGORI`),
   ADD CONSTRAINT `FK_PESANAN` FOREIGN KEY (`ID_ORDER`) REFERENCES `pesanan` (`ID_ORDER`);
 
 --
 -- Constraints for table `keranjang`
 --
 ALTER TABLE `keranjang`
+  ADD CONSTRAINT `FK_KERANJANG_BARANGKATEGORI` FOREIGN KEY (`ID_KATEGORI`) REFERENCES `kategori` (`ID_KATEGORI`),
   ADD CONSTRAINT `FK_KERANJAN_MENAMBAH_CUSTOMER` FOREIGN KEY (`ID_CUSTOMER`) REFERENCES `customer` (`ID_CUSTOMER`),
   ADD CONSTRAINT `FK_UKURAN_BARANG_KERANJANG` FOREIGN KEY (`ID_UKURAN`) REFERENCES `ukuran_barang` (`ID_UKURAN`);
 
