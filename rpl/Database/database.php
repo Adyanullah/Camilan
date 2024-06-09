@@ -371,14 +371,15 @@ function insertcart($POST)
         echo $err->getMessage();
     }
 }
-function pluscart($id, $ip, $ukuran)
+function pluscart($id, $ip, $ukuran, $varian)
 {
     try {
-        $statement = DB->prepare("INSERT INTO keranjang(ID_BARANG, ID_CUSTOMER, ID_UKURAN) VALUES(:idProduk, :idCust, :ukuran)");
+        $statement = DB->prepare("INSERT INTO keranjang(ID_BARANG, ID_CUSTOMER, ID_UKURAN, ID_KATEGORI) VALUES(:idProduk, :idCust, :ukuran, :kategori)");
 
         $statement->bindValue(':idProduk', $id);
         $statement->bindValue(':idCust', $ip);
         $statement->bindValue(':ukuran', $ukuran);
+        $statement->bindValue(':kategori', $varian);
         $statement->execute();
 
         $st = DB->prepare("UPDATE barang SET STOCK = STOCK-1 WHERE ID_BARANG = :id");
@@ -388,13 +389,14 @@ function pluscart($id, $ip, $ukuran)
         echo $err->getMessage();
     }
 }
-function mincart($id, $ip, $ukuran)
+function mincart($id, $ip, $ukuran, $varian)
 {
     try {
-        $statement = DB->prepare("DELETE FROM keranjang WHERE ID_BARANG = :idproduk AND ID_CUSTOMER = :idCust AND ID_UKURAN = :ukuran LIMIT 1");
+        $statement = DB->prepare("DELETE FROM keranjang WHERE ID_BARANG = :idproduk AND ID_CUSTOMER = :idCust AND ID_UKURAN = :ukuran AND ID_KATEGORI = :kategori LIMIT 1");
         $statement->bindValue(':idproduk', $id);
         $statement->bindValue(':idCust', $ip);
         $statement->bindValue(':ukuran', $ukuran);
+        $statement->bindValue(':kategori', $varian);
         $statement->execute();
 
         $st = DB->prepare("UPDATE barang SET STOCK = STOCK + 1 WHERE ID_BARANG = :id");

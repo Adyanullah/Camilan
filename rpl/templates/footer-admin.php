@@ -133,8 +133,8 @@
             <span>Tentang Kami</span>
             Selamat datang di Toko Camilan, .
         </p>
-        <form action="logout.php" method="post">
-            <button class="btnLogout" name="logout">Logout</button>
+        <form action="<?= BASEURL . 'autentikasi/logout-admin.php'; ?>" method="post">
+            <button class="btnLogout" type="submit" name="logout">Logout</button>
         </form>
     </div>
 </div>

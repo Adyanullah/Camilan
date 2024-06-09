@@ -136,9 +136,11 @@ if (isset($_SESSION['error'])) {
             <span>Tentang Kami</span>
             Selamat datang di Toko Cemilan, .
         </p>
-        <form action="logout.php" method="post">
-            <button class="btnLogout" name="logout">Logout</button>
-        </form>
+        <?php if (isset($_SESSION['user'])) : ?>
+            <form action="<?= BASEURL . 'autentikasi/logout.php'; ?>" method="post">
+                <button class="btnLogout" type="submit" name="logout">Logout</button>
+            </form>
+        <?php endif ?>
     </div>
 </div>
 <div class="copyright">
